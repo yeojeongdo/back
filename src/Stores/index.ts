@@ -1,7 +1,7 @@
-// import AuthStore from "./Auth"
+import TodoStore from "./TodoStore";
 
 const stores = {
-  //이렇게 선언 하면 됨
+  TodoStore: new TodoStore(),
   // AuthStore: new AuthStore(),
 };
 
