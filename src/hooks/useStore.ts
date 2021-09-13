@@ -1,8 +1,7 @@
-import React from "react";
-import { MobXProviderContext } from "mobx-react";
+import { counter } from "stores/counterStore";
 
-function useStores() {
-  return React.useContext(MobXProviderContext);
-}
+const useStore = () => {
+  return { counter };
+};
 
-export default useStores;
+export default useStore;

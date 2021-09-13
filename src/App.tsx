@@ -1,10 +1,10 @@
-import Main from "./pages/Main";
+import Counter from "components/Counter";
 
 function App() {
   return (
     <div>
       여정도
-      <Main />
+      <Counter />
     </div>
   );
 }
