@@ -2,7 +2,9 @@ import { useObserver } from "mobx-react";
 import useStore from "hooks/useStore";
 
 const Counter = () => {
-  const { counter } = useStore();
+  const {
+    stores: { counter },
+  } = useStore();
 
   const increase = () => {
     counter.increase();
