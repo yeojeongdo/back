@@ -1,9 +1,10 @@
+import User from "components/User";
 import { observer } from "mobx-react";
 
 const Other = () => {
   return (
     <div>
-      <div>Other</div>
+      <User />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import { counter } from "stores/counterStore";
-import stores from "stores/stores";
+import { user } from "stores/userStore";
 
 const useStore = () => {
-  return { stores };
+  return { counter, user };
 };
 
 export default useStore;
