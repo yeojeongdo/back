@@ -3,9 +3,7 @@ import useStore from "hooks/useStore";
 import { useEffect } from "react";
 
 const User = () => {
-  const {
-    stores: { user },
-  } = useStore();
+  const { user } = useStore();
   useEffect(() => {
     user.loadMyInfo();
     user.loadUserPosts();
