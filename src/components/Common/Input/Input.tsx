@@ -6,8 +6,17 @@ interface InputProps {}
 const Input: React.VFC<InputHTMLAttributes<InputProps>> = ({
   type,
   placeholder,
+  value,
+  onChange,
 }) => {
-  return <InputContainer type={type} placeholder={placeholder} />;
+  return (
+    <InputContainer
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  );
 };
 
 export default Input;
