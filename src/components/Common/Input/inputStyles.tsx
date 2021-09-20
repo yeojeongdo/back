@@ -9,7 +9,7 @@ export const InputContainer = styled.input`
   border: 1px solid gray;
   border-radius: 5px;
   margin-bottom: 30px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   transition: ease-in-out 0.2s;
   &:focus {
