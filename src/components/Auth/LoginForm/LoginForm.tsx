@@ -24,18 +24,24 @@ const LoginForm: React.VFC = () => {
       <LoginContainer>
         <h1>로그인</h1>
         <p>여정도에서 사람들의 여정을 찾아보세요.</p>
-        <Input
-          type="text"
-          placeholder="아이디를 입력해주세요."
-          value={id}
-          onChange={onChangeId}
-        />
-        <Input
-          type="password"
-          placeholder="비밀번호를 입력해주세요."
-          value={password}
-          onChange={onChangePassword}
-        />
+        <div>
+          로그인
+          <Input
+            type="text"
+            placeholder="아이디를 입력해주세요."
+            value={id}
+            onChange={onChangeId}
+          />
+        </div>
+        <div>
+          비밀번호
+          <Input
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+            value={password}
+            onChange={onChangePassword}
+          />
+        </div>
       </LoginContainer>
     </Form>
   );
