@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import LoginPage from "pages/LoginPage/LoginPage";
 import JoinPage from "pages/JoinPage/JoinPage";
-import Main from "pages/Main";
+import Main from "pages/MainPage/MainPage";
 
 const Routes = () => {
   return (
