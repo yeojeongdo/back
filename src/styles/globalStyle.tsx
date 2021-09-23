@@ -10,9 +10,10 @@ const GlobalStyle = () => {
           box-sizing: border-box;
           font-family: "Noto Sans KR", sans-serif;
         }
+        html,
         body {
-          margin: 0px;
-          padding: 0px;
+          margin: 0;
+          padding: 0;
         }
       `}
     />
