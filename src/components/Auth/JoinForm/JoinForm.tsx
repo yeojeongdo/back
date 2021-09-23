@@ -1,10 +1,14 @@
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
+import useInput from "hooks/useInput";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { JoinFormContainer } from "./joinFormStyles";
 
 const JoinForm = () => {
-  const [gender, setGender] = useState(false);
+  const [birth, onChangeBirth] = useInput("");
+
+  console.log(birth);
 
   return (
     <Form hasSubmit submitText="로그인" onSubmit={() => {}}>
@@ -26,8 +30,16 @@ const JoinForm = () => {
 
         <div className="birth">
           생년월일
-          <Input type="date" placeholder="비밀번호를 다시 입력해주세요." />
+          <Input
+            type="date"
+            placeholder="비밀번호를 다시 입력해주세요."
+            value={birth}
+            onChange={onChangeBirth}
+          />
         </div>
+        <Link className="link-to-login" to="/login">
+          이미 회원이신가요?
+        </Link>
       </JoinFormContainer>
     </Form>
   );

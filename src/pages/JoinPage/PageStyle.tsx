@@ -6,6 +6,6 @@ export const JoinPageLayout = styled.main`
   justify-content: space-evenly;
   margin-top: calc(100vh - 90vh);
   @media (max-width: 768px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 `;
