@@ -12,7 +12,7 @@ const AdsForm: React.VFC = () => {
         />
         <div>
           <h1>새로운 소식을 지도에서 만나 보세요</h1>
-          <Link to="/signUp">회원이신가요? </Link>
+          <Link to="/join">여정도와 함께해보세요.</Link>
         </div>
       </AdContext>
       <AdRoyalty>
