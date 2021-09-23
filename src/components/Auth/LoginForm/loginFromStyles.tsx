@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { MAIN_COLOR } from "styles/colors";
 
 export const LoginContainer = styled.div`
   width: 100%;
@@ -16,5 +17,12 @@ export const LoginContainer = styled.div`
   }
   & > input {
     width: 100%;
+  }
+  .link-to-join {
+    font-weight: lighter;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: ${MAIN_COLOR};
   }
 `;

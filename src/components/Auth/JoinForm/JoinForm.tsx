@@ -1,8 +1,11 @@
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
+import { useState } from "react";
 import { JoinFormContainer } from "./joinFormStyles";
 
 const JoinForm = () => {
+  const [gender, setGender] = useState(false);
+
   return (
     <Form hasSubmit submitText="로그인" onSubmit={() => {}}>
       <JoinFormContainer>
@@ -15,6 +18,15 @@ const JoinForm = () => {
         <div>
           비밀번호
           <Input type="password" placeholder="비밀번호를 입력해주세요." />
+        </div>
+        <div>
+          비밀번호 확인
+          <Input type="password" placeholder="비밀번호를 다시 입력해주세요." />
+        </div>
+
+        <div className="birth">
+          생년월일
+          <Input type="date" placeholder="비밀번호를 다시 입력해주세요." />
         </div>
       </JoinFormContainer>
     </Form>

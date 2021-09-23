@@ -4,6 +4,7 @@ import useInput from "hooks/useInput";
 import { useCallback } from "react";
 import loginValidation from "utils/loginValidation";
 import { LoginContainer } from "./loginFromStyles";
+import { Link } from "react-router-dom";
 
 const LoginForm: React.VFC = () => {
   const [id, onChangeId] = useInput("");
@@ -42,6 +43,9 @@ const LoginForm: React.VFC = () => {
             onChange={onChangePassword}
           />
         </div>
+        <Link className="link-to-join" to="/join">
+          회원이 아니신가요?
+        </Link>
       </LoginContainer>
     </Form>
   );

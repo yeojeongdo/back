@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const FormContainer = styled.form`
   width: 450px;
-  height: 595px;
+  min-height: 595px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

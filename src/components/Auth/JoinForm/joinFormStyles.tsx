@@ -17,4 +17,8 @@ export const JoinFormContainer = styled.div`
   & > input {
     width: 100%;
   }
+  .birth {
+    display: flex;
+    flex-direction: column;
+  }
 `;
