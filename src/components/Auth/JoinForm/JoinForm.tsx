@@ -1,14 +1,11 @@
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
 import useInput from "hooks/useInput";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { JoinFormContainer } from "./joinFormStyles";
 
 const JoinForm = () => {
   const [birth, onChangeBirth] = useInput("");
-
-  console.log(birth);
 
   return (
     <Form hasSubmit submitText="로그인" onSubmit={() => {}}>
