@@ -1,3 +1,4 @@
+import { useObserver } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { StyledMap } from "./mapStyles";
 
@@ -25,6 +26,7 @@ const Map = () => {
       );
     }
   }, []);
+
   useEffect(() => {
     let container = document.getElementById("map");
     let options = {
@@ -36,11 +38,11 @@ const Map = () => {
     console.log(map);
   }, [latitude, longTitude]);
 
-  return (
+  return useObserver(() => (
     <>
       <StyledMap id="map"></StyledMap>
     </>
-  );
+  ));
 };
 
 export default Map;
