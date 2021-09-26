@@ -1,11 +1,12 @@
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
 import useInput from "hooks/useInput";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import loginValidation from "utils/loginValidation";
 import { LoginContainer } from "./loginFromStyles";
 import { Link, useHistory } from "react-router-dom";
 import useStore from "hooks/useStore";
+import { useObserver } from "mobx-react-lite";
 
 const LoginForm: React.VFC = () => {
   const { push } = useHistory();
@@ -18,11 +19,11 @@ const LoginForm: React.VFC = () => {
       id,
       password,
     };
-    loginValidation(loginData);
-
-    user.login();
-    push("/");
-    //!TODO Login Data HTTP connection
+    if (loginValidation(loginData)) {
+      //!TODO Login Data HTTP connection
+      user.login();
+      push("/");
+    }
   }, [id, password, user, push]);
 
   return (
