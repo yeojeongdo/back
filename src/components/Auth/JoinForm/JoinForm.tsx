@@ -8,7 +8,7 @@ const JoinForm = () => {
   const [birth, onChangeBirth] = useInput("");
 
   return (
-    <Form hasSubmit submitText="로그인" onSubmit={() => {}}>
+    <Form hasSubmit submitText="회원가입" onSubmit={() => {}}>
       <JoinFormContainer>
         <h1>회원가입</h1>
         <p>여정도에 가입해서 당신의 여정을 공유해보세요</p>
