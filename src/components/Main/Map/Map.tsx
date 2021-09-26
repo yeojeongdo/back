@@ -19,7 +19,7 @@ const Map = () => {
   useEffect(() => {
     if ("geolocation" in navigator) {
       /* 위치정보 사용 가능 */
-      navigator.geolocation.getCurrentPosition(position => {
+      navigator.geolocation.getCurrentPosition((position) => {
         setLatitude(position.coords.latitude);
         setLongTitude(position.coords.longitude);
       });
