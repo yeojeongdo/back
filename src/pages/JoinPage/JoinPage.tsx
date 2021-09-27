@@ -1,4 +1,3 @@
-import { observer } from "mobx-react";
 import AdsForm from "components/Auth/AdsForm/AdsForm";
 import JoinForm from "components/Auth/JoinForm/JoinForm";
 import { JoinPageLayout } from "./PageStyle";
@@ -12,4 +11,4 @@ const JoinPage = () => {
   );
 };
 
-export default observer(JoinPage);
+export default JoinPage;
