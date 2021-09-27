@@ -1,9 +1,10 @@
 import { call, put } from "@redux-saga/core/effects";
 import { loginAPI } from "apis/authAPI";
+import { AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 import { AnyAction } from "redux";
 import {
   LOG_IN_FAILURE,
-  LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
 } from "store/reducers/authReducer/actions";
 
@@ -14,7 +15,8 @@ export function* handleLogin(action: AnyAction): any {
     yield put({
       type: LOG_IN_SUCCESS,
     });
-  } catch (error) {
+  } catch (error: any) {
+    toast.error(error.response.data.message);
     yield put({
       type: LOG_IN_FAILURE,
     });

@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 interface LoginDataType {
   id: string;
   password: string;
@@ -11,10 +13,10 @@ const loginValidation = (loginData: LoginDataType) => {
 
   if (!hasId || !hasPassword) {
     if (!hasId) {
-      console.error("The ID has not been delivered.");
+      toast.error("아이디가 입력되지 않았습니다.");
       return false;
     } else if (!hasPassword) {
-      console.error("The Password has not been delivered.");
+      toast.error("비밀번호가 입력되지 않았습니다.");
       return false;
     } else {
       throw new Error(`UnHandled Login Error`);
@@ -25,10 +27,10 @@ const loginValidation = (loginData: LoginDataType) => {
   const passwordReg = /^[a-zA-Z0-9]{8,50}$/g;
 
   if (!idReg.test(id)) {
-    console.error("The ID must be a value between 4 and 20 characters.");
+    toast.error("아이디는 4 ~ 20자 사이여야 합니다.");
     return false;
   } else if (!passwordReg.test(password)) {
-    console.error("The PASSWORD must be a value between 8 and 50 characters.");
+    toast.error("비밀번호는 8 ~ 50자 사이여야 합니다.");
     return false;
   } else {
     return true;
