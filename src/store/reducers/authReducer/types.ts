@@ -1,3 +1,11 @@
+import { ActionType } from "typesafe-actions";
+import { AxiosError } from "axios";
+import * as authActions from "./actions";
+
+export type AuthActions = ActionType<typeof authActions>;
+
 export interface AuthState {
-  isLoggedIn: boolean;
+  loginDone: boolean;
+  loginError: AxiosError | null;
+  loginLoading: boolean;
 }

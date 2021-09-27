@@ -7,15 +7,15 @@ import loginValidation from "utils/loginValidation";
 import { LoginContainer } from "./loginFromStyles";
 import { Link, useHistory } from "react-router-dom";
 import useAuth from "hooks/redux/useAuth";
-import { toast } from "react-toastify";
-import { Token } from "lib/Token";
+import { useDispatch } from "react-redux";
+import { LOG_IN_REQUEST } from "store/reducers/authReducer/actions";
 
 const LoginForm: React.VFC = () => {
   const { push } = useHistory();
+  const dispatch = useDispatch();
   const { authState } = useAuth();
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
-
   const { login } = useAuth();
 
   const handleSubmit = useCallback(async () => {
@@ -24,22 +24,12 @@ const LoginForm: React.VFC = () => {
       password,
     };
     if (loginValidation(loginData)) {
-      axios
-        .post("/auth/login", loginData)
-        .then((response) => {
-          Token.setToken(response.data.data);
-          toast.success(response.data.message);
-          login();
-        })
-        .catch((error) => {
-          Token.removeToken();
-          toast.error(error.response.data.message);
-        });
+      login(loginData);
     }
   }, [id, password, login]);
 
   useEffect(() => {
-    if (authState.isLoggedIn) {
+    if (authState.loginDone) {
       push("/");
     }
   }, [authState, push]);
