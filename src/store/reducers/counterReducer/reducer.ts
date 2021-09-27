@@ -9,9 +9,15 @@ const initialState: CounterState = {
 function counterReducer(state = initialState, action: AnyAction) {
   switch (action.type) {
     case ADD_COUNT:
-      return state.number++;
+      return {
+        ...state,
+        number: state.number + 1,
+      };
     case REMOVE_COUNT:
-      return state.number--;
+      return {
+        ...state,
+        number: state.number - 1,
+      };
     default:
       return state;
   }
