@@ -10,7 +10,7 @@ const Main = () => {
   const { authState } = useAuth();
 
   useEffect(() => {
-    if (!authState.isLoggedIn) {
+    if (!authState.loginDone) {
       history.replace("/login");
     }
   }, [authState, history]);
