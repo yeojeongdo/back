@@ -52,6 +52,7 @@ export default createReducer<AuthState, AuthActions>(initialState, {
       draft.loadMyInfoLoading = false;
       draft.loadMyInfoDone = true;
 
+      draft.loginDone = true;
       draft.myInfo = action.payload.data.data;
     }),
   [LOAD_MY_INFO_FAILURE]: (state, action) =>

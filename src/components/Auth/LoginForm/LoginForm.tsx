@@ -28,11 +28,11 @@ const LoginForm: React.VFC = () => {
     }
   }, [id, password, login]);
 
-  useEffect(() => {
-    if (authState.loginDone) {
-      push("/");
-    }
-  }, [authState, push]);
+  // useEffect(() => {
+  //   if (authState.loginDone) {
+  //     push("/");
+  //   }
+  // }, [authState, push]);
 
   return (
     <Form hasSubmit submitText="로그인" onSubmit={handleSubmit}>

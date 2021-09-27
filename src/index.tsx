@@ -4,8 +4,8 @@ import Routes from "Routes";
 import GlobalStyle from "styles/globalStyle";
 import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
-import { persistStore } from "redux-persist";
-import { PersistGate } from "redux-persist/integration/react";
+// import { persistStore } from "redux-persist";
+// import { PersistGate } from "redux-persist/integration/react";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "store/reducers";
 import axios from "axios";
@@ -22,7 +22,7 @@ const enhancer =
     : composeWithDevTools(applyMiddleware(sagaMiddleware));
 
 const store = createStore(rootReducer, enhancer);
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
 
@@ -31,10 +31,10 @@ axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate persistor={persistor} loading={null}>
-        <GlobalStyle />
-        <Routes />
-      </PersistGate>
+      {/* <PersistGate persistor={persistor} loading={null}> */}
+      <GlobalStyle />
+      <Routes />
+      {/* </PersistGate> */}
     </Provider>
     <ToastContainer />
   </React.StrictMode>,
