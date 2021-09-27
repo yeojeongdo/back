@@ -5,5 +5,6 @@ export const MainPageStyle = styled.main`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  padding-top: calc(40px + 1rem + 2rem);
 `;
