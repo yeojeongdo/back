@@ -8,6 +8,7 @@ import { LoginContainer } from "./loginFromStyles";
 import { Link, useHistory } from "react-router-dom";
 import useAuth from "hooks/redux/useAuth";
 import { toast } from "react-toastify";
+import { Token } from "lib/Token";
 
 const LoginForm: React.VFC = () => {
   const { push } = useHistory();
@@ -26,10 +27,12 @@ const LoginForm: React.VFC = () => {
       axios
         .post("/auth/login", loginData)
         .then((response) => {
+          Token.setToken(response.data.data);
           toast.success(response.data.message);
           login();
         })
         .catch((error) => {
+          Token.removeToken();
           toast.error(error.response.data.message);
         });
     }
