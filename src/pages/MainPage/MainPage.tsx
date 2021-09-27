@@ -7,7 +7,11 @@ import { MainPageStyle } from "./PageStyle";
 
 const Main = () => {
   const history = useHistory();
-  const { authState } = useAuth();
+  const { authState, loadMyInfo } = useAuth();
+
+  useEffect(() => {
+    loadMyInfo();
+  }, [loadMyInfo]);
 
   useEffect(() => {
     if (!authState.loginDone) {

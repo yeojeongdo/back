@@ -2,7 +2,11 @@ import { Token } from "lib/Token";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "store/reducers";
-import { LOG_IN_REQUEST, LOG_OUT } from "store/reducers/authReducer/actions";
+import {
+  LOAD_MY_INFO_REQUEST,
+  LOG_IN_REQUEST,
+  LOG_OUT,
+} from "store/reducers/authReducer/actions";
 
 const useAuth = () => {
   const dispatch = useDispatch();
@@ -25,7 +29,13 @@ const useAuth = () => {
     Token.removeToken();
   }, [dispatch]);
 
-  return { authState, login, logout };
+  const loadMyInfo = useCallback(() => {
+    dispatch({
+      type: LOAD_MY_INFO_REQUEST,
+    });
+  }, [dispatch]);
+
+  return { authState, login, logout, loadMyInfo };
 };
 
 export default useAuth;

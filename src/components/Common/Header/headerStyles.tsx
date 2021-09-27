@@ -16,7 +16,11 @@ export const HeaderContainer = styled.header`
     font-size: 16px;
   }
   .header-options {
+    display: flex;
     list-style: none;
+    li {
+      margin-right: 1rem;
+    }
     & > .logout {
       cursor: pointer;
     }
