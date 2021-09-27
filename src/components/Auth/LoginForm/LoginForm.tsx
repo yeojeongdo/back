@@ -1,16 +1,13 @@
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
 import useInput from "hooks/useInput";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import loginValidation from "utils/loginValidation";
 import { LoginContainer } from "./loginFromStyles";
 import { Link, useHistory } from "react-router-dom";
-import useStore from "hooks/useStore";
-import { useObserver } from "mobx-react-lite";
 
 const LoginForm: React.VFC = () => {
   const { push } = useHistory();
-  const { user } = useStore();
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
 
@@ -21,10 +18,9 @@ const LoginForm: React.VFC = () => {
     };
     if (loginValidation(loginData)) {
       //!TODO Login Data HTTP connection
-      user.login();
       push("/");
     }
-  }, [id, password, user, push]);
+  }, [id, password, push]);
 
   return (
     <Form hasSubmit submitText="로그인" onSubmit={handleSubmit}>

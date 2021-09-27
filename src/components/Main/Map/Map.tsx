@@ -1,4 +1,3 @@
-import { useObserver } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { StyledMap } from "./mapStyles";
 
@@ -69,11 +68,11 @@ const Map = () => {
     });
   }, [latitude, longTitude]);
 
-  return useObserver(() => (
+  return (
     <>
       <StyledMap id="map"></StyledMap>
     </>
-  ));
+  );
 };
 
 export default Map;
