@@ -11,5 +11,15 @@ export const loginAsyncAction = createAsyncAction(
   LOG_IN_FAILURE
 )<any, AxiosResponse, AxiosError<any>>();
 
+export const LOAD_MY_INFO_REQUEST = "auth/LOAD_MY_INFO_REQUEST";
+export const LOAD_MY_INFO_SUCCESS = "auth/LOAD_MY_INFO_SUCCESS";
+export const LOAD_MY_INFO_FAILURE = "auth/LOAD_MY_INFO_FAILURE";
+
+export const loadMyInfoAsyncAction = createAsyncAction(
+  LOAD_MY_INFO_REQUEST,
+  LOAD_MY_INFO_SUCCESS,
+  LOAD_MY_INFO_FAILURE
+)<any, AxiosResponse, AxiosError<any>>();
+
 export const LOG_OUT = "auth/LOG_OUT";
 export const logoutAction = createAction(LOG_OUT)();
