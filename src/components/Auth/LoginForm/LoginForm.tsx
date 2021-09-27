@@ -1,15 +1,19 @@
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
 import useInput from "hooks/useInput";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import loginValidation from "utils/loginValidation";
 import { LoginContainer } from "./loginFromStyles";
 import { Link, useHistory } from "react-router-dom";
+import useAuth from "hooks/redux/useAuth";
 
 const LoginForm: React.VFC = () => {
   const { push } = useHistory();
+  const { authState } = useAuth();
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
+
+  const { login } = useAuth();
 
   const handleSubmit = useCallback(async () => {
     const loginData = {
@@ -18,9 +22,15 @@ const LoginForm: React.VFC = () => {
     };
     if (loginValidation(loginData)) {
       //!TODO Login Data HTTP connection
+      login();
+    }
+  }, [id, password, login]);
+
+  useEffect(() => {
+    if (authState.isLoggedIn) {
       push("/");
     }
-  }, [id, password, push]);
+  }, [authState, push]);
 
   return (
     <Form hasSubmit submitText="로그인" onSubmit={handleSubmit}>
