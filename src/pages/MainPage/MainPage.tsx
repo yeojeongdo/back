@@ -1,3 +1,4 @@
+import Header from "components/Common/Header/Header";
 import Map from "components/Main/Map/Map";
 import useAuth from "hooks/redux/useAuth";
 import { useEffect } from "react";
@@ -16,7 +17,7 @@ const Main = () => {
 
   return (
     <MainPageStyle>
-      <h1>여정도</h1>
+      <Header />
       <Map />
     </MainPageStyle>
   );
