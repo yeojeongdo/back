@@ -1,3 +1,4 @@
+import axios from "axios";
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
 import useInput from "hooks/useInput";
@@ -6,6 +7,7 @@ import loginValidation from "utils/loginValidation";
 import { LoginContainer } from "./loginFromStyles";
 import { Link, useHistory } from "react-router-dom";
 import useAuth from "hooks/redux/useAuth";
+import { toast } from "react-toastify";
 
 const LoginForm: React.VFC = () => {
   const { push } = useHistory();
@@ -21,8 +23,15 @@ const LoginForm: React.VFC = () => {
       password,
     };
     if (loginValidation(loginData)) {
-      //!TODO Login Data HTTP connection
-      login();
+      axios
+        .post("/auth/login", loginData)
+        .then((response) => {
+          toast.success(response.data.message);
+          login();
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
     }
   }, [id, password, login]);
 
