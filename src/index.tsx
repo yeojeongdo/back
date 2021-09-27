@@ -8,6 +8,9 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "store/reducers";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const enhancer =
   process.env.NODE_ENV === "production"
@@ -17,6 +20,8 @@ const enhancer =
 const store = createStore(rootReducer, enhancer);
 const persistor = persistStore(store);
 
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -25,6 +30,7 @@ ReactDOM.render(
         <Routes />
       </PersistGate>
     </Provider>
+    <ToastContainer />
   </React.StrictMode>,
   document.getElementById("root")
 );
