@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { MAIN_COLOR } from "styles/colors";
 
 export const JoinFormContainer = styled.div`
   width: 100%;
@@ -37,10 +38,17 @@ export const JoinFormContainer = styled.div`
   .sexButtons {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
   .sexButtons > button {
     width: 45%;
     height: 50px;
+  }
+  .link-to-login {
+    font-weight: lighter;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: ${MAIN_COLOR};
   }
 `;
