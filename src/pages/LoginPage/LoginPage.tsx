@@ -15,7 +15,6 @@ const LoginPage = () => {
   } = useAuth();
 
   useEffect(() => {
-    console.log(loginDone);
     if (loginDone) {
       history.push("/");
     }

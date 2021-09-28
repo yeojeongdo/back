@@ -69,7 +69,6 @@ const joinValidation = (joinData: JoinDataType) => {
       "생년월일은 yyyy-mm-dd모양에 맞게 알맞은 값을 입력해야 합니다."
     );
   } else {
-    toast("회원가입 성공");
     return true;
   }
 };

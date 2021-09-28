@@ -26,6 +26,7 @@ const JoinForm = () => {
     };
 
     if (joinValidation(joinData)) {
+      // TODO : HTTP connection
     }
   }, [id, password, confirmPassword, birth, name, sex]);
 
@@ -35,16 +36,10 @@ const JoinForm = () => {
         birth.replace(/-/g, "").replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")
       );
     }
-  }, [birth]);
+  }, [birth, setBirth]);
 
   return (
-    <Form
-      hasSubmit
-      submitText="회원가입"
-      onSubmit={() => {
-        handleSubmit();
-      }}
-    >
+    <Form hasSubmit submitText="회원가입" onSubmit={handleSubmit}>
       <JoinFormContainer>
         <h1>회원가입</h1>
         <p>여정도에 가입해서 당신의 여정을 공유해보세요</p>
@@ -60,7 +55,7 @@ const JoinForm = () => {
         <div>
           비밀번호
           <Input
-            type="text"
+            type="password"
             placeholder="비밀번호를 입력해주세요."
             value={password}
             onChange={onChangePassword}
@@ -69,7 +64,7 @@ const JoinForm = () => {
         <div>
           비밀번호 확인
           <Input
-            type="text"
+            type="password"
             placeholder="비밀번호를 다시 입력해주세요."
             value={confirmPassword}
             onChange={onChangeConfirmPassword}
@@ -95,30 +90,31 @@ const JoinForm = () => {
               onChange={onChangeName}
             />
           </div>
-
           <div className="sex">
             성별
             <div className="sexButtons">
               <Button
-                onClick={e => {
-                  e.preventDefault();
+                type="button"
+                onClick={() => {
                   setSex("Male");
                 }}
                 style={
-                  sex !== "Male" ? { background: "white", color: "black" } : {}
+                  sex !== "Male"
+                    ? { background: "white", color: "black" }
+                    : null
                 }
               >
                 남성
               </Button>
               <Button
-                onClick={e => {
-                  e.preventDefault();
+                type="button"
+                onClick={() => {
                   setSex("Female");
                 }}
                 style={
                   sex !== "Female"
                     ? { background: "white", color: "black" }
-                    : {}
+                    : null
                 }
               >
                 여성

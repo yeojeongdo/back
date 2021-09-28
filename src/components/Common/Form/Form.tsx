@@ -13,7 +13,6 @@ const Form: React.FC<FormPropsType> = ({ children, ...props }) => {
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      console.log("a");
       props.onSubmit
         ? props.onSubmit()
         : console.error("Unhandled submit function");
