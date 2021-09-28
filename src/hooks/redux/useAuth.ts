@@ -1,6 +1,7 @@
 import { Token } from "lib/Token";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import { useTypedSelector } from "store/reducers";
 import {
   LOAD_MY_INFO_REQUEST,
