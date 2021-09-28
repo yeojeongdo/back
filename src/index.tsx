@@ -13,6 +13,7 @@ import createSagaMiddleware from "redux-saga";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import rootSaga from "store/sagas";
+import { Token } from "lib/Token";
 
 const sagaMiddleware = createSagaMiddleware();
 
