@@ -1,7 +1,7 @@
 import { ButtonContainer } from "./buttonStyles";
 
 interface ButtonProps {
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   style?: any;
 }
 
