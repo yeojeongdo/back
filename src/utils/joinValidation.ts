@@ -1,42 +1,42 @@
 interface JoinDataType {
   id: string;
   password: string;
-  passwordCheck: string;
+  confirmPassword: string;
   birth: string;
-  gender: "MAN" | "WOMAN";
+  sex: string;
 }
 
 const joinValidation = (joinData: JoinDataType) => {
-  const { id, password, passwordCheck, birth, gender } = joinData;
+  const { id, password, confirmPassword, birth, sex } = joinData;
 
   const hasId = !!id.trim();
   const hasPassword = !!password.trim();
-  const hasPasswordCheck = !!passwordCheck.trim();
+  const hasConfirmPassword = !!confirmPassword.trim();
   const hasBirth = !!birth.trim();
-  const hasGender = !!gender.trim();
+  const hasSex = !!sex.trim();
 
-  if (!hasId || !hasPassword || !hasPasswordCheck || !hasBirth || !hasGender) {
+  if (!hasId || !hasPassword || !hasConfirmPassword || !hasBirth || !hasSex) {
     if (!hasId) {
       console.error("The ID has not been delivered.");
       return false;
     } else if (!hasPassword) {
       console.error("The Password has not been delivered.");
       return false;
-    } else if (!hasPasswordCheck) {
+    } else if (!hasConfirmPassword) {
       console.error("The Password Check has not been delivered.");
       return false;
     } else if (!hasBirth) {
       console.error("The Birth Check has not been delivered.");
       return false;
-    } else if (!hasGender) {
-      console.error("The Gender Check has not been delivered.");
+    } else if (!hasSex) {
+      console.error("The sex Check has not been delivered.");
       return false;
     } else {
       throw new Error(`UnHandled Join Error`);
     }
   }
 
-  if (password !== passwordCheck) {
+  if (password !== confirmPassword) {
     console.error("The password doesn't match.");
     return false;
   }
