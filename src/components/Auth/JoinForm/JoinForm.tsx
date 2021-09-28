@@ -2,7 +2,7 @@ import Button from "components/Common/Button/Button";
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
 import useInput from "hooks/useInput";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { JoinFormContainer } from "./joinFormStyles";
 import joinValidation from "utils/joinValidation";
@@ -11,7 +11,7 @@ const JoinForm = () => {
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
   const [confirmPassword, onChangeConfirmPassword] = useInput("");
-  const [birth, onChangeBirth] = useInput("");
+  const [birth, onChangeBirth, setBirth] = useInput("");
   const [name, onChangeName] = useInput("");
   const [sex, setSex] = useState<string>("Male");
 
@@ -27,6 +27,14 @@ const JoinForm = () => {
     if (joinValidation(joinData)) {
     }
   }, [id, password]);
+
+  useEffect(() => {
+    if (birth) {
+      setBirth(
+        birth.replace(/-/g, "").replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")
+      );
+    }
+  }, [birth]);
 
   return (
     <Form
@@ -71,7 +79,7 @@ const JoinForm = () => {
           생년월일
           <Input
             type="text"
-            placeholder="생년월일을 입력해 주세요. (yyyy.mm.dd)"
+            placeholder="생년월일을 입력해 주세요."
             value={birth}
             onChange={onChangeBirth}
           />
