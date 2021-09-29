@@ -1,6 +1,7 @@
 import Header from "components/Common/Header/Header";
 import AlbumList from "components/Main/Album/AlbumList/AlbumList";
 import Map from "components/Main/Map/Map";
+import { albumDummyData } from "data/albumDummyData";
 import useAuth from "hooks/redux/useAuth";
 import { Token } from "lib/Token";
 import { useEffect } from "react";
@@ -28,7 +29,7 @@ const Main = () => {
       <Header />
       <MainContent>
         <Map />
-        <AlbumList albums={[]} />
+        <AlbumList albums={albumDummyData} />
       </MainContent>
     </MainPageStyle>
   );
