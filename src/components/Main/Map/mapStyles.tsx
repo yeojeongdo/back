@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
 export const StyledMap = styled.div`
-  width: 684px;
+  flex: 3;
   height: 800px;
 `;
