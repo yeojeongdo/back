@@ -12,4 +12,5 @@ export const MainContent = styled.div`
   width: 100%;
   height: calc(100vh - 4rem);
   display: flex;
+  justify-content: space-between;
 `;

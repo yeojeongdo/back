@@ -5,7 +5,13 @@ interface AlbumItemProps {
 }
 
 const AlbumItem: React.VFC<AlbumItemProps> = ({ album }) => {
-  return <AlbumItemContainer>{album.userName}</AlbumItemContainer>;
+  return (
+    <AlbumItemContainer>
+      <img src={album.photo} alt="" />
+      <h4>{album.userName}</h4>
+      <p>{album.createDate}</p>
+    </AlbumItemContainer>
+  );
 };
 
 export default AlbumItem;
