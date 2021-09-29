@@ -1,19 +1,18 @@
 import styled from "@emotion/styled";
 
-export const AlbumListContainer = styled.ul`
+export const AlbumListContainer = styled.div`
   & > h1 {
     width: 100%;
   }
   margin: 0;
-  padding: 0;
-  width: 456px;
+  padding: 15px;
+  flex: 2;
   height: 100%;
   text-align: center;
   list-style: none;
   max-height: 100%;
   overflow-y: auto;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column;
+  gap: 50px;
 `;

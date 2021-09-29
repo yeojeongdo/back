@@ -4,7 +4,7 @@ import Map from "components/Main/Map/Map";
 import { albumDummyData } from "data/albumDummyData";
 import useAuth from "hooks/redux/useAuth";
 import { Token } from "lib/Token";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { MainContent, MainPageStyle } from "./PageStyle";
 
@@ -24,12 +24,14 @@ const Main = () => {
     }
   }, [authState.myInfo, history, authState.loginDone]);
 
+  const [albums, setAlbums] = useState<Array<Album>>(albumDummyData);
+
   return (
     <MainPageStyle>
       <Header />
       <MainContent>
-        <Map albums={albumDummyData} />
-        <AlbumList albums={albumDummyData} />
+        <Map albums={albums} setAlbums={setAlbums} />
+        <AlbumList albums={albums} />
       </MainContent>
     </MainPageStyle>
   );
