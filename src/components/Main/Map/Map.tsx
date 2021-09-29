@@ -60,6 +60,11 @@ const Map = ({ albums, setAlbums }: mapType) => {
                 width: 24,
                 height: 35,
               },
+              options: {
+                style: {
+                  objectFit: "cover",
+                },
+              },
             }}
             title={album.address}
           />
