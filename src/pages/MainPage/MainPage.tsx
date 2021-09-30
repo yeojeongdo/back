@@ -27,7 +27,7 @@ const Main = () => {
     <MainPageStyle>
       <Header />
       <MainContent>
-        <Map albums={albums} setAlbums={setAlbums} />
+        <Map albums={albumDummyData} setAlbums={setAlbums} />
         <AlbumList albums={albums} />
       </MainContent>
     </MainPageStyle>
