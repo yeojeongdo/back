@@ -20,12 +20,7 @@ export const loginAPI = (loginData: LoginData) => {
 };
 
 export const loadMyInfoAPI = () => {
-  const { accessToken } = Token.getToken();
-  return axios.get("/user", {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  return axios.get("/user");
 };
 
 export const joinAPI = (joinData: JoinData) => {
