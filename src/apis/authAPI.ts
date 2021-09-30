@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Token } from "lib/Token";
 
 interface LoginData {
   id: string;
