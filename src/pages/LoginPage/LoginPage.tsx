@@ -14,7 +14,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loginDone) {
-      history.replace("/");
+      history.push("/");
     }
   }, [loginDone, history]);
 

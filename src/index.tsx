@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import rootSaga from "store/sagas";
 import { Token } from "lib/Token";
+import refreshAccessToken from "utils/refreshAccessToken";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -28,6 +29,48 @@ const store = createStore(rootReducer, enhancer);
 sagaMiddleware.run(rootSaga);
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
+axios.defaults.headers["Authorization"] = ``;
+
+axios.interceptors.request.use(
+  async (config) => {
+    const userToken = Token.getToken();
+    const accessToken = userToken?.accessToken;
+    config.headers = {
+      Authorization: accessToken ? `Bearer ${accessToken}` : null,
+      Accept: "application/json",
+    };
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
+
+axios.interceptors.response.use(
+  async (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response.status === 401 && !originalRequest._retry) {
+      console.log("토큰 만료");
+      originalRequest._retry = true;
+      const { refreshToken } = Token.getToken();
+
+      const newTokenData = await refreshAccessToken(refreshToken);
+      Token.setToken(newTokenData);
+
+      const userInfoToken = Token.getToken();
+      if (userInfoToken) {
+        originalRequest.headers["Authorization"] =
+          "Bearer " + userInfoToken.accessToken;
+      }
+      return axios(originalRequest);
+    }
+    return Promise.reject(error);
+  }
+);
 
 ReactDOM.render(
   <React.StrictMode>

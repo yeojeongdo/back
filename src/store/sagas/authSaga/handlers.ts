@@ -34,7 +34,7 @@ export function* handleLoadMyInfo(): any {
       payload: response,
     });
   } catch (error: any) {
-    toast.error(error.response.data.message);
+    console.error(error.response.data.message);
     Token.removeToken();
     yield put({
       type: LOAD_MY_INFO_FAILURE,
