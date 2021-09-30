@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 async function refreshAccessToken(refreshToken: string) {
   const response = await axios.post("/auth/token-renewal", {
