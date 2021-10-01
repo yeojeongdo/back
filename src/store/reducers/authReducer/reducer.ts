@@ -19,11 +19,13 @@ const initialState: AuthState = {
   loginError: null,
   loginLoading: false,
 
+  joinDone: false,
+  joinError: null,
+  joinLoading: false,
+
   loadMyInfoDone: false,
   loadMyInfoError: null,
   loadMyInfoLoading: false,
-
-  test: "",
 
   myInfo: null,
 };
@@ -48,15 +50,20 @@ export default createReducer<AuthState, AuthActions>(initialState, {
     }),
   [JOIN_REQUEST]: state =>
     produce(state, draft => {
-      draft.test = "회원가입 시도";
+      draft.joinDone = false;
+      draft.joinError = null;
+      draft.joinLoading = true;
     }),
   [JOIN_SUCCESS]: (state, action) =>
     produce(state, draft => {
-      draft.test = "회원가입 성공";
+      draft.joinDone = true;
+      draft.joinLoading = false;
     }),
   [JOIN_FAILURE]: (state, action) =>
     produce(state, draft => {
-      draft.test = "회원가입 실패" + action.payload;
+      draft.joinDone = false;
+      draft.joinError = action.payload;
+      draft.joinLoading = false;
     }),
   [LOAD_MY_INFO_REQUEST]: state =>
     produce(state, draft => {
