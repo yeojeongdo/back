@@ -4,18 +4,18 @@ interface JoinDataType {
   id: string;
   password: string;
   confirmPassword: string;
-  birth: string;
+  birthDate: string;
   sex: string;
   name: string;
 }
 
 const joinValidation = (joinData: JoinDataType) => {
-  const { id, password, confirmPassword, birth, sex, name } = joinData;
+  const { id, password, confirmPassword, birthDate, sex, name } = joinData;
 
   const hasId = !!id.trim();
   const hasPassword = !!password.trim();
   const hasConfirmPassword = !!confirmPassword.trim();
-  const hasBirth = !!birth.trim();
+  const hasBirth = !!birthDate.trim();
   const hasSex = !!sex.trim();
   const hasName = !!name.trim();
 
@@ -64,7 +64,7 @@ const joinValidation = (joinData: JoinDataType) => {
   } else if (!passwordReg.test(password)) {
     toast.error("비밀번호는 8 ~ 50자 사이여야 합니다.");
     return false;
-  } else if (!birthReg.test(birth)) {
+  } else if (!birthReg.test(birthDate)) {
     toast.error(
       "생년월일은 yyyy-mm-dd모양에 맞게 알맞은 값을 입력해야 합니다."
     );
