@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { JoinFormContainer } from "./joinFormStyles";
 import joinValidation from "utils/joinValidation";
+import useAuth from "hooks/redux/useAuth";
 
 const JoinForm = () => {
   const [id, onChangeId] = useInput("");
@@ -15,18 +16,20 @@ const JoinForm = () => {
   const [name, onChangeName] = useInput("");
   const [sex, setSex] = useState<string>("Male");
 
+  const { join } = useAuth();
+
   const handleSubmit = useCallback(async () => {
     const joinData = {
       id,
       password,
       confirmPassword,
-      birth,
+      birthDate: birth,
       sex,
       name,
     };
-
     if (joinValidation(joinData)) {
       // TODO : HTTP connection
+      join(joinData);
     }
   }, [id, password, confirmPassword, birth, name, sex]);
 

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useTypedSelector } from "store/reducers";
 import {
+  JOIN_REQUEST,
   LOAD_MY_INFO_REQUEST,
   LOG_IN_REQUEST,
   LOG_OUT,
@@ -11,7 +12,7 @@ import {
 
 const useAuth = () => {
   const dispatch = useDispatch();
-  const authState = useTypedSelector((state) => state.auth);
+  const authState = useTypedSelector(state => state.auth);
 
   const login = useCallback(
     (loginData: any) => {
@@ -30,13 +31,23 @@ const useAuth = () => {
     Token.removeToken();
   }, [dispatch]);
 
+  const join = useCallback(
+    (joinData: any) => {
+      dispatch({
+        type: JOIN_REQUEST,
+        payload: joinData,
+      });
+    },
+    [dispatch]
+  );
+
   const loadMyInfo = useCallback(() => {
     dispatch({
       type: LOAD_MY_INFO_REQUEST,
     });
   }, [dispatch]);
 
-  return { authState, login, logout, loadMyInfo };
+  return { authState, login, logout, join, loadMyInfo };
 };
 
 export default useAuth;

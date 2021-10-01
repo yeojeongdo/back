@@ -13,6 +13,7 @@ const Main = () => {
   const { authState, loadMyInfo } = useAuth();
 
   useEffect(() => {
+    console.log(authState);
     if (!Token.getToken()) {
       history.push("/login");
     }
