@@ -12,7 +12,7 @@ import {
 
 const useAuth = () => {
   const dispatch = useDispatch();
-  const authState = useTypedSelector(state => state.auth);
+  const authState = useTypedSelector((state) => state.auth);
 
   const login = useCallback(
     (loginData: any) => {
