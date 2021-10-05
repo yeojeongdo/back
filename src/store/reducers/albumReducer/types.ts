@@ -12,4 +12,6 @@ export interface AlbumState {
   loadAlbumDone: boolean;
   loadAlbumError: AxiosError | null;
   loadAlbumLoading: boolean;
+
+  albumOpen: boolean;
 }

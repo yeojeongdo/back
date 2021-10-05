@@ -7,31 +7,36 @@ import { Token } from "lib/Token";
 import { useEffect, useState } from "react";
 import { MainContent, MainPageStyle } from "./PageStyle";
 import { useHistory } from "react-router-dom";
+import useAlbum from "hooks/redux/useAlbum";
+import AlbumView from "components/Main/Album/AlbumView/AlbumView";
 
 const Main = () => {
   const history = useHistory();
   const { authState, loadMyInfo } = useAuth();
+  const { albumState } = useAlbum();
 
   useEffect(() => {
-    console.log(authState);
     if (!Token.getToken()) {
       history.push("/login");
     }
     if (!authState.myInfo) {
       loadMyInfo();
     }
-  }, [loadMyInfo, authState.myInfo, history]);
+  }, [loadMyInfo, authState, history]);
 
   const [albums, setAlbums] = useState<Array<Album>>(albumDummyData);
 
   return (
-    <MainPageStyle>
-      <Header />
-      <MainContent>
-        <Map albums={albumDummyData} setAlbums={setAlbums} />
-        <AlbumList albums={albums} />
-      </MainContent>
-    </MainPageStyle>
+    <>
+      <MainPageStyle>
+        <Header />
+        <MainContent>
+          <Map albums={albumDummyData} setAlbums={setAlbums} />
+          <AlbumList albums={albums} />
+        </MainContent>
+      </MainPageStyle>
+      {albumState.albumOpen && <AlbumView />}
+    </>
   );
 };
 

@@ -3,7 +3,12 @@ import styled from "@emotion/styled";
 export const AlbumItemContainer = styled.div`
   width: 100%;
   height: 100%;
+  padding: 1rem;
   margin-bottom: 24px;
+  :hover {
+    cursor: pointer;
+    background-color: #d2d8dd;
+  }
   & > div {
     display: flex;
     align-items: center;
