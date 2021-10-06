@@ -21,7 +21,20 @@ const AlbumView = () => {
             />
           </div>
           <div className="album_main_comments">
-            <h1>여긴 콘텐츠와 댓글 리스트 위치입니다.</h1>
+            <div className="album_profile">
+              <div>
+                <img
+                  src={
+                    "https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202011/122124-15/the-red-thumbnail1-4-2x.jpg"
+                  }
+                  alt=""
+                />
+                <h4>천명태</h4>
+              </div>
+              <div>
+                <p>2021-10-08</p>
+              </div>
+            </div>
           </div>
         </main>
       </AlbumViewContainer>
