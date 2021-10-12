@@ -9,17 +9,17 @@ export const AlbumItemContainer = styled.div`
     cursor: pointer;
     background-color: #d2d8dd;
   }
-  & > div {
+  & > .header {
     display: flex;
     align-items: center;
   }
-  div > img {
+  .header > img {
     width: 42px;
     height: 42px;
     border-radius: 50%;
     object-fit: cover;
   }
-  div > h4 {
+  .header > h4 {
     margin: 0;
     text-align: start;
   }
@@ -27,7 +27,8 @@ export const AlbumItemContainer = styled.div`
     text-align: start;
     margin: 0;
   }
-  & > img {
+  & > .thumnail {
     width: 100%;
+    height: 400px;
   }
 `;

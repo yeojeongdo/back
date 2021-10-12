@@ -1,4 +1,4 @@
-import { takeLatest } from "@redux-saga/core/effects";
+import { takeLatest } from "redux-saga/effects";
 import {
   JOIN_REQUEST,
   LOAD_MY_INFO_REQUEST,

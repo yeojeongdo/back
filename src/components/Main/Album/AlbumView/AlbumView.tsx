@@ -16,7 +16,7 @@ const AlbumView = () => {
         <main className="album_main">
           <div className="album_main_photos">
             <img
-              src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202011/122124-15/the-red-thumbnail1-4-2x.jpg"
+              src="https://i.ytimg.com/vi/UauCnSy_oOg/maxresdefault.jpg"
               alt=""
             />
           </div>

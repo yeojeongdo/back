@@ -1,5 +1,6 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumItemContainer } from "./albumItemStyles";
+import DefaultProfile from "assets/images/default_profile.svg";
 
 interface AlbumItemProps {
   album: Album;
@@ -10,13 +11,13 @@ const AlbumItem: React.VFC<AlbumItemProps> = ({ album }) => {
 
   return (
     <AlbumItemContainer onClick={openAlbum}>
-      <div>
-        <img src={album.userProfile} alt="" />
-        <h4>{album.userName}</h4>
+      <div className="header">
+        <img src={DefaultProfile} alt="" className="profile" />
+        <h4>{album.user.name}</h4>
       </div>
-      <p>{album.address}</p>
+      <p>{album.building.address}</p>
       <p>{album.createDate}</p>
-      <img src={album.photo} alt="" />
+      <img src={`http://${album.photo}`} alt="" className="thumnail" />
     </AlbumItemContainer>
   );
 };

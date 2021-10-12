@@ -1,9 +1,12 @@
 interface Album {
-  address: string;
-  createDate: string;
-  latitude: number;
-  longitude: number;
+  id: number;
   photo: string;
-  userName: string;
-  userProfile: string;
+  user: User;
+  createDate: string;
+  building: {
+    id: number;
+    address: string;
+    latitude: number;
+    longitude: number;
+  };
 }
