@@ -13,7 +13,13 @@ import AlbumView from "components/Main/Album/AlbumView/AlbumView";
 const Main = () => {
   const history = useHistory();
   const { authState, loadMyInfo } = useAuth();
-  const { albumState } = useAlbum();
+  const { albumState, getAlbums } = useAlbum();
+
+  console.log(albumState.albums);
+
+  useEffect(() => {
+    getAlbums();
+  }, [getAlbums]);
 
   useEffect(() => {
     if (!Token.getToken()) {
@@ -24,14 +30,14 @@ const Main = () => {
     }
   }, [loadMyInfo, authState, history]);
 
-  const [albums, setAlbums] = useState<Array<Album>>(albumDummyData);
+  const { albums } = albumState;
 
   return (
     <>
       <MainPageStyle>
         <Header />
         <MainContent>
-          <Map albums={albumDummyData} setAlbums={setAlbums} />
+          <Map albums={albumState.albums} setAlbums={() => {}} />
           <AlbumList albums={albums} />
         </MainContent>
       </MainPageStyle>

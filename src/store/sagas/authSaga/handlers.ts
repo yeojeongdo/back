@@ -1,4 +1,4 @@
-import { call, put } from "@redux-saga/core/effects";
+import { call, put } from "redux-saga/effects";
 import { joinAPI, loadMyInfoAPI, loginAPI } from "apis/authAPI";
 import { Token } from "lib/Token";
 import { toast } from "react-toastify";

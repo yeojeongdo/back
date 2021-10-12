@@ -33,14 +33,15 @@ const Map = ({ albums, setAlbums }: mapType) => {
         disableClickZoom={true} // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
         onClusterclick={(target, cluster) => {
           const markers: Album[] = [];
-          cluster.getMarkers().map(marker =>
-            albums.map(album => {
-              if (album.address === marker.getTitle()) {
+          cluster.getMarkers().map((marker) => {
+            console.log(marker.getTitle());
+            return albums.map((album) => {
+              if (album.building.address === marker.getTitle()) {
                 markers.push(album);
               }
               return 0;
-            })
-          );
+            });
+          });
           setAlbums(markers);
         }}
       >
@@ -48,13 +49,13 @@ const Map = ({ albums, setAlbums }: mapType) => {
           <MapMarker
             position={{
               lat:
-                album.latitude +
+                album.building.latitude +
                 index /
                   100 /* 더미데이터의 값이 같기떄문에 차이가 보이지 않아 임시로 지정 이후 삭제바람 */,
-              lng: album.longitude,
+              lng: album.building.longitude,
             }}
             image={{
-              src: album.photo,
+              src: `http://${album.photo}`,
               size: {
                 width: 24,
                 height: 35,
@@ -65,7 +66,7 @@ const Map = ({ albums, setAlbums }: mapType) => {
                 },
               },
             }}
-            title={album.address}
+            title={album.building.address}
           />
         ))}
       </MarkerClusterer>
