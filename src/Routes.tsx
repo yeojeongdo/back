@@ -5,6 +5,7 @@ import Main from "pages/MainPage/MainPage";
 import useAuth from "hooks/redux/useAuth";
 import { useEffect } from "react";
 import LoadingPage from "pages/LoadingPage/LoadingPage";
+import CreatePage from "pages/CreatePage/CreatetPage";
 
 const Routes = () => {
   const {
@@ -23,6 +24,9 @@ const Routes = () => {
       <Switch>
         <Route exact path="/">
           {loadMyInfoLoading || loginLoading ? <LoadingPage /> : <Main />}
+        </Route>
+        <Route exact path="/create">
+          <CreatePage />
         </Route>
         <Route exact path="/login">
           <LoginPage />
