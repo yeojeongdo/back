@@ -1,12 +1,25 @@
+interface IBuilding {
+  id: number;
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
 interface Album {
   id: number;
   photo: string;
   user: User;
+  createDate: Date;
+  building: IBuilding;
+}
+
+export interface ViewAlbum {
+  id: number;
+  memo: string;
   createDate: string;
-  building: {
-    id: number;
-    address: string;
-    latitude: number;
-    longitude: number;
-  };
+  photo: string[];
+  commentNum: number;
+  likeNum: number;
+  user: User;
+  building: IBuilding;
 }

@@ -48,10 +48,19 @@ export const AlbumViewContainer = styled.div`
         object-fit: contain;
       }
     }
-    &_comments {
+    &_content {
       width: 400px;
       padding: 1rem;
       background-color: white;
+      &_info {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        & > span {
+          padding-left: 1rem;
+          font-weight: lighter;
+        }
+      }
     }
   }
 `;

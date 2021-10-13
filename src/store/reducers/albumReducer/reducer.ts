@@ -6,6 +6,9 @@ import {
   GET_ALBUMS_FAILURE,
   GET_ALBUMS_REQUEST,
   GET_ALBUMS_SUCCESS,
+  GET_ALBUM_REQUEST,
+  GET_ALBUM_FAILURE,
+  GET_ALBUM_SUCCESS,
 } from "./actions";
 import { AlbumActions, AlbumState } from "./types";
 
@@ -20,10 +23,30 @@ const initalState: AlbumState = {
 
   albums: [],
 
+  album: null,
+
   albumOpen: false,
 };
 
 export default createReducer<AlbumState, AlbumActions>(initalState, {
+  [GET_ALBUM_REQUEST]: (state, action) =>
+    produce(state, (draft) => {
+      draft.loadAlbumLoading = true;
+      draft.loadAlbumDone = false;
+      draft.loadAlbumError = null;
+    }),
+  [GET_ALBUM_SUCCESS]: (state, action) =>
+    produce(state, (draft) => {
+      draft.loadAlbumLoading = false;
+      draft.loadAlbumDone = true;
+      draft.album = action.payload.data.data;
+    }),
+  [GET_ALBUM_FAILURE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.loadAlbumLoading = true;
+      draft.loadAlbumDone = false;
+      draft.loadAlbumError = action.payload;
+    }),
   [GET_ALBUMS_REQUEST]: (state, action) =>
     produce(state, (draft) => {
       draft.loadAlbumsLoading = true;
