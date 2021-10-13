@@ -50,7 +50,7 @@ export const AlbumViewContainer = styled.div`
     }
     &_content {
       width: 400px;
-      padding: 1rem;
+      padding: 1rem 0;
       background-color: white;
       &_info {
         display: flex;
@@ -59,6 +59,21 @@ export const AlbumViewContainer = styled.div`
         & > span {
           padding-left: 1rem;
           font-weight: lighter;
+        }
+      }
+      &_tools {
+        display: flex;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        & > button {
+          flex: 1;
+          border: none;
+          cursor: pointer;
+          background-color: white;
+          padding: 1rem;
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+          }
         }
       }
     }
