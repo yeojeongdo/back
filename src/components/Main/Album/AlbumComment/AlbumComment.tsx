@@ -9,6 +9,7 @@ import DefaultProfile from "assets/images/default_profile.svg";
 import { useCallback, useEffect, VFC } from "react";
 import ReactLoading from "react-loading";
 import useInput from "hooks/useInput";
+import useAuth from "hooks/redux/useAuth";
 
 interface IAlbumCommentProps {
   commentInputRef: any;
@@ -16,12 +17,13 @@ interface IAlbumCommentProps {
 
 const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
   const { albumState, getComments, createComment } = useAlbum();
+  const { authState } = useAuth();
 
   const [commentInput, onChangeCommentInput, setCommentInput] = useInput("");
 
   const handleCreateComment = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (event.keyCode === 13 && !event.shiftKey) {
+      if (commentInput.trim() && event.keyCode === 13 && !event.shiftKey) {
         interface ICreateCommentData {
           comment: string;
           id: number;
@@ -36,6 +38,13 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
     },
     [createComment, commentInput, albumState.album]
   );
+
+  const handleDeleteComment = useCallback(() => {
+    console.warn("댓글 수정하기 구현 필요");
+  }, []);
+  const handleEditComment = useCallback(() => {
+    console.warn("댓글 삭제하기 구현 필요");
+  }, []);
 
   useEffect(() => {
     if (albumState.createCommentDone && albumState.album?.id) {
@@ -71,6 +80,12 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
             <CommentItemContainer key={comment.id}>
               <span className="comment_userName">{comment.user.name}</span>
               <p className="comment_content">{comment.content}</p>
+              {authState.myInfo?.id === comment.user.id && (
+                <>
+                  <button onClick={handleEditComment}>수정</button>
+                  <button onClick={handleDeleteComment}>삭제</button>
+                </>
+              )}
             </CommentItemContainer>
           ))}
         </CommentListContainer>
