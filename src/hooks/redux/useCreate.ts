@@ -1,9 +1,12 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
+import { useTypedSelector } from "store/reducers";
 import { SET_MARKER } from "store/reducers/createReducer/actions";
 
 const useCreate = () => {
   const dispatch = useDispatch();
+
+  const markerState = useTypedSelector(state => state.create);
 
   const setMarker = useCallback(
     latLng => {
@@ -15,7 +18,7 @@ const useCreate = () => {
     [dispatch]
   );
 
-  return { setMarker };
+  return { setMarker, markerState };
 };
 
 export default useCreate;

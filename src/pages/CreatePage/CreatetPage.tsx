@@ -1,26 +1,19 @@
 import { CreatePageStyle, CreatePageContent } from "./PageStyle";
 import Header from "components/Common/Header/Header";
 import CreaterMap from "components/Create/CreaterMap";
-import { useState } from "react";
-
-interface markerLatLngType {
-  lat: number;
-  lng: number;
-}
+import useCreate from "hooks/redux/useCreate";
 
 const CreatePage = () => {
-  const [markerLatLng, setMarkerLatLng] = useState<markerLatLngType>();
+  const { markerState } = useCreate();
+  const latLng = markerState.LatLng;
   return (
     <>
       <CreatePageStyle>
         <Header />
         <CreatePageContent>
-          <CreaterMap
-          // markerLatLng={markerLatLng}
-          // setMarkerLatLng={setMarkerLatLng}
-          />
+          <CreaterMap />
           <div style={{ flex: "2" }}>
-            {markerLatLng?.lat}/{markerLatLng?.lng}
+            {latLng?.lat}/{latLng?.lng}
           </div>
         </CreatePageContent>
       </CreatePageStyle>

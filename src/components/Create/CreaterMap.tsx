@@ -9,7 +9,7 @@ interface markerLatLngType {
 
 const CreaterMap = () => {
   const [markerLatLng, setMarkerLatLng] = useState<markerLatLngType>();
-  const { setMarker } = useCreate();
+  const { setMarker, markerState } = useCreate();
   return (
     <Map
       center={{
@@ -24,14 +24,15 @@ const CreaterMap = () => {
       }}
       level={3}
       onClick={(_t, mouseEvent: any) => {
-        setMarkerLatLng({
+        setMarker({
           lat: mouseEvent.latLng.getLat(),
           lng: mouseEvent.latLng.getLng(),
         });
-        setMarker(markerLatLng);
       }}
     >
-      {markerLatLng && <MapMarker position={markerLatLng} draggable={true} />}
+      {markerState.LatLng && (
+        <MapMarker position={markerState.LatLng} draggable={true} />
+      )}
     </Map>
   );
 };
