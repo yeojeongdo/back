@@ -1,9 +1,20 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
-import Logo from "assets/images/logo.svg";
+import { createRef, useCallback } from "react";
+import AlbumComment from "../AlbumComment/AlbumComment";
+import LoadingPage from "pages/LoadingPage/LoadingPage";
 
 const AlbumView = () => {
-  const { closeAlbum } = useAlbum();
+  const { albumState, closeAlbum } = useAlbum();
+  const commentInputRef = createRef<HTMLInputElement | null>();
+
+  const album = albumState.album;
+
+  const handleFocusComment = useCallback(() => {
+    if (commentInputRef.current) {
+      commentInputRef.current.focus();
+    }
+  }, [commentInputRef]);
 
   return (
     <>
@@ -15,26 +26,21 @@ const AlbumView = () => {
         </header>
         <main className="album_main">
           <div className="album_main_photos">
-            <img
-              src="https://i.ytimg.com/vi/UauCnSy_oOg/maxresdefault.jpg"
-              alt=""
-            />
+            <img src={album?.photo && `http://${album?.photo}`} alt="" />
           </div>
-          <div className="album_main_comments">
-            <div className="album_profile">
-              <div>
-                <img
-                  src={
-                    "https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202011/122124-15/the-red-thumbnail1-4-2x.jpg"
-                  }
-                  alt=""
-                />
-                <h4>천명태</h4>
-              </div>
-              <div>
-                <p>2021-10-08</p>
-              </div>
+          <div className="album_main_content">
+            <h3>{album?.memo}</h3>
+            <div className="album_main_content_info">
+              <span className="comment">댓글 : {album?.commentNum}</span>
+              <span className="like">좋아요 :{album?.likeNum}</span>
             </div>
+            <div className="album_main_content_tools">
+              <button className="like">좋아요</button>
+              <button className="comment" onClick={handleFocusComment}>
+                댓글달기
+              </button>
+            </div>
+            <AlbumComment commentInputRef={commentInputRef} />
           </div>
         </main>
       </AlbumViewContainer>

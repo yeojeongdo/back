@@ -1,23 +1,33 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumItemContainer } from "./albumItemStyles";
 import DefaultProfile from "assets/images/default_profile.svg";
+import TimeCounting from "time-counting";
+import { useCallback } from "react";
+import { Album } from "types/album";
 
 interface AlbumItemProps {
   album: Album;
 }
 
 const AlbumItem: React.VFC<AlbumItemProps> = ({ album }) => {
-  const { openAlbum } = useAlbum();
+  const { openAlbum, getAlbum } = useAlbum();
+
+  const handleCLickAlbum = useCallback(() => {
+    openAlbum();
+    getAlbum(album.id);
+  }, [openAlbum, getAlbum, album.id]);
 
   return (
-    <AlbumItemContainer onClick={openAlbum}>
+    <AlbumItemContainer onClick={handleCLickAlbum}>
       <div className="header">
         <img src={DefaultProfile} alt="" className="profile" />
-        <h4>{album.user.name}</h4>
+        <h4 className="userName">{album.user.name}</h4>
       </div>
-      <p>{album.building.address}</p>
-      <p>{album.createDate}</p>
-      <img src={`http://${album.photo}`} alt="" className="thumnail" />
+      <div className="content">
+        <p>📍{album.building.address}</p>
+        <p>{TimeCounting(album.createDate, { lang: "ko" })}</p>
+        <img src={`http://${album.photo}`} alt="" className="thumnail" />
+      </div>
     </AlbumItemContainer>
   );
 };

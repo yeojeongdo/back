@@ -7,3 +7,7 @@ export const albumsAPI = () => {
 export const albumDetailAPI = (albumId: number) => {
   return axios.get(`/album/detail/${albumId}`);
 };
+
+export const commentsAPI = (albumId: number) => {
+  return axios.get(`/comment/list/${albumId}`);
+};
