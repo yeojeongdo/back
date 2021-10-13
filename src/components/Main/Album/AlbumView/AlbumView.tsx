@@ -1,13 +1,20 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
 import Logo from "assets/images/logo.svg";
-import { useCallback } from "react";
+import { createRef, useCallback, useRef } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
 
 const AlbumView = () => {
   const { albumState, closeAlbum } = useAlbum();
+  const commentInputRef = createRef<HTMLInputElement | null>();
 
   const album = albumState.album;
+
+  const handleFocusComment = useCallback(() => {
+    if (commentInputRef.current) {
+      commentInputRef.current.focus();
+    }
+  }, [commentInputRef]);
 
   return (
     <>
@@ -27,8 +34,13 @@ const AlbumView = () => {
               <span className="comment">댓글 : {album?.commentNum}</span>
               <span className="like">좋아요 :{album?.likeNum}</span>
             </div>
-
-            <AlbumComment />
+            <div className="album_main_content_tools">
+              <button className="like">좋아요</button>
+              <button className="comment" onClick={handleFocusComment}>
+                댓글달기
+              </button>
+            </div>
+            <AlbumComment commentInputRef={commentInputRef} />
           </div>
         </main>
       </AlbumViewContainer>

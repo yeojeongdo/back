@@ -4,6 +4,7 @@ import {
   MapMarker,
   MarkerClusterer,
 } from "react-kakao-maps-sdk";
+import { Album } from "types/album";
 
 interface mapType {
   albums: Album[];

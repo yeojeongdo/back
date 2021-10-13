@@ -3,4 +3,5 @@ interface User {
   gender: "Male" | "Female";
   id: string;
   name: string;
+  image: string;
 }
