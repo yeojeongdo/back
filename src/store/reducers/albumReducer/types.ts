@@ -18,6 +18,14 @@ export interface AlbumState {
   createCommentError: AxiosError | null;
   createCommentLoading: boolean;
 
+  deleteCommentDone: boolean;
+  deleteCommentError: AxiosError | null;
+  deleteCommentLoading: boolean;
+
+  editCommentDone: boolean;
+  editCommentError: AxiosError | null;
+  editCommentLoading: boolean;
+
   loadAlbumDone: boolean;
   loadAlbumError: AxiosError | null;
   loadAlbumLoading: boolean;

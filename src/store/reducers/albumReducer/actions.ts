@@ -13,6 +13,14 @@ export const CREATE_COMMENT_REQUEST = "album/CREATE_COMMENT_REQUEST";
 export const CREATE_COMMENT_SUCCESS = "album/CREATE_COMMENT_SUCCESS";
 export const CREATE_COMMENT_FAILURE = "album/CREATE_COMMENT_FAILURE";
 
+export const DELETE_COMMENT_REQUEST = "album/DELETE_COMMENT_REQUEST";
+export const DELETE_COMMENT_SUCCESS = "album/DELETE_COMMENT_SUCCESS";
+export const DELETE_COMMENT_FAILURE = "album/DELETE_COMMENT_FAILURE";
+
+export const EDIT_COMMENT_REQUEST = "album/EDIT_COMMENT_REQUEST";
+export const EDIT_COMMENT_SUCCESS = "album/EDIT_COMMENT_SUCCESS";
+export const EDIT_COMMENT_FAILURE = "album/EDIT_COMMENT_FAILURE";
+
 export const GET_ALBUM_REQUEST = "album/GET_ALBUM_REQUEST";
 export const GET_ALBUM_SUCCESS = "album/GET_ALBUM_SUCCESS";
 export const GET_ALBUM_FAILURE = "album/GET_ALBUM_FAILURE";
@@ -36,6 +44,18 @@ export const createCommentAsyncAction = createAsyncAction(
   CREATE_COMMENT_REQUEST,
   CREATE_COMMENT_SUCCESS,
   CREATE_COMMENT_FAILURE
+)<any, AxiosResponse, AxiosError<any>>();
+
+export const deleteCommentAsyncAction = createAsyncAction(
+  DELETE_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE
+)<any, AxiosResponse, AxiosError<any>>();
+
+export const editCommentAsyncAction = createAsyncAction(
+  EDIT_COMMENT_REQUEST,
+  EDIT_COMMENT_SUCCESS,
+  EDIT_COMMENT_FAILURE
 )<any, AxiosResponse, AxiosError<any>>();
 
 export const getAlbumAsyncAction = createAsyncAction(

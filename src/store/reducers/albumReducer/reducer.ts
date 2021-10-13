@@ -15,6 +15,12 @@ import {
   CREATE_COMMENT_REQUEST,
   CREATE_COMMENT_SUCCESS,
   CREATE_COMMENT_FAILURE,
+  DELETE_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
+  EDIT_COMMENT_REQUEST,
+  EDIT_COMMENT_SUCCESS,
+  EDIT_COMMENT_FAILURE,
 } from "./actions";
 import { AlbumActions, AlbumState } from "./types";
 
@@ -34,6 +40,14 @@ const initalState: AlbumState = {
   createCommentDone: false,
   createCommentError: null,
   createCommentLoading: false,
+
+  deleteCommentDone: false,
+  deleteCommentError: null,
+  deleteCommentLoading: false,
+
+  editCommentDone: false,
+  editCommentError: null,
+  editCommentLoading: false,
 
   albums: [],
 
@@ -118,6 +132,40 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
       draft.createCommentLoading = true;
       draft.createCommentDone = false;
       draft.createCommentError = null;
+    }),
+  [DELETE_COMMENT_REQUEST]: (state, action) =>
+    produce(state, (draft) => {
+      draft.deleteCommentLoading = true;
+      draft.deleteCommentDone = false;
+      draft.deleteCommentError = null;
+    }),
+  [DELETE_COMMENT_SUCCESS]: (state, action) =>
+    produce(state, (draft) => {
+      draft.deleteCommentLoading = false;
+      draft.deleteCommentDone = true;
+    }),
+  [DELETE_COMMENT_FAILURE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.deleteCommentLoading = true;
+      draft.deleteCommentDone = false;
+      draft.deleteCommentError = null;
+    }),
+  [EDIT_COMMENT_REQUEST]: (state, action) =>
+    produce(state, (draft) => {
+      draft.editCommentLoading = true;
+      draft.editCommentDone = false;
+      draft.editCommentError = null;
+    }),
+  [EDIT_COMMENT_SUCCESS]: (state, action) =>
+    produce(state, (draft) => {
+      draft.editCommentLoading = false;
+      draft.editCommentDone = true;
+    }),
+  [EDIT_COMMENT_FAILURE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.editCommentLoading = true;
+      draft.editCommentDone = false;
+      draft.editCommentError = null;
     }),
   [OPEN_ALBUM]: (state, action) =>
     produce(state, (draft) => {

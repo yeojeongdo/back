@@ -1,6 +1,8 @@
 import { all, fork } from "redux-saga/effects";
 import {
   watchCreateComment,
+  watchDeleteComment,
+  watchEditComment,
   watchGetAlbum,
   watchGetAlbums,
   watchGetComments,
@@ -12,5 +14,7 @@ export default function* albumSaga() {
     fork(watchGetAlbum),
     fork(watchGetComments),
     fork(watchCreateComment),
+    fork(watchDeleteComment),
+    fork(watchEditComment),
   ]);
 }

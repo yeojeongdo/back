@@ -20,3 +20,16 @@ interface ICreateCommentData {
 export const createCommentAPI = (data: ICreateCommentData) => {
   return axios.post(`/comment`, data);
 };
+
+export const deleteCommentAPI = (commentId: number) => {
+  return axios.delete(`/comment/${commentsAPI}`);
+};
+
+export interface IEditCommentData {
+  comment: string;
+  id: number;
+}
+
+export const editCommentAPI = (data: IEditCommentData) => {
+  return axios.patch(`/comment`, data);
+};

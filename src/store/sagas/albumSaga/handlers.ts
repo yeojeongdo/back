@@ -4,10 +4,16 @@ import {
   albumsAPI,
   commentsAPI,
   createCommentAPI,
+  deleteCommentAPI,
+  editCommentAPI,
 } from "apis/albumAPI";
 import {
   CREATE_COMMENT_FAILURE,
   CREATE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
+  DELETE_COMMENT_SUCCESS,
+  EDIT_COMMENT_FAILURE,
+  EDIT_COMMENT_SUCCESS,
   GET_ALBUMS_FAILURE,
   GET_ALBUMS_SUCCESS,
   GET_ALBUM_FAILURE,
@@ -72,6 +78,36 @@ export function* handleCreateComment(action: AnyAction): any {
   } catch (error: any) {
     yield put({
       type: CREATE_COMMENT_FAILURE,
+      payload: error.response.data,
+    });
+  }
+}
+
+export function* handleDeleteComment(action: AnyAction): any {
+  try {
+    const response = yield call(deleteCommentAPI, action.payload);
+    yield put({
+      type: DELETE_COMMENT_SUCCESS,
+      payload: response,
+    });
+  } catch (error: any) {
+    yield put({
+      type: DELETE_COMMENT_FAILURE,
+      payload: error.response.data,
+    });
+  }
+}
+
+export function* handleEditComment(action: AnyAction): any {
+  try {
+    const response = yield call(editCommentAPI, action.payload);
+    yield put({
+      type: EDIT_COMMENT_SUCCESS,
+      payload: response,
+    });
+  } catch (error: any) {
+    yield put({
+      type: EDIT_COMMENT_FAILURE,
       payload: error.response.data,
     });
   }
