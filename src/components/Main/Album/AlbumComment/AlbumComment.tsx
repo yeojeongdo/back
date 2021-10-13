@@ -23,6 +23,7 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
 
   const editCommentRef = createRef<HTMLTextAreaElement>();
 
+  const [editNumber, setEditNumber] = useState<number>();
   const [commentInput, onChangeCommentInput, setCommentInput] = useInput("");
   const [isToggleMode, setIsToggleMode] = useState<boolean>(false);
   const [editCommentText, onChangeEditCommentText] = useInput("");
@@ -130,7 +131,9 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
           {albumState.comments?.map((comment) => (
             <CommentItemContainer key={comment.id}>
               <span className="comment_userName">{comment.user.name}</span>
-              {isToggleMode && authState.myInfo?.id === comment.user.id ? (
+              {isToggleMode &&
+              authState.myInfo?.id === comment.user.id &&
+              comment.id === editNumber ? (
                 <>
                   <textarea
                     ref={editCommentRef}
@@ -160,7 +163,10 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
                   {authState.myInfo?.id === comment.user.id && (
                     <div className="edit_buttons">
                       <button
-                        onClick={() => toggleEditMode("OPEN")}
+                        onClick={() => {
+                          toggleEditMode("OPEN");
+                          setEditNumber(comment.id);
+                        }}
                         className="edit_buttons_edit"
                       >
                         수정
