@@ -38,16 +38,22 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
   );
 
   useEffect(() => {
-    if (albumState.album?.id) {
-      getComments(albumState.album?.id);
+    if (albumState.createCommentDone) {
+      setCommentInput("");
     }
-  }, [albumState.album?.id, getComments]);
+  }, [albumState.createCommentDone, setCommentInput]);
 
   useEffect(() => {
     if (commentInputRef.current) {
       autosize(commentInputRef.current);
     }
   }, [commentInputRef]);
+
+  useEffect(() => {
+    if (albumState.album?.id) {
+      getComments(albumState.album?.id);
+    }
+  }, [albumState.album?.id, getComments]);
 
   return (
     <>
@@ -73,6 +79,7 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
           ref={commentInputRef}
           className="comment_input"
           placeholder="댓글을 입력하세요."
+          value={commentInput}
           onChange={onChangeCommentInput}
           onKeyDown={handleCreateComment}
         />
