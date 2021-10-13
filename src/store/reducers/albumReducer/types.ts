@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import { Album, ViewAlbum } from "types/album";
 import { ActionType } from "typesafe-actions";
 import * as albumActions from "./actions";
 
@@ -14,6 +15,8 @@ export interface AlbumState {
   loadAlbumLoading: boolean;
 
   albums: Album[];
+
+  album: ViewAlbum | null;
 
   albumOpen: boolean;
 }

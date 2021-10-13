@@ -1,9 +1,13 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
 import Logo from "assets/images/logo.svg";
+import { useCallback } from "react";
+import AlbumComment from "../AlbumComment/AlbumComment";
 
 const AlbumView = () => {
-  const { closeAlbum } = useAlbum();
+  const { albumState, closeAlbum } = useAlbum();
+
+  const album = albumState.album;
 
   return (
     <>
@@ -15,13 +19,16 @@ const AlbumView = () => {
         </header>
         <main className="album_main">
           <div className="album_main_photos">
-            <img
-              src="https://i.ytimg.com/vi/UauCnSy_oOg/maxresdefault.jpg"
-              alt=""
-            />
+            <img src={`http://${album?.photo}`} alt="" />
           </div>
-          <div className="album_main_comments">
-            <h1>여긴 콘텐츠와 댓글 리스트 위치입니다.</h1>
+          <div className="album_main_content">
+            <h3>{album?.memo}</h3>
+            <div className="album_main_content_info">
+              <span className="comment">댓글 : {album?.commentNum}</span>
+              <span className="like">좋아요 :{album?.likeNum}</span>
+            </div>
+
+            <AlbumComment />
           </div>
         </main>
       </AlbumViewContainer>
