@@ -6,7 +6,9 @@ import {
   CommentListContainer,
 } from "./albumCommentStyles";
 import DefaultProfile from "assets/images/default_profile.svg";
-import { useEffect, VFC } from "react";
+import { useCallback, useEffect, VFC } from "react";
+import ReactLoading from "react-loading";
+import useInput from "hooks/useInput";
 
 interface IAlbumCommentProps {
   commentInputRef: any;
@@ -14,6 +16,26 @@ interface IAlbumCommentProps {
 
 const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
   const { albumState, getComments, createComment } = useAlbum();
+
+  const [commentInput, onChangeCommentInput, setCommentInput] = useInput("");
+
+  const handleCreateComment = useCallback(
+    (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (event.keyCode === 13) {
+        interface ICreateCommentData {
+          comment: string;
+          id: number;
+        }
+        const data: ICreateCommentData = {
+          comment: commentInput,
+          id: albumState.album!.id,
+        };
+
+        createComment(data);
+      }
+    },
+    [createComment, commentInput, albumState.album]
+  );
 
   useEffect(() => {
     if (albumState.album?.id) {
@@ -29,15 +51,18 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
 
   return (
     <>
-      <CommentListContainer>
-        {albumState.comments?.map((comment) => (
-          <CommentItemContainer key={comment.id}>
-            <span className="comment_userName">{comment.user.name}</span>
-            <p className="comment_content">{comment.content}</p>
-          </CommentItemContainer>
-        ))}
-      </CommentListContainer>
-      {/* TODO: Comment List Rendering */}
+      {albumState.createCommentLoading ? (
+        <ReactLoading />
+      ) : (
+        <CommentListContainer>
+          {albumState.comments?.map((comment) => (
+            <CommentItemContainer key={comment.id}>
+              <span className="comment_userName">{comment.user.name}</span>
+              <p className="comment_content">{comment.content}</p>
+            </CommentItemContainer>
+          ))}
+        </CommentListContainer>
+      )}
       <CommentInputContainer>
         <img
           src={albumState.album?.user.image || DefaultProfile}
@@ -48,6 +73,8 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
           ref={commentInputRef}
           className="comment_input"
           placeholder="댓글을 입력하세요."
+          onChange={onChangeCommentInput}
+          onKeyDown={handleCreateComment}
         />
       </CommentInputContainer>
     </>

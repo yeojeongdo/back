@@ -47,7 +47,7 @@ const useAlbum = () => {
 
   interface ICreateCommentData {
     comment: string;
-    albumId: number;
+    id: number;
   }
 
   const createComment = useCallback(

@@ -14,7 +14,7 @@ export const commentsAPI = (albumId: number) => {
 
 interface ICreateCommentData {
   comment: string;
-  albumId: number;
+  id: number;
 }
 
 export const createCommentAPI = (data: ICreateCommentData) => {
