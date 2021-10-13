@@ -78,4 +78,23 @@ export const AlbumViewContainer = styled.div`
       }
     }
   }
+  .album_profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    div {
+      display: flex;
+      align-items: center;
+    }
+    img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    h1 {
+      margin: 0;
+      text-align: start;
+    }
+  }
 `;
