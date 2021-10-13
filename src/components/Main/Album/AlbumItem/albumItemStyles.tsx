@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 
 export const AlbumItemContainer = styled.div`
+  margin: 1rem 0;
   width: 100%;
-  min-height: 600px;
-  max-height: 600px;
   height: 100%;
   display: flex;
   flex-direction: column;

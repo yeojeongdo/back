@@ -1,7 +1,6 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
-import Logo from "assets/images/logo.svg";
-import { createRef, useCallback, useRef } from "react";
+import { createRef, useCallback } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
 
 const AlbumView = () => {

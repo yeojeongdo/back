@@ -31,6 +31,7 @@ const initalState: AlbumState = {
 export default createReducer<AlbumState, AlbumActions>(initalState, {
   [GET_ALBUM_REQUEST]: (state, action) =>
     produce(state, (draft) => {
+      draft.album = null;
       draft.loadAlbumLoading = true;
       draft.loadAlbumDone = false;
       draft.loadAlbumError = null;
