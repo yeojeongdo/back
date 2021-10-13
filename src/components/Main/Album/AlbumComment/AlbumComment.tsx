@@ -16,7 +16,8 @@ interface IAlbumCommentProps {
 }
 
 const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
-  const { albumState, getComments, createComment } = useAlbum();
+  const { albumState, getComments, createComment, deleteComment, editComment } =
+    useAlbum();
   const { authState } = useAuth();
 
   const [commentInput, onChangeCommentInput, setCommentInput] = useInput("");
@@ -39,16 +40,32 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
     [createComment, commentInput, albumState.album]
   );
 
-  const handleDeleteComment = useCallback(() => {
-    console.warn("댓글 수정하기 구현 필요");
-  }, []);
-  const handleEditComment = useCallback(() => {
-    console.warn("댓글 삭제하기 구현 필요");
-  }, []);
+  const handleDeleteComment = useCallback(
+    (commentId: number) => {
+      deleteComment(commentId);
+    },
+    [deleteComment]
+  );
+
+  const handleEditComment = useCallback(
+    (commentId: number) => {
+      const data = { id: commentId, comment: "" };
+      editComment(data);
+    },
+    [editComment]
+  );
 
   useEffect(() => {
+    //* 댓글 삭제 후 댓글리스트 렌더링
+    if (albumState.deleteCommentDone && albumState.album?.id) {
+      getComments(albumState.album.id);
+    }
+  }, [albumState.deleteCommentDone, albumState.album?.id, getComments]);
+
+  useEffect(() => {
+    //* 댓글 생성 후 댓글리스트 렌더링
     if (albumState.createCommentDone && albumState.album?.id) {
-      getComments(albumState.album?.id);
+      getComments(albumState.album.id);
       setCommentInput("");
     }
   }, [
@@ -82,8 +99,12 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
               <p className="comment_content">{comment.content}</p>
               {authState.myInfo?.id === comment.user.id && (
                 <>
-                  <button onClick={handleEditComment}>수정</button>
-                  <button onClick={handleDeleteComment}>삭제</button>
+                  <button onClick={() => handleEditComment(comment.id)}>
+                    수정
+                  </button>
+                  <button onClick={() => handleDeleteComment(comment.id)}>
+                    삭제
+                  </button>
                 </>
               )}
             </CommentItemContainer>
