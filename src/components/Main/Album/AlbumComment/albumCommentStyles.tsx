@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { MAIN_COLOR } from "styles/colors";
 
 export const CommentListContainer = styled.ul`
   list-style: none;
@@ -13,6 +14,28 @@ export const CommentItemContainer = styled.li`
   color: #050505;
   padding: 8px 12px;
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  .edit_buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    & > button {
+      border: none;
+      padding: 6px 8px;
+      cursor: pointer;
+    }
+    &_edit {
+      background-color: ${MAIN_COLOR};
+      color: white;
+    }
+    &_cancel {
+    }
+  }
+  .edit_textarea {
+    outline: none;
+    resize: none;
+  }
   .comment_userName {
     font-size: 14px;
     font-weight: bold;

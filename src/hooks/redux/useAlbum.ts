@@ -1,9 +1,12 @@
+import { IEditCommentData } from "apis/albumAPI";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "store/reducers";
 import {
   CLOSE_ALBUM,
   CREATE_COMMENT_REQUEST,
+  DELETE_COMMENT_REQUEST,
+  EDIT_COMMENT_REQUEST,
   GET_ALBUMS_REQUEST,
   GET_ALBUM_REQUEST,
   GET_COMMENTS_REQUEST,
@@ -45,6 +48,26 @@ const useAlbum = () => {
     [dispatch]
   );
 
+  const deleteComment = useCallback(
+    (commentId: number) => {
+      dispatch({
+        type: DELETE_COMMENT_REQUEST,
+        payload: commentId,
+      });
+    },
+    [dispatch]
+  );
+
+  const editComment = useCallback(
+    (data: IEditCommentData) => {
+      dispatch({
+        type: EDIT_COMMENT_REQUEST,
+        payload: data,
+      });
+    },
+    [dispatch]
+  );
+
   interface ICreateCommentData {
     comment: string;
     id: number;
@@ -80,6 +103,8 @@ const useAlbum = () => {
     getAlbum,
     getComments,
     createComment,
+    deleteComment,
+    editComment,
   };
 };
 

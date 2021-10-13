@@ -22,7 +22,7 @@ export const createCommentAPI = (data: ICreateCommentData) => {
 };
 
 export const deleteCommentAPI = (commentId: number) => {
-  return axios.delete(`/comment/${commentsAPI}`);
+  return axios.delete(`/comment/${commentId}`);
 };
 
 export interface IEditCommentData {

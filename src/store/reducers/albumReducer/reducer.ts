@@ -94,7 +94,7 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     produce(state, (draft) => {
       draft.loadAlbumsLoading = true;
       draft.loadAlbumsDone = false;
-      draft.loadAlbumsError = null;
+      draft.loadAlbumsError = action.payload;
     }),
   [GET_COMMENTS_REQUEST]: (state, action) =>
     produce(state, (draft) => {
@@ -113,7 +113,7 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     produce(state, (draft) => {
       draft.loadCommentsLoading = true;
       draft.loadCommentsDone = false;
-      draft.loadCommentsError = null;
+      draft.loadCommentsError = action.payload;
       draft.comments = null;
     }),
   [CREATE_COMMENT_REQUEST]: (state, action) =>
@@ -131,7 +131,7 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     produce(state, (draft) => {
       draft.createCommentLoading = true;
       draft.createCommentDone = false;
-      draft.createCommentError = null;
+      draft.createCommentError = action.payload;
     }),
   [DELETE_COMMENT_REQUEST]: (state, action) =>
     produce(state, (draft) => {
@@ -148,7 +148,7 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     produce(state, (draft) => {
       draft.deleteCommentLoading = true;
       draft.deleteCommentDone = false;
-      draft.deleteCommentError = null;
+      draft.deleteCommentError = action.payload;
     }),
   [EDIT_COMMENT_REQUEST]: (state, action) =>
     produce(state, (draft) => {
@@ -165,7 +165,7 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     produce(state, (draft) => {
       draft.editCommentLoading = true;
       draft.editCommentDone = false;
-      draft.editCommentError = null;
+      draft.editCommentError = action.payload;
     }),
   [OPEN_ALBUM]: (state, action) =>
     produce(state, (draft) => {
