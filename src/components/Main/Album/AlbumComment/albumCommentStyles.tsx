@@ -4,6 +4,7 @@ export const CommentListContainer = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow-y: auto;
 `;
 
 export const CommentItemContainer = styled.li`
@@ -38,6 +39,7 @@ export const CommentInputContainer = styled.div`
     border-radius: 30px;
     border: none;
     background-color: #f0f2f5;
-    padding: 10px 20px;
+    padding: 10px 8px;
+    resize: none;
   }
 `;

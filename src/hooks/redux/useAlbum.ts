@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useTypedSelector } from "store/reducers";
 import {
   CLOSE_ALBUM,
+  CREATE_COMMENT_REQUEST,
   GET_ALBUMS_REQUEST,
   GET_ALBUM_REQUEST,
   GET_COMMENTS_REQUEST,
@@ -44,6 +45,21 @@ const useAlbum = () => {
     [dispatch]
   );
 
+  interface ICreateCommentData {
+    comment: string;
+    id: number;
+  }
+
+  const createComment = useCallback(
+    (data: ICreateCommentData) => {
+      dispatch({
+        type: CREATE_COMMENT_REQUEST,
+        payload: data,
+      });
+    },
+    [dispatch]
+  );
+
   const openAlbum = useCallback(() => {
     dispatch({
       type: OPEN_ALBUM,
@@ -63,6 +79,7 @@ const useAlbum = () => {
     getAlbums,
     getAlbum,
     getComments,
+    createComment,
   };
 };
 

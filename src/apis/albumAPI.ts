@@ -9,5 +9,14 @@ export const albumDetailAPI = (albumId: number) => {
 };
 
 export const commentsAPI = (albumId: number) => {
-  return axios.get(`/comment/list/${albumId}`);
+  return axios.get(`/comment/all/list/${albumId}`);
+};
+
+interface ICreateCommentData {
+  comment: string;
+  id: number;
+}
+
+export const createCommentAPI = (data: ICreateCommentData) => {
+  return axios.post(`/comment`, data);
 };

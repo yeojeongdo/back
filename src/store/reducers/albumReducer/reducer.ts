@@ -12,6 +12,9 @@ import {
   GET_COMMENTS_REQUEST,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAILURE,
+  CREATE_COMMENT_REQUEST,
+  CREATE_COMMENT_SUCCESS,
+  CREATE_COMMENT_FAILURE,
 } from "./actions";
 import { AlbumActions, AlbumState } from "./types";
 
@@ -27,6 +30,10 @@ const initalState: AlbumState = {
   loadCommentsDone: false,
   loadCommentsError: null,
   loadCommentsLoading: false,
+
+  createCommentDone: false,
+  createCommentError: null,
+  createCommentLoading: false,
 
   albums: [],
 
@@ -94,6 +101,23 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
       draft.loadCommentsDone = false;
       draft.loadCommentsError = null;
       draft.comments = null;
+    }),
+  [CREATE_COMMENT_REQUEST]: (state, action) =>
+    produce(state, (draft) => {
+      draft.createCommentLoading = true;
+      draft.createCommentDone = false;
+      draft.createCommentError = null;
+    }),
+  [CREATE_COMMENT_SUCCESS]: (state, action) =>
+    produce(state, (draft) => {
+      draft.createCommentLoading = false;
+      draft.createCommentDone = true;
+    }),
+  [CREATE_COMMENT_FAILURE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.createCommentLoading = true;
+      draft.createCommentDone = false;
+      draft.createCommentError = null;
     }),
   [OPEN_ALBUM]: (state, action) =>
     produce(state, (draft) => {

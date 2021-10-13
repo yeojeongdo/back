@@ -14,6 +14,10 @@ export interface AlbumState {
   loadCommentsError: AxiosError | null;
   loadCommentsLoading: boolean;
 
+  createCommentDone: boolean;
+  createCommentError: AxiosError | null;
+  createCommentLoading: boolean;
+
   loadAlbumDone: boolean;
   loadAlbumError: AxiosError | null;
   loadAlbumLoading: boolean;
