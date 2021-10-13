@@ -34,9 +34,9 @@ const Map = ({ albums, setAlbums }: mapType) => {
         disableClickZoom={true} // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
         onClusterclick={(target, cluster) => {
           const markers: Album[] = [];
-          cluster.getMarkers().map((marker) => {
+          cluster.getMarkers().map(marker => {
             console.log(marker.getTitle());
-            return albums.map((album) => {
+            return albums.map(album => {
               if (album.building.address === marker.getTitle()) {
                 markers.push(album);
               }

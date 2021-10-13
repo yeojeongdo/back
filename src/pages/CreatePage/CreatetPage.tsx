@@ -1,10 +1,16 @@
-import { CreatePageStyle } from "./PageStyle";
+import { CreatePageStyle, CreatePageContent } from "./PageStyle";
 import Header from "components/Common/Header/Header";
-
+import CreaterMap from "components/Create/CreaterMap";
 const CreatePage = () => {
   return (
     <>
-      <CreatePageStyle>앨범 생성 페이지</CreatePageStyle>
+      <CreatePageStyle>
+        <Header />
+        <CreatePageContent>
+          <CreaterMap />
+          <div style={{ flex: "2" }}>a</div>
+        </CreatePageContent>
+      </CreatePageStyle>
     </>
   );
 };
