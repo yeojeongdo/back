@@ -5,6 +5,10 @@ export const GET_ALBUMS_REQUEST = "album/GET_ALBUMS_REQUEST";
 export const GET_ALBUMS_SUCCESS = "album/GET_ALBUMS_SUCCESS";
 export const GET_ALBUMS_FAILURE = "album/GET_ALBUMS_FAILURE";
 
+export const GET_COMMENTS_REQUEST = "album/GET_COMMENTS_REQUEST";
+export const GET_COMMENTS_SUCCESS = "album/GET_COMMENTS_SUCCESS";
+export const GET_COMMENTS_FAILURE = "album/GET_COMMENTS_FAILURE";
+
 export const GET_ALBUM_REQUEST = "album/GET_ALBUM_REQUEST";
 export const GET_ALBUM_SUCCESS = "album/GET_ALBUM_SUCCESS";
 export const GET_ALBUM_FAILURE = "album/GET_ALBUM_FAILURE";
@@ -16,6 +20,12 @@ export const getAlbumsAsyncAction = createAsyncAction(
   GET_ALBUMS_REQUEST,
   GET_ALBUMS_SUCCESS,
   GET_ALBUMS_FAILURE
+)<any, AxiosResponse, AxiosError<any>>();
+
+export const getCommentsAsyncAction = createAsyncAction(
+  GET_COMMENTS_REQUEST,
+  GET_COMMENTS_SUCCESS,
+  GET_COMMENTS_FAILURE
 )<any, AxiosResponse, AxiosError<any>>();
 
 export const getAlbumAsyncAction = createAsyncAction(

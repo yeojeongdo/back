@@ -9,11 +9,14 @@ import { useHistory } from "react-router-dom";
 import useAlbum from "hooks/redux/useAlbum";
 import AlbumView from "components/Main/Album/AlbumView/AlbumView";
 import CreateAlbumButton from "components/Main/CreateAlbumButton/CreateAlbumButton";
+import LoadingPage from "pages/LoadingPage/LoadingPage";
 
 const Main = () => {
   const history = useHistory();
   const { authState, loadMyInfo } = useAuth();
   const { albumState, getAlbums } = useAlbum();
+
+  const { albums } = albumState;
 
   useEffect(() => {
     getAlbums();
@@ -27,8 +30,6 @@ const Main = () => {
       loadMyInfo();
     }
   }, [loadMyInfo, authState, history]);
-
-  const { albums } = albumState;
 
   return (
     <>
