@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { Album, ViewAlbum } from "types/album";
+import { Album, Comment, ViewAlbum } from "types/album";
 import { ActionType } from "typesafe-actions";
 import * as albumActions from "./actions";
 
@@ -10,6 +10,10 @@ export interface AlbumState {
   loadAlbumsError: AxiosError | null;
   loadAlbumsLoading: boolean;
 
+  loadCommentsDone: boolean;
+  loadCommentsError: AxiosError | null;
+  loadCommentsLoading: boolean;
+
   loadAlbumDone: boolean;
   loadAlbumError: AxiosError | null;
   loadAlbumLoading: boolean;
@@ -17,6 +21,7 @@ export interface AlbumState {
   albums: Album[];
 
   album: ViewAlbum | null;
+  comments: Comment[] | null;
 
   albumOpen: boolean;
 }

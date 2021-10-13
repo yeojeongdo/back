@@ -13,6 +13,12 @@ interface Album {
   building: IBuilding;
 }
 
+interface Comment {
+  content: "string";
+  id: number;
+  user: User;
+}
+
 export interface ViewAlbum {
   id: number;
   memo: string;

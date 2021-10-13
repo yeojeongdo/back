@@ -9,6 +9,9 @@ import {
   GET_ALBUM_REQUEST,
   GET_ALBUM_FAILURE,
   GET_ALBUM_SUCCESS,
+  GET_COMMENTS_REQUEST,
+  GET_COMMENTS_SUCCESS,
+  GET_COMMENTS_FAILURE,
 } from "./actions";
 import { AlbumActions, AlbumState } from "./types";
 
@@ -21,8 +24,13 @@ const initalState: AlbumState = {
   loadAlbumError: null,
   loadAlbumLoading: false,
 
+  loadCommentsDone: false,
+  loadCommentsError: null,
+  loadCommentsLoading: false,
+
   albums: [],
 
+  comments: null,
   album: null,
 
   albumOpen: false,
@@ -44,6 +52,7 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     }),
   [GET_ALBUM_FAILURE]: (state, action) =>
     produce(state, (draft) => {
+      draft.album = null;
       draft.loadAlbumLoading = true;
       draft.loadAlbumDone = false;
       draft.loadAlbumError = action.payload;
@@ -65,6 +74,26 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
       draft.loadAlbumsLoading = true;
       draft.loadAlbumsDone = false;
       draft.loadAlbumsError = null;
+    }),
+  [GET_COMMENTS_REQUEST]: (state, action) =>
+    produce(state, (draft) => {
+      draft.loadCommentsLoading = true;
+      draft.loadCommentsDone = false;
+      draft.loadCommentsError = null;
+      draft.comments = null;
+    }),
+  [GET_COMMENTS_SUCCESS]: (state, action) =>
+    produce(state, (draft) => {
+      draft.loadCommentsLoading = false;
+      draft.loadCommentsDone = true;
+      draft.comments = action.payload.data.data;
+    }),
+  [GET_COMMENTS_FAILURE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.loadCommentsLoading = true;
+      draft.loadCommentsDone = false;
+      draft.loadCommentsError = null;
+      draft.comments = null;
     }),
   [OPEN_ALBUM]: (state, action) =>
     produce(state, (draft) => {
