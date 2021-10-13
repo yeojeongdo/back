@@ -8,17 +8,21 @@ import { AlbumState } from "./albumReducer/types";
 import albumReducer from "./albumReducer/reducer";
 import authReducer from "./authReducer/reducer";
 import counterReducer from "./counterReducer/reducer";
+import createReducer from "./createReducer/reducer";
+import { CreateState } from "./createReducer/types";
 
 const rootReducer = combineReducers({
   counter: counterReducer,
   auth: authReducer,
   album: albumReducer,
+  create: createReducer,
 });
 
 export interface RootState {
   counter: CounterState;
   auth: AuthState;
   album: AlbumState;
+  create: CreateState;
 }
 
 export const useTypedSelector = createSelectorHook<RootState>();
