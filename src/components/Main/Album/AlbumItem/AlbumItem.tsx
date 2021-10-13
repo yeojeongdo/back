@@ -14,8 +14,8 @@ const AlbumItem: React.VFC<AlbumItemProps> = ({ album }) => {
 
   const handleCLickAlbum = useCallback(() => {
     openAlbum();
-    getAlbum(1);
-  }, [openAlbum, getAlbum]);
+    getAlbum(album.id);
+  }, [openAlbum, getAlbum, album.id]);
 
   return (
     <AlbumItemContainer onClick={handleCLickAlbum}>
