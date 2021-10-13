@@ -21,7 +21,7 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
 
   const handleCreateComment = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (event.keyCode === 13) {
+      if (event.keyCode === 13 && !event.shiftKey) {
         interface ICreateCommentData {
           comment: string;
           id: number;
@@ -38,10 +38,16 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
   );
 
   useEffect(() => {
-    if (albumState.createCommentDone) {
+    if (albumState.createCommentDone && albumState.album?.id) {
+      getComments(albumState.album?.id);
       setCommentInput("");
     }
-  }, [albumState.createCommentDone, setCommentInput]);
+  }, [
+    albumState.createCommentDone,
+    setCommentInput,
+    getComments,
+    albumState.album?.id,
+  ]);
 
   useEffect(() => {
     if (commentInputRef.current) {
