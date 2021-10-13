@@ -1,4 +1,5 @@
 import useAlbum from "hooks/redux/useAlbum";
+import autosize from "autosize";
 import {
   CommentInputContainer,
   CommentItemContainer,
@@ -12,13 +13,19 @@ interface IAlbumCommentProps {
 }
 
 const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
-  const { albumState, getComments } = useAlbum();
+  const { albumState, getComments, createComment } = useAlbum();
 
   useEffect(() => {
     if (albumState.album?.id) {
       getComments(albumState.album?.id);
     }
   }, [albumState.album?.id, getComments]);
+
+  useEffect(() => {
+    if (commentInputRef.current) {
+      autosize(commentInputRef.current);
+    }
+  }, [commentInputRef]);
 
   return (
     <>
@@ -37,9 +44,8 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
           alt=""
           className="profile"
         />
-        <input
+        <textarea
           ref={commentInputRef}
-          type="text"
           className="comment_input"
           placeholder="댓글을 입력하세요."
         />

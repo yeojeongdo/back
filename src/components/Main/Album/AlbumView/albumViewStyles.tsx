@@ -50,7 +50,7 @@ export const AlbumViewContainer = styled.div`
     }
     &_content {
       width: 400px;
-      padding: 1rem 0;
+      padding: 1rem 10px;
       background-color: white;
       &_info {
         display: flex;

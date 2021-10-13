@@ -38,6 +38,7 @@ export const CommentInputContainer = styled.div`
     border-radius: 30px;
     border: none;
     background-color: #f0f2f5;
-    padding: 10px 20px;
+    padding: 10px 8px;
+    resize: none;
   }
 `;
