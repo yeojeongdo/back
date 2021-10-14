@@ -2,7 +2,6 @@ import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
 import { createRef, useCallback } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
-import LoadingPage from "pages/LoadingPage/LoadingPage";
 
 const AlbumView = () => {
   const { albumState, closeAlbum } = useAlbum();
