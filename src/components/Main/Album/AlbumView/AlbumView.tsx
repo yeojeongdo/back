@@ -4,10 +4,19 @@ import { createRef, useCallback } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
 
 const AlbumView = () => {
-  const { albumState, closeAlbum } = useAlbum();
+  const { albumState, closeAlbum, likeAlbum } = useAlbum();
   const commentInputRef = createRef<HTMLInputElement | null>();
 
   const album = albumState.album;
+
+  const handleAlbumLike = useCallback(
+    (albumId: number | undefined) => {
+      if (albumId) {
+        likeAlbum(albumId);
+      }
+    },
+    [likeAlbum]
+  );
 
   const handleFocusComment = useCallback(() => {
     if (commentInputRef.current) {
@@ -34,7 +43,12 @@ const AlbumView = () => {
               <span className="like">좋아요 :{album?.likeNum}</span>
             </div>
             <div className="album_main_content_tools">
-              <button className="like">좋아요</button>
+              <button
+                className="like"
+                onClick={() => handleAlbumLike(album?.id)}
+              >
+                좋아요
+              </button>
               <button className="comment" onClick={handleFocusComment}>
                 댓글달기
               </button>

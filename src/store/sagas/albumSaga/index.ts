@@ -6,6 +6,7 @@ import {
   watchGetAlbum,
   watchGetAlbums,
   watchGetComments,
+  watchLikeAlbum,
 } from "./watchers";
 
 export default function* albumSaga() {
@@ -16,5 +17,6 @@ export default function* albumSaga() {
     fork(watchCreateComment),
     fork(watchDeleteComment),
     fork(watchEditComment),
+    fork(watchLikeAlbum),
   ]);
 }

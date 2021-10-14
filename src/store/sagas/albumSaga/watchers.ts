@@ -6,6 +6,7 @@ import {
   GET_ALBUMS_REQUEST,
   GET_ALBUM_REQUEST,
   GET_COMMENTS_REQUEST,
+  LIKE_ALBUM_REQUEST,
 } from "store/reducers/albumReducer/actions";
 import {
   handleCreateComment,
@@ -14,6 +15,7 @@ import {
   handleGetAlbum,
   handleGetAlbums,
   handleGetComments,
+  handleLikeAlbum,
 } from "./handlers";
 
 export function* watchGetAlbums() {
@@ -38,4 +40,8 @@ export function* watchDeleteComment() {
 
 export function* watchEditComment() {
   yield takeLatest(EDIT_COMMENT_REQUEST, handleEditComment);
+}
+
+export function* watchLikeAlbum() {
+  yield takeLatest(LIKE_ALBUM_REQUEST, handleLikeAlbum);
 }
