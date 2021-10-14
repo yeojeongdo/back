@@ -1,14 +1,7 @@
 import useCreate from "hooks/redux/useCreate";
-import React, { useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-interface markerLatLngType {
-  lat: number;
-  lng: number;
-}
-
 const CreaterMap = () => {
-  const [markerLatLng, setMarkerLatLng] = useState<markerLatLngType>();
   const { setMarker, markerState } = useCreate();
   return (
     <Map
@@ -24,6 +17,7 @@ const CreaterMap = () => {
       }}
       level={3}
       onClick={(_t, mouseEvent: any) => {
+        console.log(mouseEvent);
         setMarker({
           lat: mouseEvent.latLng.getLat(),
           lng: mouseEvent.latLng.getLng(),
@@ -31,7 +25,17 @@ const CreaterMap = () => {
       }}
     >
       {markerState.LatLng && (
-        <MapMarker position={markerState.LatLng} draggable={true} />
+        <MapMarker
+          position={markerState.LatLng}
+          onDragEnd={(mouseEvent: any) => {
+            console.log(mouseEvent.getPosition());
+            setMarker({
+              lat: mouseEvent.getPosition().Ma,
+              lng: mouseEvent.getPosition().La,
+            });
+          }}
+          draggable={true}
+        />
       )}
     </Map>
   );
