@@ -1,7 +1,10 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "store/reducers";
-import { SET_MARKER } from "store/reducers/createReducer/actions";
+import {
+  CREATE_ALBUM_REQUEST,
+  SET_MARKER,
+} from "store/reducers/createReducer/actions";
 
 const useCreate = () => {
   const dispatch = useDispatch();
@@ -18,7 +21,17 @@ const useCreate = () => {
     [dispatch]
   );
 
-  return { setMarker, markerState };
+  const createAlbum = useCallback(
+    (data: any) => {
+      dispatch({
+        type: CREATE_ALBUM_REQUEST,
+        payload: data,
+      });
+    },
+    [dispatch]
+  );
+
+  return { setMarker, markerState, createAlbum };
 };
 
 export default useCreate;
