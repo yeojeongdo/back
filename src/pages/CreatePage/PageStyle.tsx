@@ -14,7 +14,3 @@ export const CreatePageContent = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-export const CreateMenu = styled.div`
-  flex: 2;
-`
