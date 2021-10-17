@@ -10,6 +10,7 @@ const Input: React.VFC<InputHTMLAttributes<InputProps>> = ({
   onChange,
   name,
   id,
+  ...props
 }) => {
   return (
     <InputContainer
@@ -19,6 +20,7 @@ const Input: React.VFC<InputHTMLAttributes<InputProps>> = ({
       value={value}
       onChange={onChange}
       name={name}
+      {...props}
     />
   );
 };

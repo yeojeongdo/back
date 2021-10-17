@@ -1,12 +1,14 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
-import { createRef, useCallback } from "react";
+import { createRef, useCallback, useState } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
 import LoadingPage from "pages/LoadingPage/LoadingPage";
+import Button from "components/Common/Button/Button";
 
 const AlbumView = () => {
   const { albumState, closeAlbum } = useAlbum();
   const commentInputRef = createRef<HTMLInputElement | null>();
+  const [page, setPage] = useState(0);
 
   const album = albumState.album;
 
@@ -26,7 +28,13 @@ const AlbumView = () => {
         </header>
         <main className="album_main">
           <div className="album_main_photos">
-            <img src={album?.photo && `http://${album?.photo}`} alt="" />
+            {page !== 0 && (
+              <Button onClick={() => setPage(page - 1)}> 오른 </Button>
+            )}
+            <img src={album?.photo && `http://${album?.photo[page]}`} alt="" />
+            {album?.photo[1] && page < album?.photo.length - 1 && (
+              <Button onClick={() => setPage(page + 1)}> 오른 </Button>
+            )}
           </div>
           <div className="album_main_content">
             <h3>{album?.memo}</h3>

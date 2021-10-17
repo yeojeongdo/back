@@ -14,6 +14,7 @@ interface mapType {
 const Map = ({ albums, setAlbums }: mapType) => {
   const [latitude, setLatitude] = useState<number>(35.6632143);
   const [longTitude, setLongTitude] = useState<number>(128.4140176);
+  console.log(albums);
   return (
     <CustomMap
       center={{
@@ -49,10 +50,7 @@ const Map = ({ albums, setAlbums }: mapType) => {
         {albums.map((album, index) => (
           <MapMarker
             position={{
-              lat:
-                album.building.latitude +
-                index /
-                  100 /* 더미데이터의 값이 같기떄문에 차이가 보이지 않아 임시로 지정 이후 삭제바람 */,
+              lat: album.building.latitude,
               lng: album.building.longitude,
             }}
             image={{
