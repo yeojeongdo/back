@@ -46,7 +46,7 @@ const CreateMenu = () => {
       {latLng.lat / latLng.lng}
       <Form hasSubmit submitText="작성하기" onSubmit={submit}>
         {preview && <img src={preview.toString()} alt="" />}
-        <Input type="file" id="albumFile" onChange={handleFileInput} />
+        <Input type="file" id="albumFile" multiple onChange={handleFileInput} />
         <label htmlFor="albumFile">안녕</label>
         <Input
           value={memo}
