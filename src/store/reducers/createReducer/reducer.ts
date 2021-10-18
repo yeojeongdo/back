@@ -9,7 +9,7 @@ import { CreateState } from "./types";
 import { createReducer } from "typesafe-actions";
 
 const initalState: CreateState = {
-  LatLng: { lat: 0, lng: 0 },
+  LatLng: { lat: 35.6632143, lng: 128.4140176 },
 
   createAlbumLoading: false,
   createAlbumError: null,
