@@ -9,10 +9,10 @@ const useSearch = () => {
   const searchMapListState = useTypedSelector(state => state.search);
 
   const searchMap = useCallback(
-    data => {
+    (data, searchValue) => {
       dispatch({
         type: SEARCH_MAP,
-        payload: data,
+        payload: { data, searchValue },
       });
     },
     [dispatch]

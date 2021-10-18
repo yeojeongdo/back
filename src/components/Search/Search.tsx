@@ -13,7 +13,7 @@ enum SortBy {
 const Search = () => {
   const { markerState } = useCreate();
   const { searchMap, searchMapListState } = useSearch();
-  const [value, onChangeValue] = useInput("대구 소프트웨어 마이스터 고등학교");
+  const [value, onChangeValue] = useInput(searchMapListState.searchValue);
 
   const submit = useCallback(() => {
     const ps = new kakao.maps.services.Places();
@@ -25,7 +25,7 @@ const Search = () => {
         if (status === kakao.maps.services.Status.OK) {
           data && console.log(data);
           // console.log(data);
-          searchMap(data);
+          searchMap(data, value);
         }
       },
       {

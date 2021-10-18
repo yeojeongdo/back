@@ -1,5 +1,6 @@
 export interface searchState {
   searchMapList: searchMapListType[];
+  searchValue: string;
 }
 
 export interface searchMapListType {
