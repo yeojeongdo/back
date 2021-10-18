@@ -1,15 +1,20 @@
 import produce from "immer";
 import { createReducer } from "typesafe-actions";
+<<<<<<< HEAD
 import { SEARCH_MAP, SET_CENTER_SEARCHING } from "./actions";
 import { searchState } from "./types";
+=======
+import { SEARCH_MAP } from "./actions";
+import { SearchState } from "./types";
+>>>>>>> parent of 6def313 (Revert "Merge remote-tracking branch 'upstream/develop' into develop")
 
-const initalState: searchState = {
+const initalState: SearchState = {
   searchMapList: [],
   searchValue: "대구 소프트웨어 고등학교",
   centerSearching: {},
 };
 
-export default createReducer<searchState>(initalState, {
+export default createReducer<SearchState>(initalState, {
   [SEARCH_MAP]: (state, action) =>
     produce(state, draft => {
       draft.searchMapList = action.payload.data;
