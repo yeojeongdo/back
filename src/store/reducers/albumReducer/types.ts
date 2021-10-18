@@ -30,6 +30,10 @@ export interface AlbumState {
   loadAlbumError: AxiosError | null;
   loadAlbumLoading: boolean;
 
+  likeAlbumDone: boolean;
+  likeAlbumError: AxiosError | null;
+  likeAlbumLoading: boolean;
+
   albums: Album[];
 
   album: ViewAlbum | null;

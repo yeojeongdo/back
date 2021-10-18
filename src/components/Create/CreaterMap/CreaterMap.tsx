@@ -45,7 +45,7 @@ const CreaterMap = () => {
         ></MapMarker>
       )}
       {searchMapListState.searchMapList &&
-        searchMapListState.searchMapList.map(current => (
+        searchMapListState.searchMapList.map((current) => (
           <MapMarker position={{ lat: current.y, lng: current.x }} />
         ))}
     </Map>

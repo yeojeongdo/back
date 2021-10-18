@@ -33,8 +33,8 @@ export const AlbumItemContainer = styled.div`
     }
     .thumnail {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: 500px;
+      object-fit: contain;
     }
   }
 `;

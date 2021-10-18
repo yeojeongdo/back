@@ -6,6 +6,7 @@ import {
   createCommentAPI,
   deleteCommentAPI,
   editCommentAPI,
+  likeAlbumAPI,
 } from "apis/albumAPI";
 import {
   CREATE_COMMENT_FAILURE,
@@ -20,6 +21,8 @@ import {
   GET_ALBUM_SUCCESS,
   GET_COMMENTS_FAILURE,
   GET_COMMENTS_SUCCESS,
+  LIKE_ALBUM_FAILURE,
+  LIKE_ALBUM_SUCCESS,
 } from "store/reducers/albumReducer/actions";
 import { AnyAction } from "redux";
 
@@ -108,6 +111,21 @@ export function* handleEditComment(action: AnyAction): any {
   } catch (error: any) {
     yield put({
       type: EDIT_COMMENT_FAILURE,
+      payload: error.response.data,
+    });
+  }
+}
+
+export function* handleLikeAlbum(action: AnyAction): any {
+  try {
+    const response = yield call(likeAlbumAPI, action.payload);
+    yield put({
+      type: LIKE_ALBUM_SUCCESS,
+      payload: response,
+    });
+  } catch (error: any) {
+    yield put({
+      type: LIKE_ALBUM_FAILURE,
       payload: error.response.data,
     });
   }

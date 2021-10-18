@@ -10,7 +10,6 @@ import { createRef, useCallback, useEffect, useState, VFC } from "react";
 import ReactLoading from "react-loading";
 import useInput from "hooks/useInput";
 import useAuth from "hooks/redux/useAuth";
-import { toast } from "react-toastify";
 
 interface IAlbumCommentProps {
   commentInputRef: any;
@@ -26,7 +25,8 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
   const [editNumber, setEditNumber] = useState<number>();
   const [commentInput, onChangeCommentInput, setCommentInput] = useInput("");
   const [isToggleMode, setIsToggleMode] = useState<boolean>(false);
-  const [editCommentText, onChangeEditCommentText] = useInput("");
+  const [editCommentText, onChangeEditCommentText, setEditCommentText] =
+    useInput("");
   const toggleEditMode = useCallback((mode: "OPEN" | "CLOSE") => {
     if (mode === "OPEN") {
       setIsToggleMode(true);
@@ -86,7 +86,6 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
   useEffect(() => {
     //* 댓글 삭제 후 댓글리스트 렌더링
     if (albumState.deleteCommentDone && albumState.album?.id) {
-      toast.success("삭제 완료");
       getComments(albumState.album.id);
     }
   }, [albumState.deleteCommentDone, albumState.album?.id, getComments]);
@@ -166,6 +165,7 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
                         onClick={() => {
                           toggleEditMode("OPEN");
                           setEditNumber(comment.id);
+                          setEditCommentText(comment.content);
                         }}
                         className="edit_buttons_edit"
                       >

@@ -10,6 +10,7 @@ import {
   GET_ALBUMS_REQUEST,
   GET_ALBUM_REQUEST,
   GET_COMMENTS_REQUEST,
+  LIKE_ALBUM_REQUEST,
   OPEN_ALBUM,
 } from "store/reducers/albumReducer/actions";
 
@@ -83,6 +84,16 @@ const useAlbum = () => {
     [dispatch]
   );
 
+  const likeAlbum = useCallback(
+    (albumId: number) => {
+      dispatch({
+        type: LIKE_ALBUM_REQUEST,
+        payload: albumId,
+      });
+    },
+    [dispatch]
+  );
+
   const openAlbum = useCallback(() => {
     dispatch({
       type: OPEN_ALBUM,
@@ -105,6 +116,7 @@ const useAlbum = () => {
     createComment,
     deleteComment,
     editComment,
+    likeAlbum,
   };
 };
 

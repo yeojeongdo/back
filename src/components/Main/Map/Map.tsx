@@ -17,8 +17,8 @@ const Map = ({ albums, setAlbums }: mapType) => {
   const [longTitude, setLongTitude] = useState<number>(128.4140176);
   const { searchMapListState } = useSearch();
   const LatLng = {
-    lat: searchMapListState.searchMapList[0].y,
-    lng: searchMapListState.searchMapList[0].x,
+    lat: latitude,
+    lng: longTitude,
   };
   console.log(albums);
   return (
@@ -37,9 +37,9 @@ const Map = ({ albums, setAlbums }: mapType) => {
         disableClickZoom={true} // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
         onClusterclick={(target, cluster) => {
           const markers: Album[] = [];
-          cluster.getMarkers().map(marker => {
+          cluster.getMarkers().map((marker) => {
             console.log(marker.getTitle());
-            return albums.map(album => {
+            return albums.map((album) => {
               if (album.building.address === marker.getTitle()) {
                 markers.push(album);
               }
@@ -71,8 +71,11 @@ const Map = ({ albums, setAlbums }: mapType) => {
           />
         ))}
         {searchMapListState.searchMapList &&
-          searchMapListState.searchMapList.map(current => (
-            <MapMarker position={{ lat: current.y, lng: current.x }}>
+          searchMapListState.searchMapList.map((current) => (
+            <MapMarker
+              position={{ lat: current.y, lng: current.x }}
+              infoWindowOptions={{ className: "map_marker" }}
+            >
               {current.address_name + "/" + current.place_name}
             </MapMarker>
           ))}

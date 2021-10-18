@@ -37,6 +37,7 @@ export const AlbumViewContainer = styled.div`
         width: 100%;
       }
       .album_main_photo {
+        object-fit: contain;
       }
     }
     &_photos {

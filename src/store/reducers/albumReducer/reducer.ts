@@ -21,6 +21,9 @@ import {
   EDIT_COMMENT_REQUEST,
   EDIT_COMMENT_SUCCESS,
   EDIT_COMMENT_FAILURE,
+  LIKE_ALBUM_REQUEST,
+  LIKE_ALBUM_SUCCESS,
+  LIKE_ALBUM_FAILURE,
 } from "./actions";
 import { AlbumActions, AlbumState } from "./types";
 
@@ -48,6 +51,10 @@ const initalState: AlbumState = {
   editCommentDone: false,
   editCommentError: null,
   editCommentLoading: false,
+
+  likeAlbumDone: false,
+  likeAlbumError: null,
+  likeAlbumLoading: false,
 
   albums: [],
 
@@ -166,6 +173,23 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
       draft.editCommentLoading = true;
       draft.editCommentDone = false;
       draft.editCommentError = action.payload;
+    }),
+  [LIKE_ALBUM_REQUEST]: (state, action) =>
+    produce(state, (draft) => {
+      draft.likeAlbumLoading = true;
+      draft.likeAlbumDone = false;
+      draft.likeAlbumError = null;
+    }),
+  [LIKE_ALBUM_SUCCESS]: (state, action) =>
+    produce(state, (draft) => {
+      draft.likeAlbumLoading = false;
+      draft.likeAlbumDone = true;
+    }),
+  [LIKE_ALBUM_FAILURE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.likeAlbumLoading = true;
+      draft.likeAlbumDone = false;
+      draft.likeAlbumError = action.payload;
     }),
   [OPEN_ALBUM]: (state, action) =>
     produce(state, (draft) => {

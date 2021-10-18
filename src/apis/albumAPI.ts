@@ -33,3 +33,7 @@ export interface IEditCommentData {
 export const editCommentAPI = (data: IEditCommentData) => {
   return axios.patch(`/comment`, data);
 };
+
+export const likeAlbumAPI = (albumId: number) => {
+  return axios.patch(`/like`, { albumId });
+};
