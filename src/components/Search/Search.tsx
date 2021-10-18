@@ -4,7 +4,7 @@ import useCreate from "hooks/redux/useCreate";
 import useSearch from "hooks/redux/useSearch";
 import useInput from "hooks/useInput";
 import React, { useCallback } from "react";
-import { SearchContainer } from "./searchStyles";
+import { SearchContainer, SearchList, SearchListItem } from "./searchStyles";
 
 enum SortBy {
   DISTANCE = "distance",
@@ -12,12 +12,20 @@ enum SortBy {
 
 const Search = () => {
   const { markerState } = useCreate();
-  const { searchMap, searchMapListState } = useSearch();
-  const [value, onChangeValue] = useInput("대구 소프트웨어 마이스터 고등학교");
+  const { searchMap, searchMapListState, setCenterSearching } = useSearch();
+  const [value, onChangeValue] = useInput(searchMapListState.searchValue);
 
   const submit = useCallback(() => {
     const ps = new kakao.maps.services.Places();
     // const bounds = new kakao.maps.LatLngBounds()
+    // const pp = new kakao.maps.services.Geocoder();
+    // pp.transCoord(
+    //   markerState.LatLng.lng,
+    //   markerState.LatLng.lat,
+    //   (result, status) => {
+    //     console.log(result, status);
+    //   }
+    // );
     ps.keywordSearch(
       value,
       (data, status) => {
@@ -25,7 +33,7 @@ const Search = () => {
         if (status === kakao.maps.services.Status.OK) {
           data && console.log(data);
           // console.log(data);
-          searchMap(data);
+          searchMap(data, value);
         }
       },
       {
@@ -45,6 +53,17 @@ const Search = () => {
           placeholder="검색할 내용을 입력해 주세요"
         />
       </Form>
+      <SearchList>
+        {searchMapListState.searchMapList &&
+          searchMapListState.searchMapList.map(current => (
+            <SearchListItem onClick={() => setCenterSearching(current)}>
+              <div>
+                {current.address_name}
+                <div>{current.place_name}</div>
+              </div>
+            </SearchListItem>
+          ))}
+      </SearchList>
     </SearchContainer>
   );
 };

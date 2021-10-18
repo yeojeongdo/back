@@ -7,16 +7,17 @@ const CreaterMap = () => {
   const { searchMapListState } = useSearch();
 
   const LatLng = {
-    lat: searchMapListState.searchMapList[0].y,
-    lng: searchMapListState.searchMapList[0].x,
+    lat: searchMapListState.centerSearching
+      ? searchMapListState.centerSearching.y
+      : 0,
+    lng: searchMapListState.centerSearching
+      ? searchMapListState.centerSearching.x
+      : 0,
   };
 
   return (
     <Map
-      center={
-        // 지도의 중심좌표
-        LatLng
-      }
+      center={LatLng}
       style={{
         // 지도의 크기
         flex: "3 1 0%",
@@ -45,7 +46,7 @@ const CreaterMap = () => {
         ></MapMarker>
       )}
       {searchMapListState.searchMapList &&
-        searchMapListState.searchMapList.map((current) => (
+        searchMapListState.searchMapList.map(current => (
           <MapMarker position={{ lat: current.y, lng: current.x }} />
         ))}
     </Map>
