@@ -16,14 +16,14 @@ const Map = ({ albums, setAlbums }: mapType) => {
   const [latitude, setLatitude] = useState<number>(35.6632143);
   const [longTitude, setLongTitude] = useState<number>(128.4140176);
   const { searchMapListState } = useSearch();
+  const LatLng = {
+    lat: searchMapListState.searchMapList[0].y,
+    lng: searchMapListState.searchMapList[0].x,
+  };
   console.log(albums);
   return (
     <CustomMap
-      center={{
-        // 지도의 중심좌표
-        lat: latitude,
-        lng: longTitude,
-      }}
+      center={LatLng}
       style={{
         // 지도의 크기
         flex: 3,
@@ -72,7 +72,9 @@ const Map = ({ albums, setAlbums }: mapType) => {
         ))}
         {searchMapListState.searchMapList &&
           searchMapListState.searchMapList.map(current => (
-            <MapMarker position={{ lat: current.y, lng: current.x }} />
+            <MapMarker position={{ lat: current.y, lng: current.x }}>
+              {current.address_name + "/" + current.place_name}
+            </MapMarker>
           ))}
       </MarkerClusterer>
     </CustomMap>
