@@ -15,30 +15,6 @@ const CreaterMap = () => {
   const { searchMap, searchMapListState } = useSearch();
   const [text, onChangeText] = useInput("대구 소프트웨어 마이스터 고등학교");
   const [map, setMap] = useState<kakao.maps.Map>();
-  // useEffect(() => {
-  //   if (!map) return;
-  //   const ps = new kakao.maps.services.Places();
-  //   // const bounds = new kakao.maps.LatLngBounds()
-  //   ps.keywordSearch(
-  //     text,
-  //     (data, status) => {
-  //       // const bounds = new kakao.maps.LatLngBounds()
-  //       if (status === kakao.maps.services.Status.OK) {
-  //         data && console.log(data);
-  //         console.log(searchMapListState);
-  //         data.map(({ x, y }) => {
-  //           searchMap([{ LatLng: { lat: y, lng: x } }]);
-  //           // setMarker({ lat: x, lng: y });
-  //         });
-  //       }
-  //     },
-  //     {
-  //       y: markerState.LatLng.lat,
-  //       x: markerState.LatLng.lng,
-  //       sort: SortBy.DISTANCE,
-  //     }
-  //   );
-  // }, [text, onChangeText, setMarker, map, markerState, searchMap]);
 
   return (
     <Map
@@ -76,9 +52,10 @@ const CreaterMap = () => {
           <Input value={text} onChange={onChangeText} />
         </MapMarker>
       )}
-      {/* {markers.map(current => {
-        <MapMarker position={current.LatLng} draggable={true} />;
-      })} */}
+      {searchMapListState.searchMapList &&
+        searchMapListState.searchMapList.map(current => (
+          <MapMarker position={{ lat: current.y, lng: current.x }} />
+        ))}
     </Map>
   );
 };
