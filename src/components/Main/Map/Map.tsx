@@ -1,3 +1,4 @@
+import useSearch from "hooks/redux/useSearch";
 import { useState } from "react";
 import {
   Map as CustomMap,
@@ -14,13 +15,15 @@ interface mapType {
 const Map = ({ albums, setAlbums }: mapType) => {
   const [latitude, setLatitude] = useState<number>(35.6632143);
   const [longTitude, setLongTitude] = useState<number>(128.4140176);
+  const { searchMapListState } = useSearch();
+  const LatLng = {
+    lat: searchMapListState.searchMapList[0].y,
+    lng: searchMapListState.searchMapList[0].x,
+  };
+  console.log(albums);
   return (
     <CustomMap
-      center={{
-        // 지도의 중심좌표
-        lat: latitude,
-        lng: longTitude,
-      }}
+      center={LatLng}
       style={{
         // 지도의 크기
         flex: 3,
@@ -49,10 +52,7 @@ const Map = ({ albums, setAlbums }: mapType) => {
         {albums.map((album, index) => (
           <MapMarker
             position={{
-              lat:
-                album.building.latitude +
-                index /
-                  100 /* 더미데이터의 값이 같기떄문에 차이가 보이지 않아 임시로 지정 이후 삭제바람 */,
+              lat: album.building.latitude,
               lng: album.building.longitude,
             }}
             image={{
@@ -70,6 +70,12 @@ const Map = ({ albums, setAlbums }: mapType) => {
             title={album.building.address}
           />
         ))}
+        {searchMapListState.searchMapList &&
+          searchMapListState.searchMapList.map(current => (
+            <MapMarker position={{ lat: current.y, lng: current.x }}>
+              {current.address_name + "/" + current.place_name}
+            </MapMarker>
+          ))}
       </MarkerClusterer>
     </CustomMap>
   );

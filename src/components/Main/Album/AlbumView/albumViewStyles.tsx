@@ -36,6 +36,8 @@ export const AlbumViewContainer = styled.div`
       .album_main_comments {
         width: 100%;
       }
+      .album_main_photo {
+      }
     }
     &_photos {
       flex: 3;

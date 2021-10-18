@@ -1,15 +1,22 @@
 import useCreate from "hooks/redux/useCreate";
+import useSearch from "hooks/redux/useSearch";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const CreaterMap = () => {
   const { setMarker, markerState } = useCreate();
+  const { searchMapListState } = useSearch();
+
+  const LatLng = {
+    lat: searchMapListState.searchMapList[0].y,
+    lng: searchMapListState.searchMapList[0].x,
+  };
+
   return (
     <Map
-      center={{
+      center={
         // 지도의 중심좌표
-        lat: 35.6632143,
-        lng: 128.4140176,
-      }}
+        LatLng
+      }
       style={{
         // 지도의 크기
         flex: "3 1 0%",
@@ -35,8 +42,12 @@ const CreaterMap = () => {
             });
           }}
           draggable={true}
-        />
+        ></MapMarker>
       )}
+      {searchMapListState.searchMapList &&
+        searchMapListState.searchMapList.map((current) => (
+          <MapMarker position={{ lat: current.y, lng: current.x }} />
+        ))}
     </Map>
   );
 };

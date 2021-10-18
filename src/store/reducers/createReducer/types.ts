@@ -5,4 +5,7 @@ export interface LatLng {
 
 export interface CreateState {
   LatLng: LatLng;
+  createAlbumLoading: boolean;
+  createAlbumError: null;
+  createAlbumDone: boolean;
 }
