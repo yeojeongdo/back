@@ -1,3 +1,4 @@
+import Search from "components/Search/Search";
 import useAuth from "hooks/redux/useAuth";
 import { useCallback, useEffect } from "react";
 import { HeaderContainer } from "./headerStyles";
@@ -15,6 +16,7 @@ const Header = () => {
       <HeaderContainer>
         <h1 className="header-title">여정도</h1>
         <ul className="header-options">
+          <Search />
           <li>{authState.myInfo?.name}님 환영합니다</li>
           <li className="logout" onClick={handleLogout}>
             로그아웃
