@@ -1,14 +1,14 @@
 import produce from "immer";
 import { createReducer } from "typesafe-actions";
 import { SEARCH_MAP } from "./actions";
-import { SearchState } from "./types";
+import { searchState } from "./types";
 
-const initalState: SearchState = {
+const initalState: searchState = {
   searchMapList: [],
   searchValue: "대구 소프트웨어 고등학교",
 };
 
-export default createReducer<SearchState>(initalState, {
+export default createReducer<searchState>(initalState, {
   [SEARCH_MAP]: (state, action) =>
     produce(state, draft => {
       draft.searchMapList = action.payload.data;

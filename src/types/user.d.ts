@@ -1,7 +1,7 @@
 interface User {
   birthDay: string;
   gender: "Male" | "Female";
-  id: number;
+  id: string;
   name: string;
   image: string;
 }

@@ -6,7 +6,6 @@ import useAuth from "hooks/redux/useAuth";
 import { useEffect } from "react";
 import LoadingPage from "pages/LoadingPage/LoadingPage";
 import CreatePage from "pages/CreatePage/CreatetPage";
-import UserPage from "pages/UserPage/UserPage";
 
 const Routes = () => {
   const {
@@ -28,9 +27,6 @@ const Routes = () => {
         </Route>
         <Route exact path="/create">
           <CreatePage />
-        </Route>
-        <Route exact path="/user/:userIdx">
-          <UserPage />
         </Route>
         <Route exact path="/login">
           <LoginPage />
