@@ -11,8 +11,8 @@ enum SortBy {
 }
 
 const Search = () => {
-  const { setMarker, markerState } = useCreate();
-  const { searchMap, searchMapListState } = useSearch();
+  const { markerState } = useCreate();
+  const { searchMap, searchMapListState, setCenterSearching } = useSearch();
   const [value, onChangeValue] = useInput(searchMapListState.searchValue);
 
   const submit = useCallback(() => {
@@ -56,9 +56,7 @@ const Search = () => {
       <SearchList>
         {searchMapListState.searchMapList &&
           searchMapListState.searchMapList.map(current => (
-            <SearchListItem
-              onClick={() => setMarker({ lat: current.y, lng: current.x })}
-            >
+            <SearchListItem onClick={() => setCenterSearching(current)}>
               <div>
                 {current.address_name}
                 <div>{current.place_name}</div>

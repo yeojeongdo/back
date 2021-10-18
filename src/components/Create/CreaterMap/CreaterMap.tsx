@@ -7,8 +7,12 @@ const CreaterMap = () => {
   const { searchMapListState } = useSearch();
 
   const LatLng = {
-    lat: 35.6632143,
-    lng: 128.4140176,
+    lat: searchMapListState.centerSearching
+      ? searchMapListState.centerSearching.y
+      : 0,
+    lng: searchMapListState.centerSearching
+      ? searchMapListState.centerSearching.x
+      : 0,
   };
 
   return (
