@@ -1,0 +1,38 @@
+import { AxiosError, AxiosResponse } from "axios";
+import { createAsyncAction } from "typesafe-actions";
+
+export const GET_USER_INFO_REQUEST = "user/GET_USER_INFO_REQUEST" as const;
+export const GET_USER_INFO_SUCCESS = "user/GET_USER_INFO_SUCCESS" as const;
+export const GET_USER_INFO_FAILURE = "user/GET_USER_INFO_FAILURE" as const;
+
+export const GET_USER_FOLLOWERS_REQUEST =
+  "user/GET_USER_FOLLOWERS_REQUEST" as const;
+export const GET_USER_FOLLOWERS_SUCCESS =
+  "user/GET_USER_FOLLOWERS_SUCCESS" as const;
+export const GET_USER_FOLLOWERS_FAILURE =
+  "user/GET_USER_FOLLOWERS_FAILURE" as const;
+
+export const GET_USER_FOLLOWINGS_REQUEST =
+  "user/GET_USER_FOLLOWINGS_REQUEST" as const;
+export const GET_USER_FOLLOWINGS_SUCCESS =
+  "user/GET_USER_FOLLOWINGS_SUCCESS" as const;
+export const GET_USER_FOLLOWINGS_FAILURE =
+  "user/GET_USER_FOLLOWINGS_FAILURE" as const;
+
+export const getUserInfoAsyncAction = createAsyncAction(
+  GET_USER_INFO_REQUEST,
+  GET_USER_INFO_SUCCESS,
+  GET_USER_INFO_FAILURE
+)<any, AxiosResponse, AxiosError<any>>();
+
+export const getUserFollowersAsyncAction = createAsyncAction(
+  GET_USER_FOLLOWERS_REQUEST,
+  GET_USER_FOLLOWERS_SUCCESS,
+  GET_USER_FOLLOWERS_FAILURE
+)<any, AxiosResponse, AxiosError<any>>();
+
+export const getUserFollowingsAsyncAction = createAsyncAction(
+  GET_USER_FOLLOWINGS_REQUEST,
+  GET_USER_FOLLOWINGS_SUCCESS,
+  GET_USER_FOLLOWINGS_FAILURE
+)<any, AxiosResponse, AxiosError<any>>();
