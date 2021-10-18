@@ -1,3 +1,4 @@
+import useSearch from "hooks/redux/useSearch";
 import { useState } from "react";
 import {
   Map as CustomMap,
@@ -14,6 +15,7 @@ interface mapType {
 const Map = ({ albums, setAlbums }: mapType) => {
   const [latitude, setLatitude] = useState<number>(35.6632143);
   const [longTitude, setLongTitude] = useState<number>(128.4140176);
+  const { searchMapListState } = useSearch();
   console.log(albums);
   return (
     <CustomMap
@@ -68,6 +70,10 @@ const Map = ({ albums, setAlbums }: mapType) => {
             title={album.building.address}
           />
         ))}
+        {searchMapListState.searchMapList &&
+          searchMapListState.searchMapList.map(current => (
+            <MapMarker position={{ lat: current.y, lng: current.x }} />
+          ))}
       </MarkerClusterer>
     </CustomMap>
   );

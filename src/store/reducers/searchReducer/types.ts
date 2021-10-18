@@ -6,12 +6,12 @@ export interface searchMapListType {
   /**
    * 장소 ID
    */
-  id: string;
+  id: number;
 
   /**
    * 장소명, 업체명
    */
-  place_name: string;
+  place_name: number;
 
   /**
    * 카테고리 이름
