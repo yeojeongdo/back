@@ -49,12 +49,12 @@ export interface searchMapListType {
   /**
    * X 좌표값 혹은 longitude
    */
-  x: string;
+  x: number;
 
   /**
    * Y 좌표값 혹은 latitude
    */
-  y: string;
+  y: number;
 
   /**
    * 장소 상세페이지 URL

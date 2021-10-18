@@ -21,7 +21,7 @@ const Form: React.FC<FormPropsType> = ({ children, ...props }) => {
   );
 
   return (
-    <FormContainer onSubmit={handleSubmit}>
+    <FormContainer {...props} onSubmit={handleSubmit}>
       {children}
       {props.hasSubmit && <Button>{props.submitText}</Button>}
     </FormContainer>

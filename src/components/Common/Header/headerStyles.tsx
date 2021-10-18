@@ -11,13 +11,18 @@ export const HeaderContainer = styled.header`
   position: fixed;
   left: 0;
   top: 0;
+  gap: 15px;
   z-index: 9999;
   .header-title {
     font-size: 16px;
+    flex: 1;
   }
   .header-options {
     display: flex;
     list-style: none;
+    flex: 5;
+    justify-content: space-between;
+    align-items: center;
     li {
       margin-right: 1rem;
     }
