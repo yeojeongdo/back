@@ -1,7 +1,15 @@
 import axios from "axios";
 
 export const userInfoAPI = (userIdx: number) => {
-  return axios.get("/user");
+  return axios.get(`/user`, {
+    params: {
+      idx: userIdx,
+    },
+  });
+};
+
+export const followNumberAPI = (userIdx: number) => {
+  return axios.get(`/follow/numbers/${userIdx}`);
 };
 
 export const followersAPI = (userIdx: number) => {

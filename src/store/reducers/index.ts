@@ -30,7 +30,7 @@ export interface RootState {
   album: AlbumState;
   create: CreateState;
   search: SearchState;
-  uesr: UserState;
+  user: UserState;
 }
 
 export const useTypedSelector = createSelectorHook<RootState>();
