@@ -1,5 +1,8 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { createAsyncAction } from "typesafe-actions";
+import { createAction, createAsyncAction } from "typesafe-actions";
+
+export const GET_USER_INFO_ALL_REQUEST =
+  "user/GET_USER_INFO_ALL_REQUEST" as const;
 
 export const GET_USER_INFO_REQUEST = "user/GET_USER_INFO_REQUEST" as const;
 export const GET_USER_INFO_SUCCESS = "user/GET_USER_INFO_SUCCESS" as const;
@@ -18,6 +21,8 @@ export const GET_USER_FOLLOWINGS_SUCCESS =
   "user/GET_USER_FOLLOWINGS_SUCCESS" as const;
 export const GET_USER_FOLLOWINGS_FAILURE =
   "user/GET_USER_FOLLOWINGS_FAILURE" as const;
+
+export const getUserInfoAllAction = createAction(GET_USER_INFO_ALL_REQUEST);
 
 export const getUserInfoAsyncAction = createAsyncAction(
   GET_USER_INFO_REQUEST,
