@@ -11,7 +11,7 @@ enum SortBy {
 }
 
 const Search = () => {
-  const { markerState } = useCreate();
+  const { setMarker, markerState } = useCreate();
   const { searchMap, searchMapListState } = useSearch();
   const [value, onChangeValue] = useInput(searchMapListState.searchValue);
 
@@ -56,7 +56,9 @@ const Search = () => {
       <SearchList>
         {searchMapListState.searchMapList &&
           searchMapListState.searchMapList.map(current => (
-            <SearchListItem>
+            <SearchListItem
+              onClick={() => setMarker({ lat: current.y, lng: current.x })}
+            >
               <div>
                 {current.address_name}
                 <div>{current.place_name}</div>

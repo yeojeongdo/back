@@ -6,15 +6,10 @@ const CreaterMap = () => {
   const { setMarker, markerState } = useCreate();
   const { searchMapListState } = useSearch();
 
-  const LatLng = searchMapListState.searchMapList[0]
-    ? {
-        lat: searchMapListState.searchMapList[0].y,
-        lng: searchMapListState.searchMapList[0].x,
-      }
-    : {
-        lat: 35.6632143,
-        lng: 128.4140176,
-      };
+  const LatLng = {
+    lat: 35.6632143,
+    lng: 128.4140176,
+  };
 
   return (
     <Map
