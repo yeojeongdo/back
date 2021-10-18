@@ -8,6 +8,10 @@ const initialState: UserState = {
   getUserInfoError: null,
   getUserInfoDone: false,
 
+  getAllUserInfoLoading: false,
+  getAllUserInfoError: null,
+  getAllUserInfoDone: false,
+
   getUserFollowingsLoading: false,
   getUserFollowingsError: null,
   getUserFollowingsDone: false,
@@ -16,6 +20,11 @@ const initialState: UserState = {
   getUserFollowersError: null,
   getUserFollowersDone: false,
 
+  getUserFollowNumberLoading: false,
+  getUserFollowNumberError: null,
+  getUserFollowNumberDone: false,
+
+  followNumbers: { followerNum: 0, followingNum: 0 },
   userInfo: null,
   followers: 0,
   followings: 0,
@@ -27,6 +36,8 @@ export default createReducer<UserState>(initialState, {
       draft.getUserInfoLoading = true;
       draft.getUserInfoDone = false;
       draft.getUserInfoError = null;
+
+      draft.userInfo = null;
     }),
   [userActions.GET_USER_INFO_SUCCESS]: (state, action) =>
     produce(state, (draft) => {
@@ -75,5 +86,29 @@ export default createReducer<UserState>(initialState, {
       draft.getUserFollowingsLoading = false;
       draft.getUserFollowingsDone = false;
       draft.getUserFollowingsError = action.payload;
+    }),
+  [userActions.GET_USER_FOLLOW_NUMBER_REQUEST]: (state) =>
+    produce(state, (draft) => {
+      draft.getUserFollowNumberLoading = true;
+      draft.getUserFollowNumberDone = false;
+      draft.getUserFollowNumberError = null;
+    }),
+  [userActions.GET_USER_FOLLOW_NUMBER_SUCCESS]: (state, action) =>
+    produce(state, (draft) => {
+      draft.getUserFollowNumberLoading = false;
+      draft.getUserFollowNumberDone = true;
+      draft.followNumbers = action.payload;
+    }),
+  [userActions.GET_USER_FOLLOW_NUMBER_FAILURE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.getUserFollowNumberLoading = false;
+      draft.getUserFollowNumberDone = false;
+      draft.getUserFollowNumberError = action.payload;
+    }),
+  [userActions.GET_USER_INFO_ALL_REQUEST]: (state, action) =>
+    produce(state, (draft) => {
+      draft.getUserInfoLoading = true;
+      draft.getUserInfoDone = false;
+      draft.getUserInfoError = null;
     }),
 });

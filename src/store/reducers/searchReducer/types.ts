@@ -1,4 +1,4 @@
-export interface searchState {
+export interface SearchState {
   searchMapList: searchMapListType[];
   searchValue: string;
 }
