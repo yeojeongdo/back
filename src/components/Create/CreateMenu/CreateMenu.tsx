@@ -5,6 +5,11 @@ import useInput from "hooks/useInput";
 import React, { useCallback } from "react";
 import { useState } from "react";
 import { CreateMenuContainer, CreateMenuImageView } from "./createMenuStyles";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const CreateMenu = () => {
   const { markerState, createAlbum } = useCreate();
   const latLng = markerState.LatLng;
@@ -41,19 +46,23 @@ const CreateMenu = () => {
     }
   }, []);
 
+  const settings = {
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    dots: true,
+  };
+
   return (
     <CreateMenuContainer>
       <Form hasSubmit submitText="작성하기" onSubmit={submit}>
         {latLng.lat + "/" + latLng.lng}
         <CreateMenuImageView>
-          {console.log(preview)}
-          {preview[0] &&
-            preview.map(view => (
-              <div>
-                <img src={view} alt="" />
-              </div>
-            ))}
-
+          <Slider {...settings}>
+            {preview[0] && preview.map(view => <img src={view} alt="" />)}
+          </Slider>
           <Input
             type="file"
             id="albumFile"

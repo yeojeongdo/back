@@ -13,13 +13,17 @@ export const CreateMenuContainer = styled.div`
 export const CreateMenuImageView = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   div {
-    border: 1px solid black;
     img {
       width: 100%;
+      height: 100%;
+      height: 400px;
+      object-fit: cover;
     }
   }
   label {
+    margin-top: 20px;
     width: 100%;
   }
 `;
