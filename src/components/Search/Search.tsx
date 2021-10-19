@@ -12,10 +12,11 @@ enum SortBy {
 
 const Search = () => {
   const { markerState } = useCreate();
-  const { searchMap, searchMapListState, setCenterSearching } = useSearch();
+  const { searchMap, searchMapListState, setCenterSearching, setSearchModal } =
+    useSearch();
   const valueList = searchMapListState.searchValue;
+  const isModal = searchMapListState.isSearchModal;
   const [value, onChangeValue] = useInput(valueList[valueList.length - 1]);
-  const [isModel, setIsModel] = useState<boolean>(false);
 
   const submit = useCallback(() => {
     const ps = new kakao.maps.services.Places();
@@ -44,8 +45,8 @@ const Search = () => {
         sort: SortBy.DISTANCE,
       }
     );
-    setIsModel(true);
-  }, [value, searchMap, markerState]);
+    setSearchModal(true);
+  }, [value, searchMap, markerState, setSearchModal]);
 
   return (
     <SearchContainer>
@@ -53,17 +54,17 @@ const Search = () => {
         <Input
           value={value}
           onChange={onChangeValue}
-          onClick={() => setIsModel(true)}
+          onClick={() => setSearchModal(true)}
           placeholder="검색할 내용을 입력해 주세요"
         />
       </Form>
-      {isModel && (
+      {isModal && (
         <SearchList>
           {searchMapListState.searchMapList.map(current => (
             <SearchListItem
               onClick={() => {
                 setCenterSearching(current);
-                setIsModel(false);
+                setSearchModal(false);
               }}
             >
               <div>

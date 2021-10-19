@@ -4,6 +4,7 @@ import { useTypedSelector } from "store/reducers";
 import {
   SEARCH_MAP,
   SET_CENTER_SEARCHING,
+  SET_SEARCH_MODAL,
 } from "store/reducers/searchReducer/actions";
 
 const useSearch = () => {
@@ -31,7 +32,17 @@ const useSearch = () => {
     [dispatch]
   );
 
-  return { searchMap, setCenterSearching, searchMapListState };
+  const setSearchModal = useCallback(
+    (data: boolean) => {
+      dispatch({
+        type: SET_SEARCH_MODAL,
+        payload: data,
+      });
+    },
+    [dispatch]
+  );
+
+  return { searchMap, setCenterSearching, setSearchModal, searchMapListState };
 };
 
 export default useSearch;
