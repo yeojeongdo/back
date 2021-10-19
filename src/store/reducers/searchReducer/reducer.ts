@@ -14,10 +14,18 @@ export default createReducer<SearchState>(initalState, {
   [SEARCH_MAP]: (state, action) =>
     produce(state, draft => {
       draft.searchMapList = action.payload.data;
-      draft.searchValue =
-        draft.searchValue.indexOf(action.payload.searchValue) === -1
-          ? [action.payload.searchValue, ...draft.searchValue]
-          : [...draft.searchValue];
+      const isOld =
+        draft.searchValue.lastIndexOf(action.payload.searchValue) !== -1;
+      draft.searchValue = [
+        action.payload.searchValue,
+        ...draft.searchValue.filter(value => {
+          return value !== action.payload.searchValue;
+        }),
+      ];
+      console.log(
+        isOld,
+        draft.searchValue.lastIndexOf(action.payload.searchValue)
+      );
     }),
   [SET_CENTER_SEARCHING]: (state, action) =>
     produce(state, draft => {
