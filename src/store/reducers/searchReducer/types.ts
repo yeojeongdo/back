@@ -1,6 +1,6 @@
 export interface SearchState {
   searchMapList: searchMapListType[];
-  searchValue: string;
+  searchValue: string[];
   centerSearching: searchMapListType | null;
 }
 

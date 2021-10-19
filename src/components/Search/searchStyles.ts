@@ -21,8 +21,9 @@ export const SearchContainer = styled.li`
 export const SearchList = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 650px;
+  max-height: 650px;
   width: 100%;
+  background-color: white;
 `;
 
 export const SearchListItem = styled.div`

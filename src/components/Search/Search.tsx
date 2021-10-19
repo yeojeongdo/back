@@ -3,7 +3,7 @@ import Input from "components/Common/Input/Input";
 import useCreate from "hooks/redux/useCreate";
 import useSearch from "hooks/redux/useSearch";
 import useInput from "hooks/useInput";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { SearchContainer, SearchList, SearchListItem } from "./searchStyles";
 
 enum SortBy {
@@ -13,7 +13,9 @@ enum SortBy {
 const Search = () => {
   const { markerState } = useCreate();
   const { searchMap, searchMapListState, setCenterSearching } = useSearch();
-  const [value, onChangeValue] = useInput(searchMapListState.searchValue);
+  const valueList = searchMapListState.searchValue;
+  const [value, onChangeValue] = useInput(valueList[valueList.length - 1]);
+  const [isModel, setIsModel] = useState<boolean>(false);
 
   const submit = useCallback(() => {
     const ps = new kakao.maps.services.Places();
@@ -33,7 +35,7 @@ const Search = () => {
         if (status === kakao.maps.services.Status.OK) {
           data && console.log(data);
           // console.log(data);
-          searchMap(data, value);
+          searchMap(data, [value]);
         }
       },
       {
@@ -42,6 +44,7 @@ const Search = () => {
         sort: SortBy.DISTANCE,
       }
     );
+    setIsModel(true);
   }, [value, searchMap, markerState]);
 
   return (
@@ -50,20 +53,27 @@ const Search = () => {
         <Input
           value={value}
           onChange={onChangeValue}
+          onClick={() => setIsModel(true)}
           placeholder="검색할 내용을 입력해 주세요"
         />
       </Form>
-      <SearchList>
-        {searchMapListState.searchMapList &&
-          searchMapListState.searchMapList.map(current => (
-            <SearchListItem onClick={() => setCenterSearching(current)}>
+      {isModel && (
+        <SearchList>
+          {searchMapListState.searchMapList.map(current => (
+            <SearchListItem
+              onClick={() => {
+                setCenterSearching(current);
+                setIsModel(false);
+              }}
+            >
               <div>
                 {current.address_name}
                 <div>{current.place_name}</div>
               </div>
             </SearchListItem>
           ))}
-      </SearchList>
+        </SearchList>
+      )}
     </SearchContainer>
   );
 };
