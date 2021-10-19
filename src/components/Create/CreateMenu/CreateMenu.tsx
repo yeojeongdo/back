@@ -8,15 +8,16 @@ import { CreateMenuContainer } from "./createMenuStyles";
 const CreateMenu = () => {
   const { markerState, createAlbum } = useCreate();
   const latLng = markerState.LatLng;
+  const selectedMarker = markerState.selectedMarker;
   const [memo, onChangeMemo] = useInput("");
   const [file, setFile] = useState<any>();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>();
 
   const submit = useCallback(() => {
     const form = new FormData();
-    form.append("address", "대구 어디");
-    form.append("latitude", latLng.lat.toString());
-    form.append("longitude", latLng.lng.toString());
+    selectedMarker && form.append("address", selectedMarker.address_name);
+    selectedMarker && form.append("latitude", selectedMarker.y.toString());
+    selectedMarker && form.append("longitude", selectedMarker.x.toString());
     form.append("memo", memo);
 
     file.forEach((file: any) => {
@@ -24,7 +25,7 @@ const CreateMenu = () => {
     });
 
     createAlbum(form);
-  }, [latLng, file, memo, createAlbum]);
+  }, [file, memo, createAlbum, selectedMarker]);
 
   const handleFileInput = useCallback(e => {
     const reader = new FileReader();
