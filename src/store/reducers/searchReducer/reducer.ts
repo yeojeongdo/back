@@ -14,7 +14,10 @@ export default createReducer<SearchState>(initalState, {
   [SEARCH_MAP]: (state, action) =>
     produce(state, draft => {
       draft.searchMapList = action.payload.data;
-      draft.searchValue = [...draft.searchValue, action.payload.searchValue];
+      draft.searchValue =
+        draft.searchValue.indexOf(action.payload.searchValue) === -1
+          ? [action.payload.searchValue, ...draft.searchValue]
+          : [...draft.searchValue];
     }),
   [SET_CENTER_SEARCHING]: (state, action) =>
     produce(state, draft => {

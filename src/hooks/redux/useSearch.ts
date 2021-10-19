@@ -13,7 +13,7 @@ const useSearch = () => {
   const searchMapListState = useTypedSelector(state => state.search);
 
   const searchMap = useCallback(
-    (data, searchValue) => {
+    (data, searchValue: string) => {
       dispatch({
         type: SEARCH_MAP,
         payload: { data, searchValue },

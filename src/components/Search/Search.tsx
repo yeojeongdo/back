@@ -16,37 +16,28 @@ const Search = () => {
     useSearch();
   const valueList = searchMapListState.searchValue;
   const isModal = searchMapListState.isSearchModal;
-  const [value, onChangeValue] = useInput(valueList[valueList.length - 1]);
+  const [value, onChangeValue, setValue] = useInput(valueList[0]);
 
-  const submit = useCallback(() => {
-    const ps = new kakao.maps.services.Places();
-    // const bounds = new kakao.maps.LatLngBounds()
-    // const pp = new kakao.maps.services.Geocoder();
-    // pp.transCoord(
-    //   markerState.LatLng.lng,
-    //   markerState.LatLng.lat,
-    //   (result, status) => {
-    //     console.log(result, status);
-    //   }
-    // );
-    ps.keywordSearch(
-      value,
-      (data, status) => {
-        // const bounds = new kakao.maps.LatLngBounds()
-        if (status === kakao.maps.services.Status.OK) {
-          data && console.log(data);
-          // console.log(data);
-          searchMap(data, [value]);
+  const submit = useCallback(
+    (avalue?: string) => {
+      const ps = new kakao.maps.services.Places();
+      ps.keywordSearch(
+        avalue ? avalue : value,
+        (data, status) => {
+          if (status === kakao.maps.services.Status.OK) {
+            searchMap(data, avalue ? avalue : value);
+          }
+        },
+        {
+          y: markerState.LatLng.lat,
+          x: markerState.LatLng.lng,
+          sort: SortBy.DISTANCE,
         }
-      },
-      {
-        y: markerState.LatLng.lat,
-        x: markerState.LatLng.lng,
-        sort: SortBy.DISTANCE,
-      }
-    );
-    setSearchModal(true);
-  }, [value, searchMap, markerState, setSearchModal]);
+      );
+      setSearchModal(true);
+    },
+    [value, searchMap, markerState, setSearchModal]
+  );
 
   return (
     <SearchContainer>
@@ -60,18 +51,31 @@ const Search = () => {
       </Form>
       {isModal && (
         <SearchList>
-          {searchMapListState.searchMapList.map(current => (
-            <SearchListItem
-              onClick={() => {
-                setCenterSearching(current);
-                setSearchModal(false);
-              }}
-            >
-              <div>
-                <p>{current.place_name}</p>
-              </div>
-            </SearchListItem>
-          ))}
+          {value !== ""
+            ? searchMapListState.searchMapList.map(current => (
+                <SearchListItem
+                  onClick={() => {
+                    setCenterSearching(current);
+                    setSearchModal(false);
+                  }}
+                >
+                  <div>
+                    <p>{current.place_name}</p>
+                  </div>
+                </SearchListItem>
+              ))
+            : valueList.map(current => (
+                <SearchListItem
+                  onClick={() => {
+                    submit(current);
+                    setValue(current);
+                  }}
+                >
+                  <div>
+                    <p>{current}</p>
+                  </div>
+                </SearchListItem>
+              ))}
         </SearchList>
       )}
     </SearchContainer>
