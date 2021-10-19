@@ -23,8 +23,10 @@ const Header = () => {
         <h1 className="header-title" onClick={pushMainPage}>
           여정도
         </h1>
-        <ul className="header-options">
+        <div className="header-search">
           <Search />
+        </div>
+        <ul className="header-options">
           <li>{authState.myInfo?.name}님 환영합니다</li>
           <li className="logout" onClick={handleLogout}>
             로그아웃

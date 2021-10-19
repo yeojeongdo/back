@@ -4,15 +4,16 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const CreaterMap = () => {
   const { setMarker, markerState } = useCreate();
-  const { searchMapListState } = useSearch();
+  const { searchMapListState, setCenterSearching, setSearchModal } =
+    useSearch();
 
   const LatLng = {
     lat: searchMapListState.centerSearching
       ? searchMapListState.centerSearching.y
-      : 0,
+      : 35.6632143,
     lng: searchMapListState.centerSearching
       ? searchMapListState.centerSearching.x
-      : 0,
+      : 128.4140176,
   };
 
   return (
@@ -25,12 +26,13 @@ const CreaterMap = () => {
       }}
       level={3}
       onClick={(_t, mouseEvent: any) => {
-        console.log(mouseEvent);
+        setSearchModal(false);
         setMarker({
           lat: mouseEvent.latLng.getLat(),
           lng: mouseEvent.latLng.getLng(),
         });
       }}
+      onDragStart={() => setSearchModal(false)}
     >
       {markerState.LatLng && (
         <MapMarker

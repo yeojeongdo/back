@@ -3,7 +3,7 @@ import Input from "components/Common/Input/Input";
 import useCreate from "hooks/redux/useCreate";
 import useSearch from "hooks/redux/useSearch";
 import useInput from "hooks/useInput";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { SearchContainer, SearchList, SearchListItem } from "./searchStyles";
 
 enum SortBy {
@@ -12,8 +12,11 @@ enum SortBy {
 
 const Search = () => {
   const { markerState } = useCreate();
-  const { searchMap, searchMapListState, setCenterSearching } = useSearch();
-  const [value, onChangeValue] = useInput(searchMapListState.searchValue);
+  const { searchMap, searchMapListState, setCenterSearching, setSearchModal } =
+    useSearch();
+  const valueList = searchMapListState.searchValue;
+  const isModal = searchMapListState.isSearchModal;
+  const [value, onChangeValue] = useInput(valueList[valueList.length - 1]);
 
   const submit = useCallback(() => {
     const ps = new kakao.maps.services.Places();
@@ -33,7 +36,7 @@ const Search = () => {
         if (status === kakao.maps.services.Status.OK) {
           data && console.log(data);
           // console.log(data);
-          searchMap(data, value);
+          searchMap(data, [value]);
         }
       },
       {
@@ -42,7 +45,8 @@ const Search = () => {
         sort: SortBy.DISTANCE,
       }
     );
-  }, [value, searchMap, markerState]);
+    setSearchModal(true);
+  }, [value, searchMap, markerState, setSearchModal]);
 
   return (
     <SearchContainer>
@@ -50,20 +54,26 @@ const Search = () => {
         <Input
           value={value}
           onChange={onChangeValue}
+          onClick={() => setSearchModal(true)}
           placeholder="검색할 내용을 입력해 주세요"
         />
       </Form>
-      <SearchList>
-        {searchMapListState.searchMapList &&
-          searchMapListState.searchMapList.map(current => (
-            <SearchListItem onClick={() => setCenterSearching(current)}>
+      {isModal && (
+        <SearchList>
+          {searchMapListState.searchMapList.map(current => (
+            <SearchListItem
+              onClick={() => {
+                setCenterSearching(current);
+                setSearchModal(false);
+              }}
+            >
               <div>
-                {current.address_name}
-                <div>{current.place_name}</div>
+                <p>{current.place_name}</p>
               </div>
             </SearchListItem>
           ))}
-      </SearchList>
+        </SearchList>
+      )}
     </SearchContainer>
   );
 };
