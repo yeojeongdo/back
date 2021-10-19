@@ -3,7 +3,7 @@ import useSearch from "hooks/redux/useSearch";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const CreaterMap = () => {
-  const { setMarker, markerState } = useCreate();
+  const { setMarker, markerState, selectMarker } = useCreate();
   const { searchMapListState, setCenterSearching, setSearchModal } =
     useSearch();
 
@@ -49,7 +49,12 @@ const CreaterMap = () => {
       )}
       {searchMapListState.searchMapList &&
         searchMapListState.searchMapList.map(current => (
-          <MapMarker position={{ lat: current.y, lng: current.x }} />
+          <MapMarker
+            onClick={() => {
+              selectMarker(current);
+            }}
+            position={{ lat: current.y, lng: current.x }}
+          />
         ))}
     </Map>
   );
