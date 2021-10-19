@@ -68,8 +68,7 @@ const Search = () => {
               }}
             >
               <div>
-                {current.address_name}
-                <div>{current.place_name}</div>
+                <p>{current.place_name}</p>
               </div>
             </SearchListItem>
           ))}

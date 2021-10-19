@@ -15,12 +15,16 @@ export const HeaderContainer = styled.header`
   z-index: 9999;
   .header-title {
     font-size: 16px;
-    flex: 1;
+  }
+  .header-search {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
   }
   .header-options {
     display: flex;
     list-style: none;
-    flex: 5;
     justify-content: space-between;
     align-items: center;
     li {
