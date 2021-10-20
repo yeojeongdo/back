@@ -7,18 +7,9 @@ const CreaterMap = () => {
   const { searchMapListState, setCenterSearching, setSearchModal } =
     useSearch();
 
-  const LatLng = {
-    lat: searchMapListState.centerSearching
-      ? searchMapListState.centerSearching.y
-      : 35.6632143,
-    lng: searchMapListState.centerSearching
-      ? searchMapListState.centerSearching.x
-      : 128.4140176,
-  };
-
   return (
     <Map
-      center={LatLng}
+      center={searchMapListState.centerSearching}
       style={{
         // 지도의 크기
         flex: "3 1 0%",
@@ -33,6 +24,12 @@ const CreaterMap = () => {
         });
       }}
       onDragStart={() => setSearchModal(false)}
+      onDragEnd={e =>
+        setCenterSearching({
+          lat: e.getCenter().getLat(),
+          lng: e.getCenter().getLng(),
+        })
+      }
     >
       {markerState.LatLng && (
         <MapMarker

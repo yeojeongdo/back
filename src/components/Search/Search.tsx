@@ -55,7 +55,7 @@ const Search = () => {
             ? searchMapListState.searchMapList.map(current => (
                 <SearchListItem
                   onClick={() => {
-                    setCenterSearching(current);
+                    setCenterSearching({ lat: current.y, lng: current.x });
                     setSearchModal(false);
                   }}
                 >

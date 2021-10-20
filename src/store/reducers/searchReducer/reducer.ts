@@ -6,7 +6,7 @@ import { SearchState } from "./types";
 const initalState: SearchState = {
   searchMapList: [],
   searchValue: ["대구 소프트웨어 고등학교"],
-  centerSearching: null,
+  centerSearching: { lat: 35.6632143, lng: 128.4140176 },
   isSearchModal: false,
 };
 

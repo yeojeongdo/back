@@ -15,15 +15,12 @@ interface mapType {
 const Map = ({ albums, setAlbums }: mapType) => {
   const [latitude, setLatitude] = useState<number>(35.6632143);
   const [longTitude, setLongTitude] = useState<number>(128.4140176);
-  const { searchMapListState, setSearchModal } = useSearch();
-  const LatLng = {
-    lat: latitude,
-    lng: longTitude,
-  };
+  const { searchMapListState, setSearchModal, setCenterSearching } =
+    useSearch();
   console.log(albums);
   return (
     <CustomMap
-      center={LatLng}
+      center={searchMapListState.centerSearching}
       style={{
         // 지도의 크기
         flex: 3,
@@ -32,6 +29,12 @@ const Map = ({ albums, setAlbums }: mapType) => {
       level={3}
       onClick={() => setSearchModal(false)}
       onDragStart={() => setSearchModal(false)}
+      onDragEnd={e =>
+        setCenterSearching({
+          lat: e.getCenter().getLat(),
+          lng: e.getCenter().getLng(),
+        })
+      }
     >
       <MarkerClusterer
         averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
