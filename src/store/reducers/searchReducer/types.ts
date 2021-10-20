@@ -1,7 +1,9 @@
+import { LatLng } from "../createReducer/types";
+
 export interface SearchState {
   searchMapList: searchMapListType[];
   searchValue: string[];
-  centerSearching: searchMapListType | null;
+  centerSearching: LatLng;
   isSearchModal: boolean;
 }
 
