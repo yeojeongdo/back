@@ -14,6 +14,9 @@ import rootSaga from "store/sagas";
 import { Token } from "lib/Token";
 import refreshAccessToken from "utils/refreshAccessToken";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const sagaMiddleware = createSagaMiddleware();
 
 const enhancer =
@@ -29,7 +32,7 @@ axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 axios.defaults.headers["Authorization"] = ``;
 
 axios.interceptors.request.use(
-  async (config) => {
+  async config => {
     const userToken = Token.getToken();
     const accessToken = userToken?.accessToken;
     config.headers = {
@@ -38,16 +41,16 @@ axios.interceptors.request.use(
     };
     return config;
   },
-  (error) => {
+  error => {
     Promise.reject(error);
   }
 );
 
 axios.interceptors.response.use(
-  async (response) => {
+  async response => {
     return response;
   },
-  async (error) => {
+  async error => {
     const originalRequest = error.config;
 
     if (error.response.status === 401 && !originalRequest._retry) {

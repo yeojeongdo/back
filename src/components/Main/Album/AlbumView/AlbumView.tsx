@@ -4,6 +4,7 @@ import { createRef, useCallback, useState } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
 import LoadingPage from "pages/LoadingPage/LoadingPage";
 import Button from "components/Common/Button/Button";
+import Slider from "react-slick";
 
 const AlbumView = () => {
   const { albumState, closeAlbum, likeAlbum } = useAlbum();
@@ -27,6 +28,15 @@ const AlbumView = () => {
     }
   }, [commentInputRef]);
 
+  const settings = {
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    dots: true,
+  };
+
   return (
     <>
       <AlbumViewContainer>
@@ -37,13 +47,18 @@ const AlbumView = () => {
         </header>
         <main className="album_main">
           <div className="album_main_photos">
-            {page !== 0 && (
+            <Slider {...settings}>
+              {album?.photo.map(image => (
+                <img src={`http://${image}`} alt="" />
+              ))}
+            </Slider>
+            {/* {page !== 0 && (
               <Button onClick={() => setPage(page - 1)}> 오른 </Button>
             )}
             <img src={album?.photo && `http://${album?.photo[page]}`} alt="" />
             {album?.photo[1] && page < album?.photo.length - 1 && (
               <Button onClick={() => setPage(page + 1)}> 오른 </Button>
-            )}
+            )} */}
           </div>
           <div className="album_main_content">
             <h3>{album?.memo}</h3>
