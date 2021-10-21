@@ -1,11 +1,14 @@
 import useCreate from "hooks/redux/useCreate";
 import useSearch from "hooks/redux/useSearch";
+import { useEffect } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const CreaterMap = () => {
   const { setMarker, markerState, selectMarker } = useCreate();
   const { searchMapListState, setCenterSearching, setSearchModal } =
     useSearch();
+
+  const geocoder = new kakao.maps.services.Geocoder();
 
   return (
     <Map
@@ -22,6 +25,16 @@ const CreaterMap = () => {
           lat: mouseEvent.latLng.getLat(),
           lng: mouseEvent.latLng.getLng(),
         });
+        geocoder.coord2RegionCode(
+          markerState.LatLng.lng,
+          markerState.LatLng.lat,
+          result =>
+            selectMarker({
+              address_name: result[0].address_name,
+              x: result[0].x,
+              y: result[0].y,
+            })
+        );
       }}
       onDragStart={() => setSearchModal(false)}
       onDragEnd={e =>
@@ -48,7 +61,7 @@ const CreaterMap = () => {
         searchMapListState.searchMapList.map(current => (
           <MapMarker
             onClick={() => {
-              selectMarker(current);
+              selectMarker(current.address_name);
             }}
             position={{ lat: current.y, lng: current.x }}
           />

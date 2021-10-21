@@ -7,7 +7,9 @@ export interface LatLng {
 
 export interface CreateState {
   LatLng: LatLng;
-  selectedMarker?: searchMapListType;
+  selectedMarker?:
+    | searchMapListType
+    | { address_name: string; x: number; y: number };
 
   createAlbumLoading: boolean;
   createAlbumError: null;
