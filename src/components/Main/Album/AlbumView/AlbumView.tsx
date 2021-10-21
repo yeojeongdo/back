@@ -1,32 +1,20 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
-import { createRef, useCallback, useState } from "react";
+import { createRef, useCallback, useEffect, useState } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
-import LoadingPage from "pages/LoadingPage/LoadingPage";
-import Button from "components/Common/Button/Button";
 import Slider from "react-slick";
+import axios from "axios";
+import { getLikeUsers } from "apis/albumAPI";
+import useUser from "hooks/redux/useUser";
+import { toast } from "react-toastify";
+import useAuth from "hooks/redux/useAuth";
 
 const AlbumView = () => {
-  const { albumState, closeAlbum, likeAlbum } = useAlbum();
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const { authState } = useAuth();
+  const { albumState, closeAlbum, likeAlbum, likeIncrement, likeDecrement } =
+    useAlbum();
   const commentInputRef = createRef<HTMLInputElement | null>();
-  const [page, setPage] = useState(0);
-
-  const album = albumState.album;
-
-  const handleAlbumLike = useCallback(
-    (albumId: number | undefined) => {
-      if (albumId) {
-        likeAlbum(albumId);
-      }
-    },
-    [likeAlbum]
-  );
-
-  const handleFocusComment = useCallback(() => {
-    if (commentInputRef.current) {
-      commentInputRef.current.focus();
-    }
-  }, [commentInputRef]);
 
   const settings = {
     infinite: true,
@@ -36,6 +24,53 @@ const AlbumView = () => {
     arrows: true,
     dots: true,
   };
+
+  const album = albumState.album;
+
+  const handleAlbumLike = useCallback(
+    (albumId: number | undefined) => {
+      if (albumId) {
+        if (isLiked) {
+          likeDecrement();
+          setIsLiked(false);
+        } else {
+          likeIncrement();
+          setIsLiked(true);
+        }
+        likeAlbum(albumId);
+      }
+    },
+    [likeAlbum, likeIncrement, likeDecrement, isLiked]
+  );
+
+  const handleFocusComment = useCallback(() => {
+    if (commentInputRef.current) {
+      commentInputRef.current.focus();
+    }
+  }, [commentInputRef]);
+
+  useEffect(() => {
+    if (album?.id) {
+      interface LikeUserInterface {
+        id: number;
+        profileImg: string;
+      }
+      getLikeUsers(album?.id)
+        .then((response) => {
+          const likeList = response.data.data as LikeUserInterface[];
+          if (authState.myInfo?.id) {
+            likeList.forEach((likeUser) => {
+              if (likeUser.id === authState.myInfo?.id) {
+                setIsLiked(true);
+                return false;
+              }
+              setIsLiked(false);
+            });
+          }
+        })
+        .catch((error) => toast.error(error.response.data));
+    }
+  }, [album?.id, authState.myInfo?.id]);
 
   return (
     <>
@@ -48,7 +83,7 @@ const AlbumView = () => {
         <main className="album_main">
           <div className="album_main_photos">
             <Slider {...settings}>
-              {album?.photo.map(image => (
+              {album?.photo.map((image) => (
                 <img src={`http://${image}`} alt="" />
               ))}
             </Slider>
@@ -68,7 +103,7 @@ const AlbumView = () => {
             </div>
             <div className="album_main_content_tools">
               <button
-                className="like"
+                className={`like ${isLiked && "liked"}`}
                 onClick={() => handleAlbumLike(album?.id)}
               >
                 좋아요

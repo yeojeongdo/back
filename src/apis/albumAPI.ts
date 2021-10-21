@@ -37,3 +37,7 @@ export const editCommentAPI = (data: IEditCommentData) => {
 export const likeAlbumAPI = (albumId: number) => {
   return axios.patch(`/like`, { albumId });
 };
+
+export const getLikeUsers = (albumId: number) => {
+  return axios.get(`/like/users?albumId=${albumId}`);
+};

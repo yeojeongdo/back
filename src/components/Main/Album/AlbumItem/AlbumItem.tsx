@@ -25,13 +25,13 @@ const AlbumItem: React.VFC<AlbumItemProps> = ({ album }) => {
     [history]
   );
 
-  const handleCLickAlbum = useCallback(() => {
+  const handleClickAlbum = useCallback(() => {
     openAlbum();
     getAlbum(album.id);
   }, [openAlbum, getAlbum, album.id]);
 
   return (
-    <AlbumItemContainer onClick={handleCLickAlbum}>
+    <AlbumItemContainer onClick={handleClickAlbum}>
       <div className="header">
         <img
           src={DefaultProfile}

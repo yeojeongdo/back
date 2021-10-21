@@ -29,6 +29,9 @@ export const LIKE_ALBUM_REQUEST = "album/LIKE_ALBUM_REQUEST";
 export const LIKE_ALBUM_SUCCESS = "album/LIKE_ALBUM_SUCCESS";
 export const LIKE_ALBUM_FAILURE = "album/LIKE_ALBUM_FAILURE";
 
+export const LIKE_INCREMENT = "album/LIKE_INCREMENT";
+export const LIKE_DECREMENT = "album/LIKE_DECREMENT";
+
 export const OPEN_ALBUM = "album/OPEN_ALBUM";
 export const CLOSE_ALBUM = "album/CLOSE_ALBUM";
 
@@ -76,3 +79,5 @@ export const likeAlbumAsyncAction = createAsyncAction(
 
 export const openAlbum = createAction(OPEN_ALBUM)();
 export const closeAlbum = createAction(CLOSE_ALBUM)();
+export const likeIncrement = createAction(LIKE_INCREMENT)();
+export const likeDecrement = createAction(LIKE_DECREMENT)();

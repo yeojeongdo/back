@@ -11,6 +11,8 @@ import {
   GET_ALBUM_REQUEST,
   GET_COMMENTS_REQUEST,
   LIKE_ALBUM_REQUEST,
+  LIKE_DECREMENT,
+  LIKE_INCREMENT,
   OPEN_ALBUM,
 } from "store/reducers/albumReducer/actions";
 
@@ -94,6 +96,17 @@ const useAlbum = () => {
     [dispatch]
   );
 
+  const likeIncrement = useCallback(() => {
+    dispatch({
+      type: LIKE_INCREMENT,
+    });
+  }, [dispatch]);
+  const likeDecrement = useCallback(() => {
+    dispatch({
+      type: LIKE_DECREMENT,
+    });
+  }, [dispatch]);
+
   const openAlbum = useCallback(() => {
     dispatch({
       type: OPEN_ALBUM,
@@ -117,6 +130,8 @@ const useAlbum = () => {
     deleteComment,
     editComment,
     likeAlbum,
+    likeIncrement,
+    likeDecrement,
   };
 };
 
