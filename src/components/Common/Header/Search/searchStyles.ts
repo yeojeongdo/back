@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 
 export const SearchContainer = styled.div`
+  width: 100px;
   height: 100%;
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   flex-direction: column;
   form {
     min-height: 100%;
@@ -30,7 +31,6 @@ export const SearchList = styled.div`
 export const SearchListItem = styled.div`
   display: flex;
   flex-direction: row;
-
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: bold;

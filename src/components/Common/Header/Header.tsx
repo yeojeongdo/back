@@ -1,8 +1,8 @@
-import Search from "components/Search/Search";
+import Search from "components/Common/Header/Search/Search";
 import useAuth from "hooks/redux/useAuth";
-import { useCallback, useEffect } from "react";
 import { useHistory } from "react-router";
 import { HeaderContainer } from "./headerStyles";
+import { useCallback } from "react";
 
 const Header = () => {
   const history = useHistory();
@@ -11,6 +11,13 @@ const Header = () => {
   const pushMainPage = useCallback(() => {
     history.push("/");
   }, [history]);
+
+  const handleOnUserProfile = useCallback(
+    (userId: number) => {
+      history.push(`/user/${userId}`);
+    },
+    [history]
+  );
 
   const handleLogout = useCallback(() => {
     logout();
@@ -27,10 +34,16 @@ const Header = () => {
           <Search />
         </div>
         <ul className="header-options">
-          <li>{authState.myInfo?.name}님 환영합니다</li>
-          <li className="logout" onClick={handleLogout}>
-            로그아웃
-          </li>
+          {authState.myInfo && (
+            <>
+              <li onClick={() => handleOnUserProfile(authState.myInfo!.id)}>
+                {authState.myInfo!.name}님 환영합니다
+              </li>
+              <li className="logout" onClick={handleLogout}>
+                로그아웃
+              </li>
+            </>
+          )}
         </ul>
       </HeaderContainer>
     </>
