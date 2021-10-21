@@ -39,6 +39,8 @@ const Search = () => {
     [value, searchMap, markerState, setSearchModal]
   );
 
+  console.log(window.kakao);
+
   return (
     <SearchContainer>
       <Form hasSubmit submitText="검색" onSubmit={submit}>
