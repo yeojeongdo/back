@@ -22,8 +22,10 @@ export const SearchContainer = styled.div`
 
 export const SearchList = styled.div`
   display: flex;
+  position: absolute;
+  width: 450px;
+  top: 53px;
   flex-direction: column;
-  width: 100%;
   background-color: white;
   border: 1px solid #989898;
 `;

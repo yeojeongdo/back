@@ -7,8 +7,6 @@ import { useState } from "react";
 import { CreateMenuContainer, CreateMenuImageView } from "./createMenuStyles";
 
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { toast } from "react-toastify";
 import autosize from "autosize";
 
@@ -35,7 +33,7 @@ const CreateMenu = () => {
     createAlbum(form);
   }, [file, memo, createAlbum, selectedMarker]);
 
-  const handleFileInput = useCallback((e) => {
+  const handleFileInput = useCallback(e => {
     const imageFileExtensions = [
       "image/apng",
       "image/bmp",
@@ -51,10 +49,9 @@ const CreateMenu = () => {
     const filesInArr: any[] = Array.from(e.target.files);
     let isValidImageType: boolean = true;
 
-    filesInArr.forEach((imageFile) => {
+    filesInArr.forEach(imageFile => {
       isValidImageType = imageFileExtensions.includes(imageFile.type);
     });
-
     if (!isValidImageType) {
       toast.error("지원하지 않는 확장자입니다.");
       return;
@@ -64,7 +61,7 @@ const CreateMenu = () => {
       setFile(filesInArr);
 
       setPreview([
-        ...filesInArr.map((file) => {
+        ...filesInArr.map(file => {
           return URL.createObjectURL(file);
         }),
       ]);
@@ -98,7 +95,7 @@ const CreateMenu = () => {
               </strong>
             ) : (
               <Slider {...settings}>
-                {preview[0] && preview.map((view) => <img src={view} alt="" />)}
+                {preview[0] && preview.map(view => <img src={view} alt="" />)}
               </Slider>
             )}
           </div>
