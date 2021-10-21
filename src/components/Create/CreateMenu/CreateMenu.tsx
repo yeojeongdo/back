@@ -2,13 +2,15 @@ import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
 import useCreate from "hooks/redux/useCreate";
 import useInput from "hooks/useInput";
-import React, { useCallback } from "react";
+import { createRef, useCallback, useEffect } from "react";
 import { useState } from "react";
 import { CreateMenuContainer, CreateMenuImageView } from "./createMenuStyles";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { toast } from "react-toastify";
+import autosize from "autosize";
 
 const CreateMenu = () => {
   const { markerState, createAlbum } = useCreate();
@@ -17,6 +19,7 @@ const CreateMenu = () => {
   const [memo, onChangeMemo] = useInput("");
   const [file, setFile] = useState<any>();
   const [preview, setPreview] = useState<string[]>([]);
+  const memoRef = createRef<HTMLTextAreaElement>();
 
   const submit = useCallback(() => {
     const form = new FormData();
@@ -32,14 +35,36 @@ const CreateMenu = () => {
     createAlbum(form);
   }, [file, memo, createAlbum, selectedMarker]);
 
-  const handleFileInput = useCallback(e => {
+  const handleFileInput = useCallback((e) => {
+    const imageFileExtensions = [
+      "image/apng",
+      "image/bmp",
+      "image/gif",
+      "image/jpeg",
+      "image/pjpeg",
+      "image/png",
+      "image/svg+xml",
+      "image/tiff",
+      "image/webp",
+      "image/x-icon",
+    ];
     const filesInArr: any[] = Array.from(e.target.files);
+    let isValidImageType: boolean = true;
 
-    if (filesInArr) {
+    filesInArr.forEach((imageFile) => {
+      isValidImageType = imageFileExtensions.includes(imageFile.type);
+    });
+
+    if (!isValidImageType) {
+      toast.error("지원하지 않는 확장자입니다.");
+      return;
+    }
+
+    if (filesInArr.length !== 0) {
       setFile(filesInArr);
 
       setPreview([
-        ...filesInArr.map(file => {
+        ...filesInArr.map((file) => {
           return URL.createObjectURL(file);
         }),
       ]);
@@ -52,30 +77,51 @@ const CreateMenu = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-    dots: true,
+    dots: false,
   };
+
+  useEffect(() => {
+    if (memoRef.current) {
+      autosize(memoRef.current);
+    }
+  }, [memoRef]);
 
   return (
     <CreateMenuContainer>
       <Form hasSubmit submitText="작성하기" onSubmit={submit}>
-        {latLng.lat + "/" + latLng.lng}
+        <b>위치 : {latLng.lat + "/" + latLng.lng}</b>
         <CreateMenuImageView>
-          <Slider {...settings}>
-            {preview[0] && preview.map(view => <img src={view} alt="" />)}
-          </Slider>
-          <Input
+          <div className="image-preview-container">
+            {!file ? (
+              <strong className="upload-require">
+                이미지를 업로드해주세요.
+              </strong>
+            ) : (
+              <Slider {...settings}>
+                {preview[0] && preview.map((view) => <img src={view} alt="" />)}
+              </Slider>
+            )}
+          </div>
+          <input
             type="file"
-            id="albumFile"
             multiple
+            id="albumFile"
+            className="file-input"
             onChange={handleFileInput}
           />
-          <label htmlFor="albumFile">파일</label>
+          <label htmlFor="albumFile" className="file-input-label">
+            파일 업로드
+          </label>
         </CreateMenuImageView>
-        <Input
+
+        <textarea
+          ref={memoRef}
+          className="memo-input"
           value={memo}
           onChange={onChangeMemo}
           placeholder="사진과 함께 남길 말을 작성해주세요."
         />
+
         {selectedMarker?.address_name}
       </Form>
     </CreateMenuContainer>
