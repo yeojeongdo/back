@@ -17,17 +17,18 @@ export const HeaderContainer = styled.header`
     font-size: 16px;
   }
   .header-search {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
   }
   .header-options {
     display: flex;
     list-style: none;
-    justify-content: space-between;
     align-items: center;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
     li {
+      cursor: pointer;
       margin-right: 1rem;
     }
     & > .logout {
