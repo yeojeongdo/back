@@ -22,10 +22,10 @@ const useAlbum = () => {
   const albumState = useTypedSelector((state) => state.album);
 
   const getAlbums = useCallback(
-    (albumId?: string) => {
+    (lastId?: number) => {
       dispatch({
         type: GET_ALBUMS_REQUEST,
-        payload: albumId,
+        payload: lastId,
       });
     },
     [dispatch]

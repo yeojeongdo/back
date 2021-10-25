@@ -97,7 +97,7 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     produce(state, (draft) => {
       draft.loadAlbumsLoading = false;
       draft.loadAlbumsDone = true;
-      draft.albums = action.payload.data.data;
+      draft.albums = [...draft.albums, ...action.payload.data.data];
     }),
   [GET_ALBUMS_FAILURE]: (state, action) =>
     produce(state, (draft) => {

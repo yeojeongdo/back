@@ -1,6 +1,9 @@
 import axios from "axios";
 
-export const albumsAPI = () => {
+export const albumsAPI = (lastId?: number) => {
+  if (lastId !== 0) {
+    return axios.get(`/album/latest?id=${lastId}`);
+  }
   return axios.get(`/album/latest`);
 };
 

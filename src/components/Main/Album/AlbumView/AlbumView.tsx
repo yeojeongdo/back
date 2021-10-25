@@ -3,9 +3,7 @@ import { AlbumViewContainer } from "./albumViewStyles";
 import { createRef, useCallback, useEffect, useState } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
 import Slider from "react-slick";
-import axios from "axios";
 import { getLikeUsers } from "apis/albumAPI";
-import useUser from "hooks/redux/useUser";
 import { toast } from "react-toastify";
 import useAuth from "hooks/redux/useAuth";
 
