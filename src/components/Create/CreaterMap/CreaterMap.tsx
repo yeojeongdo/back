@@ -8,8 +8,19 @@ const CreaterMap = () => {
   const { searchMapListState, setCenterSearching, setSearchModal } =
     useSearch();
 
-  const geocoder = new kakao.maps.services.Geocoder();
-
+  const searchAddrFromCoords = () => {
+    const geocoder = new kakao.maps.services.Geocoder();
+    geocoder.coord2RegionCode(
+      markerState.LatLng.lng,
+      markerState.LatLng.lat,
+      result =>
+        selectMarker({
+          address_name: result[0].address_name,
+          x: result[0].x,
+          y: result[0].y,
+        })
+    );
+  };
   return (
     <Map
       center={searchMapListState.centerSearching}
@@ -25,30 +36,21 @@ const CreaterMap = () => {
           lat: mouseEvent.latLng.getLat(),
           lng: mouseEvent.latLng.getLng(),
         });
-        geocoder.coord2RegionCode(
-          markerState.LatLng.lng,
-          markerState.LatLng.lat,
-          result =>
-            selectMarker({
-              address_name: result[0].address_name,
-              x: result[0].x,
-              y: result[0].y,
-            })
-        );
+        searchAddrFromCoords();
       }}
       onDragStart={() => setSearchModal(false)}
-      onDragEnd={e =>
+      onDragEnd={e => {
         setCenterSearching({
           lat: e.getCenter().getLat(),
           lng: e.getCenter().getLng(),
-        })
-      }
+        });
+      }}
     >
       {markerState.LatLng && (
         <MapMarker
           position={markerState.LatLng}
           onDragEnd={(mouseEvent: any) => {
-            console.log(mouseEvent.getPosition());
+            searchAddrFromCoords();
             setMarker({
               lat: mouseEvent.getPosition().Ma,
               lng: mouseEvent.getPosition().La,
@@ -61,7 +63,7 @@ const CreaterMap = () => {
         searchMapListState.searchMapList.map(current => (
           <MapMarker
             onClick={() => {
-              selectMarker(current.address_name);
+              selectMarker(current);
             }}
             position={{ lat: current.y, lng: current.x }}
           />
