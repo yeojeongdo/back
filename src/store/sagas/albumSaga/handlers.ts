@@ -26,9 +26,9 @@ import {
 } from "store/reducers/albumReducer/actions";
 import { AnyAction } from "redux";
 
-export function* handleGetAlbums(): any {
+export function* handleGetAlbums(action: AnyAction): any {
   try {
-    const response = yield call(albumsAPI);
+    const response = yield call(albumsAPI, action.payload);
     yield put({
       type: GET_ALBUMS_SUCCESS,
       payload: response,

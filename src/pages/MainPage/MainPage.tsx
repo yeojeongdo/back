@@ -3,12 +3,13 @@ import AlbumList from "components/Main/Album/AlbumList/AlbumList";
 import Map from "components/Main/Map/Map";
 import useAuth from "hooks/redux/useAuth";
 import { Token } from "lib/Token";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MainContent, MainPageStyle } from "./PageStyle";
 import { useHistory } from "react-router-dom";
 import useAlbum from "hooks/redux/useAlbum";
 import AlbumView from "components/Main/Album/AlbumView/AlbumView";
 import CreateAlbumButton from "components/Main/CreateAlbumButton/CreateAlbumButton";
+import { useInView } from "react-intersection-observer";
 import LoadingPage from "pages/LoadingPage/LoadingPage";
 
 const Main = () => {
@@ -17,10 +18,6 @@ const Main = () => {
   const { albumState, getAlbums } = useAlbum();
 
   const { albums } = albumState;
-
-  useEffect(() => {
-    getAlbums();
-  }, [getAlbums]);
 
   useEffect(() => {
     if (!Token.getToken()) {
