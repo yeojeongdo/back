@@ -123,8 +123,10 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
 
   return (
     <>
-      {albumState.createCommentLoading ? (
-        <ReactLoading />
+      {albumState.createCommentLoading ||
+      albumState.deleteCommentLoading ||
+      albumState.editCommentLoading ? (
+        <h1>로딩 중...</h1>
       ) : (
         <CommentListContainer>
           {albumState.comments?.map((comment) => (

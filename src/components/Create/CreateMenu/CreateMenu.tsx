@@ -1,5 +1,4 @@
 import Form from "components/Common/Form/Form";
-import Input from "components/Common/Input/Input";
 import useCreate from "hooks/redux/useCreate";
 import useInput from "hooks/useInput";
 import { createRef, useCallback, useEffect } from "react";
@@ -33,7 +32,7 @@ const CreateMenu = () => {
     createAlbum(form);
   }, [file, memo, createAlbum, selectedMarker]);
 
-  const handleFileInput = useCallback(e => {
+  const handleFileInput = useCallback((e) => {
     const imageFileExtensions = [
       "image/apng",
       "image/bmp",
@@ -49,7 +48,7 @@ const CreateMenu = () => {
     const filesInArr: any[] = Array.from(e.target.files);
     let isValidImageType: boolean = true;
 
-    filesInArr.forEach(imageFile => {
+    filesInArr.forEach((imageFile) => {
       isValidImageType = imageFileExtensions.includes(imageFile.type);
     });
     if (!isValidImageType) {
@@ -61,7 +60,7 @@ const CreateMenu = () => {
       setFile(filesInArr);
 
       setPreview([
-        ...filesInArr.map(file => {
+        ...filesInArr.map((file) => {
           return URL.createObjectURL(file);
         }),
       ]);
@@ -95,7 +94,7 @@ const CreateMenu = () => {
               </strong>
             ) : (
               <Slider {...settings}>
-                {preview[0] && preview.map(view => <img src={view} alt="" />)}
+                {preview[0] && preview.map((view) => <img src={view} alt="" />)}
               </Slider>
             )}
           </div>

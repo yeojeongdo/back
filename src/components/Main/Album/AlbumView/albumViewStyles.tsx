@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { MAIN_COLOR } from "styles/colors";
 
 export const AlbumViewContainer = styled.div`
   width: 100%;
@@ -70,6 +71,9 @@ export const AlbumViewContainer = styled.div`
         display: flex;
         border-top: 1px solid rgba(0, 0, 0, 0.2);
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        .liked {
+          color: ${MAIN_COLOR};
+        }
         & > button {
           flex: 1;
           border: none;

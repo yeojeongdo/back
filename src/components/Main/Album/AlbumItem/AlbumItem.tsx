@@ -2,15 +2,16 @@ import useAlbum from "hooks/redux/useAlbum";
 import { AlbumItemContainer } from "./albumItemStyles";
 import DefaultProfile from "assets/images/default_profile.svg";
 import TimeCounting from "time-counting";
-import { useCallback } from "react";
+import { Ref, useCallback } from "react";
 import { Album } from "types/album";
 import { useHistory } from "react-router";
 
 interface AlbumItemProps {
   album: Album;
+  albumRef?: Ref<any>;
 }
 
-const AlbumItem: React.VFC<AlbumItemProps> = ({ album }) => {
+const AlbumItem: React.VFC<AlbumItemProps> = ({ album, albumRef }) => {
   const history = useHistory();
   const { openAlbum, getAlbum } = useAlbum();
 
@@ -25,13 +26,13 @@ const AlbumItem: React.VFC<AlbumItemProps> = ({ album }) => {
     [history]
   );
 
-  const handleCLickAlbum = useCallback(() => {
+  const handleClickAlbum = useCallback(() => {
     openAlbum();
     getAlbum(album.id);
   }, [openAlbum, getAlbum, album.id]);
 
   return (
-    <AlbumItemContainer onClick={handleCLickAlbum}>
+    <AlbumItemContainer onClick={handleClickAlbum} ref={albumRef}>
       <div className="header">
         <img
           src={DefaultProfile}

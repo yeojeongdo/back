@@ -24,6 +24,8 @@ import {
   LIKE_ALBUM_REQUEST,
   LIKE_ALBUM_SUCCESS,
   LIKE_ALBUM_FAILURE,
+  LIKE_INCREMENT,
+  LIKE_DECREMENT,
 } from "./actions";
 import { AlbumActions, AlbumState } from "./types";
 
@@ -95,7 +97,7 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     produce(state, (draft) => {
       draft.loadAlbumsLoading = false;
       draft.loadAlbumsDone = true;
-      draft.albums = action.payload.data.data;
+      draft.albums = [...draft.albums, ...action.payload.data.data];
     }),
   [GET_ALBUMS_FAILURE]: (state, action) =>
     produce(state, (draft) => {
@@ -198,5 +200,13 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
   [CLOSE_ALBUM]: (state, action) =>
     produce(state, (draft) => {
       draft.albumOpen = false;
+    }),
+  [LIKE_INCREMENT]: (state) =>
+    produce(state, (draft) => {
+      draft.album!.likeNum++;
+    }),
+  [LIKE_DECREMENT]: (state) =>
+    produce(state, (draft) => {
+      draft.album!.likeNum--;
     }),
 });
