@@ -3,6 +3,12 @@ import useSearch from "hooks/redux/useSearch";
 import { useEffect } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
+interface coord2RegionCodeCallback {
+  address_name: string;
+  x: number;
+  y: number;
+}
+
 const CreaterMap = () => {
   const { setMarker, markerState, selectMarker } = useCreate();
   const { searchMapListState, setCenterSearching, setSearchModal } =
@@ -13,7 +19,7 @@ const CreaterMap = () => {
     geocoder.coord2RegionCode(
       markerState.LatLng.lng,
       markerState.LatLng.lat,
-      result =>
+      (result: Array<coord2RegionCodeCallback>) =>
         selectMarker({
           address_name: result[0].address_name,
           x: result[0].x,
