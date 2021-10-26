@@ -3,7 +3,7 @@ import Input from "components/Common/Input/Input";
 import useCreate from "hooks/redux/useCreate";
 import useSearch from "hooks/redux/useSearch";
 import useInput from "hooks/useInput";
-import React, { useCallback, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { SearchContainer, SearchList, SearchListItem } from "./searchStyles";
 
 enum SortBy {
@@ -12,20 +12,42 @@ enum SortBy {
 
 const Search = () => {
   const { markerState } = useCreate();
-  const { searchMap, searchMapListState, setCenterSearching, setSearchModal } =
-    useSearch();
+  const {
+    searchMap,
+    searchMapListState,
+    setCenterSearching,
+    setSearchModal,
+    searchAutomatic,
+  } = useSearch();
   const valueList = searchMapListState.searchValue;
   const isModal = searchMapListState.isSearchModal;
   const [value, onChangeValue, setValue] = useInput(valueList[0]);
 
-  const submit = useCallback(
-    (avalue?: string) => {
+  useEffect(
+    (searchedValue?: string) => {
       const ps = new kakao.maps.services.Places();
       ps.keywordSearch(
-        avalue ? avalue : value,
+        searchedValue ? searchedValue : value,
         (data, status) => {
           if (status === kakao.maps.services.Status.OK) {
-            searchMap(data, avalue ? avalue : value);
+            searchAutomatic(data);
+          }
+        }
+      );
+      !searchMapListState.isSearchModal && setSearchModal(true);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value]
+  );
+
+  const submit = useCallback(
+    (searchedValue?: string) => {
+      const ps = new kakao.maps.services.Places();
+      ps.keywordSearch(
+        searchedValue ? searchedValue : value,
+        (data, status) => {
+          if (status === kakao.maps.services.Status.OK) {
+            searchMap(data, searchedValue ? searchedValue : value);
           }
         },
         {
@@ -38,7 +60,6 @@ const Search = () => {
     },
     [value, searchMap, markerState, setSearchModal]
   );
-
 
   return (
     <SearchContainer>
@@ -57,6 +78,7 @@ const Search = () => {
                 <SearchListItem
                   onClick={() => {
                     setCenterSearching({ lat: current.y, lng: current.x });
+                    submit(value);
                     setSearchModal(false);
                   }}
                 >

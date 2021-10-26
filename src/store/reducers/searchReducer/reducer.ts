@@ -1,6 +1,11 @@
 import produce from "immer";
 import { createReducer } from "typesafe-actions";
-import { SEARCH_MAP, SET_CENTER_SEARCHING, SET_SEARCH_MODAL } from "./actions";
+import {
+  SEARCH_MAP,
+  SET_CENTER_SEARCHING,
+  SET_SEARCH_MODAL,
+  SEARCH_ATUOMATIC,
+} from "./actions";
 import { SearchState } from "./types";
 
 const initalState: SearchState = {
@@ -34,5 +39,9 @@ export default createReducer<SearchState>(initalState, {
   [SET_SEARCH_MODAL]: (state, action) =>
     produce(state, draft => {
       draft.isSearchModal = action.payload;
+    }),
+  [SEARCH_ATUOMATIC]: (state, action) =>
+    produce(state, draft => {
+      draft.searchMapList = action.payload;
     }),
 });
