@@ -34,10 +34,20 @@ export const SearchListItem = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 0.7rem;
   font-weight: bold;
   div {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+    }
+    .subtitle {
+      font-size: 0.5rem;
+      color: gray;
+      font-weight: 500;
+    }
   }
   div:hover {
     background-color: whitesmoke;
