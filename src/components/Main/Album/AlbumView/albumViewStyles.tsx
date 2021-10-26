@@ -14,6 +14,7 @@ export const AlbumViewContainer = styled.div`
     width: 100%;
     height: 50px;
     position: fixed;
+    position: absolute;
     &_close {
       width: 60px;
       height: 60px;
@@ -25,6 +26,8 @@ export const AlbumViewContainer = styled.div`
       cursor: pointer;
       color: white;
       user-select: none;
+      position: absolute;
+      z-index: 99999999;
     }
   }
   .album_main {
@@ -43,6 +46,9 @@ export const AlbumViewContainer = styled.div`
     }
     &_photos {
       flex: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       .slick-list {
         width: 600px;
       }
