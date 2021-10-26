@@ -16,7 +16,7 @@ const Map = ({ albums, setAlbums }: mapType) => {
   // const [longTitude, setLongTitude] = useState<number>(128.4140176);
   const { searchMapListState, setSearchModal, setCenterSearching } =
     useSearch();
-  console.log(albums);
+  console.log(searchMapListState.searchMapList);
   return (
     <CustomMap
       center={searchMapListState.centerSearching}
