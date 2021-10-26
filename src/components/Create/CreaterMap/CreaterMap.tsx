@@ -1,6 +1,5 @@
 import useCreate from "hooks/redux/useCreate";
 import useSearch from "hooks/redux/useSearch";
-import { useEffect } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 interface coord2RegionCodeCallback {

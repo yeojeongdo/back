@@ -1,5 +1,4 @@
 import useSearch from "hooks/redux/useSearch";
-import { useState } from "react";
 import {
   Map as CustomMap,
   MapMarker,
@@ -13,8 +12,8 @@ interface mapType {
 }
 
 const Map = ({ albums, setAlbums }: mapType) => {
-  const [latitude, setLatitude] = useState<number>(35.6632143);
-  const [longTitude, setLongTitude] = useState<number>(128.4140176);
+  // const [latitude, setLatitude] = useState<number>(35.6632143);
+  // const [longTitude, setLongTitude] = useState<number>(128.4140176);
   const { searchMapListState, setSearchModal, setCenterSearching } =
     useSearch();
   console.log(albums);

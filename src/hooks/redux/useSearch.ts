@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "store/reducers";
 import {
+  SEARCH_ATUOMATIC,
   SEARCH_MAP,
   SET_CENTER_SEARCHING,
   SET_SEARCH_MODAL,
@@ -42,7 +43,23 @@ const useSearch = () => {
     [dispatch]
   );
 
-  return { searchMap, setCenterSearching, setSearchModal, searchMapListState };
+  const searchAutomatic = useCallback(
+    data => {
+      dispatch({
+        type: SEARCH_ATUOMATIC,
+        payload: data,
+      });
+    },
+    [dispatch]
+  );
+
+  return {
+    searchMap,
+    setCenterSearching,
+    setSearchModal,
+    searchAutomatic,
+    searchMapListState,
+  };
 };
 
 export default useSearch;
