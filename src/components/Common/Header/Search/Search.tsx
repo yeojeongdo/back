@@ -49,16 +49,11 @@ const Search = () => {
           if (status === kakao.maps.services.Status.OK) {
             searchMap(data, searchedValue ? searchedValue : value);
           }
-        },
-        {
-          y: markerState.LatLng.lat,
-          x: markerState.LatLng.lng,
-          sort: SortBy.DISTANCE,
         }
       );
       setSearchModal(true);
     },
-    [value, searchMap, markerState, setSearchModal]
+    [value, searchMap, setSearchModal]
   );
 
   return (
@@ -74,7 +69,7 @@ const Search = () => {
       {isModal && (
         <SearchList>
           {value !== ""
-            ? searchMapListState.searchMapList.map(current => (
+            ? searchMapListState.automaticSearchList.map(current => (
                 <SearchListItem
                   onClick={() => {
                     setCenterSearching({ lat: current.y, lng: current.x });
