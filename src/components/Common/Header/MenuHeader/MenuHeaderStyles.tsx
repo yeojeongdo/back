@@ -8,3 +8,8 @@ export const MenuHeaderContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const MenuHeaderContant = styled.div`
+  width: 90%;
+  padding: 15px;
+`;

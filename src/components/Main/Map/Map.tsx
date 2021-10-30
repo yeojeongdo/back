@@ -14,8 +14,7 @@ interface mapType {
 const Map = ({ albums, setAlbums }: mapType) => {
   // const [latitude, setLatitude] = useState<number>(35.6632143);
   // const [longTitude, setLongTitude] = useState<number>(128.4140176);
-  const { searchMapListState, setSearchModal, setCenterSearching } =
-    useSearch();
+  const { searchMapListState, setCenterSearching } = useSearch();
   console.log(searchMapListState.searchMapList);
   return (
     <CustomMap
@@ -26,8 +25,6 @@ const Map = ({ albums, setAlbums }: mapType) => {
         height: "100%",
       }}
       level={3}
-      onClick={() => setSearchModal(false)}
-      onDragStart={() => setSearchModal(false)}
       onDragEnd={e =>
         setCenterSearching({
           lat: e.getCenter().getLat(),

@@ -10,8 +10,7 @@ interface coord2RegionCodeCallback {
 
 const CreaterMap = () => {
   const { setMarker, markerState, selectMarker } = useCreate();
-  const { searchMapListState, setCenterSearching, setSearchModal } =
-    useSearch();
+  const { searchMapListState, setCenterSearching } = useSearch();
 
   const searchAddrFromCoords = () => {
     const geocoder = new kakao.maps.services.Geocoder();
@@ -36,14 +35,12 @@ const CreaterMap = () => {
       }}
       level={3}
       onClick={(_t, mouseEvent: any) => {
-        setSearchModal(false);
         setMarker({
           lat: mouseEvent.latLng.getLat(),
           lng: mouseEvent.latLng.getLng(),
         });
         searchAddrFromCoords();
       }}
-      onDragStart={() => setSearchModal(false)}
       onDragEnd={e => {
         setCenterSearching({
           lat: e.getCenter().getLat(),
