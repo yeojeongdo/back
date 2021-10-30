@@ -3,11 +3,17 @@ import useCreate from "hooks/redux/useCreate";
 import useInput from "hooks/useInput";
 import { createRef, useCallback, useEffect } from "react";
 import { useState } from "react";
-import { CreateMenuContainer, CreateMenuImageView } from "./createMenuStyles";
+import {
+  CreateMenuContainer,
+  CreateMenuImageView,
+  CreateMenuMainView,
+} from "./createMenuStyles";
+import Header from "components/Common/Header/Header";
 
 import Slider from "react-slick";
 import { toast } from "react-toastify";
 import autosize from "autosize";
+import MenuHeader from "components/Common/Header/MenuHeader/MenuHeader";
 
 const CreateMenu = () => {
   const { markerState, createAlbum } = useCreate();
@@ -32,7 +38,7 @@ const CreateMenu = () => {
     createAlbum(form);
   }, [file, memo, createAlbum, selectedMarker]);
 
-  const handleFileInput = useCallback((e) => {
+  const handleFileInput = useCallback(e => {
     const imageFileExtensions = [
       "image/apng",
       "image/bmp",
@@ -48,7 +54,7 @@ const CreateMenu = () => {
     const filesInArr: any[] = Array.from(e.target.files);
     let isValidImageType: boolean = true;
 
-    filesInArr.forEach((imageFile) => {
+    filesInArr.forEach(imageFile => {
       isValidImageType = imageFileExtensions.includes(imageFile.type);
     });
     if (!isValidImageType) {
@@ -60,7 +66,7 @@ const CreateMenu = () => {
       setFile(filesInArr);
 
       setPreview([
-        ...filesInArr.map((file) => {
+        ...filesInArr.map(file => {
           return URL.createObjectURL(file);
         }),
       ]);
@@ -72,7 +78,7 @@ const CreateMenu = () => {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true,
+    arrows: false,
     dots: false,
   };
 
@@ -81,44 +87,52 @@ const CreateMenu = () => {
       autosize(memoRef.current);
     }
   }, [memoRef]);
-
   return (
     <CreateMenuContainer>
-      <Form hasSubmit submitText="작성하기" onSubmit={submit}>
-        <b>위치 : {latLng.lat + "/" + latLng.lng}</b>
-        <CreateMenuImageView>
-          <div className="image-preview-container">
-            {!file ? (
-              <strong className="upload-require">
-                이미지를 업로드해주세요.
-              </strong>
-            ) : (
-              <Slider {...settings}>
-                {preview[0] && preview.map((view) => <img src={view} alt="" />)}
-              </Slider>
-            )}
-          </div>
-          <input
-            type="file"
-            multiple
-            id="albumFile"
-            className="file-input"
-            onChange={handleFileInput}
-          />
-          <label htmlFor="albumFile" className="file-input-label">
-            파일 업로드
-          </label>
-        </CreateMenuImageView>
+      <MenuHeader />
+      <Form
+        className="create-contant"
+        hasSubmit
+        submitText="작성하기"
+        onSubmit={submit}
+      >
+        <CreateMenuMainView>
+          <CreateMenuImageView>
+            <label htmlFor="albumFile" className="file-input-label">
+              <div className="image-preview-container">
+                {!file ? (
+                  <strong className="upload-require">
+                    이미지를 업로드해주세요.
+                  </strong>
+                ) : (
+                  <div className="slider">
+                    <Slider {...settings}>
+                      {preview[0] &&
+                        preview.map(view => <img src={view} alt="" />)}
+                    </Slider>
+                    <div className="image-length">{"+" + preview.length}</div>
+                  </div>
+                )}
+              </div>
+            </label>
+            <input
+              type="file"
+              multiple
+              id="albumFile"
+              className="file-input"
+              onChange={handleFileInput}
+            />
+          </CreateMenuImageView>
+          <p>{selectedMarker?.address_name}</p>
+        </CreateMenuMainView>
 
         <textarea
           ref={memoRef}
           className="memo-input"
           value={memo}
           onChange={onChangeMemo}
-          placeholder="사진과 함께 남길 말을 작성해주세요."
+          placeholder="사진과 함께 남길 말을 작성해주세요. . ."
         />
-
-        {selectedMarker?.address_name}
       </Form>
     </CreateMenuContainer>
   );

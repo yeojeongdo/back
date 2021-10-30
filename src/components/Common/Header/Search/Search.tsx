@@ -58,7 +58,12 @@ const Search = () => {
 
   return (
     <SearchContainer>
-      <Form hasSubmit submitText="검색" onSubmit={submit}>
+      <Form
+        className={isModal ? "open-search" : ""}
+        hasSubmit
+        submitText="검색"
+        onSubmit={submit}
+      >
         <Input
           value={value}
           onChange={onChangeValue}

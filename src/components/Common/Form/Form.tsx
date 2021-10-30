@@ -7,6 +7,7 @@ interface FormPropsType {
   onSubmit?: () => void;
   hasSubmit?: boolean;
   submitText?: string;
+  className?: string;
 }
 
 const Form: React.FC<FormPropsType> = ({ children, ...props }) => {
