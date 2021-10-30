@@ -2,10 +2,9 @@ import styled from "@emotion/styled";
 
 export const SearchContainer = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
-  /* position: absolute; */
-  flex-direction: column;
+  position: relative;
+  z-index: 9;
   form {
     min-height: 100%;
     flex-direction: row;
@@ -13,18 +12,34 @@ export const SearchContainer = styled.div`
     box-shadow: none;
     padding: 0;
     flex: 1;
+    background-color: white;
+    box-shadow: none;
+    /* border: 1px solid black; */
     input {
       margin: 0;
       flex: 2;
+      border: 0;
     }
+    input:focus {
+      border: 0;
+    }
+    button {
+      background-color: white;
+      color: black;
+      border: 0;
+    }
+  }
+  .open-search {
+    border-radius: 10px 10px 0 0;
   }
 `;
 
 export const SearchList = styled.div`
   display: flex;
   position: absolute;
-  width: 450px;
-  top: 53px;
+  top: 52px;
+  width: 100%;
+  z-index: 10;
   flex-direction: column;
   background-color: white;
   border: 1px solid #989898;

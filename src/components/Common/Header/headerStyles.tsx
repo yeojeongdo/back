@@ -2,17 +2,22 @@ import styled from "@emotion/styled";
 import { MAIN_COLOR } from "styles/colors";
 
 export const HeaderContainer = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 4rem;
   background-color: ${MAIN_COLOR};
+  width: 100%;
   position: fixed;
   left: 0;
   top: 0;
-  gap: 15px;
   z-index: 9999;
+`;
+
+export const HeaderContent = styled.div`
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  gap: 15px;
   .header-title {
     font-size: 16px;
   }
