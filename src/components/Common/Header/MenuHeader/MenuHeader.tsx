@@ -1,10 +1,12 @@
 import Search from "../Search/Search";
-import { MenuHeaderContainer } from "./MenuHeaderStyles";
+import { MenuHeaderContainer, MenuHeaderContant } from "./MenuHeaderStyles";
 
 const MenuHeader = () => {
   return (
     <MenuHeaderContainer>
-      <Search />
+      <MenuHeaderContant>
+        <Search />
+      </MenuHeaderContant>
     </MenuHeaderContainer>
   );
 };

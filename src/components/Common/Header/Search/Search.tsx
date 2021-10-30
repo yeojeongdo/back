@@ -1,17 +1,15 @@
 import Form from "components/Common/Form/Form";
 import Input from "components/Common/Input/Input";
-import useCreate from "hooks/redux/useCreate";
 import useSearch from "hooks/redux/useSearch";
 import useInput from "hooks/useInput";
 import { useCallback, useEffect } from "react";
 import { SearchContainer, SearchList, SearchListItem } from "./searchStyles";
 
-enum SortBy {
-  DISTANCE = "distance",
-}
+// enum SortBy {
+//   DISTANCE = "distance",
+// }
 
 const Search = () => {
-  const { markerState } = useCreate();
   const {
     searchMap,
     searchMapListState,
@@ -55,11 +53,23 @@ const Search = () => {
     },
     [value, searchMap, setSearchModal]
   );
+  //검색창을 클릭하지 않았을 시 검색 모달을 닫는 로직
+  const closeModal = (e: any) => {
+    const clicked = e.target.closest(".input");
+    clicked == null && setSearchModal(false);
+  };
+  // useEffect를 이용해 이벤트 중첩을 방지
+  useEffect(() => {
+    window.addEventListener("click", closeModal);
+    return () => {
+      window.addEventListener("click", closeModal);
+    };
+  }, []);
 
   return (
     <SearchContainer>
       <Form
-        className={isModal ? "open-search" : ""}
+        className={isModal ? "open-search input" : "input"}
         hasSubmit
         submitText="검색"
         onSubmit={submit}
