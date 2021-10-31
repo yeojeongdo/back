@@ -34,18 +34,18 @@ const AlbumItem: React.VFC<AlbumItemProps> = ({ album, albumRef }) => {
   return (
     <AlbumItemContainer onClick={handleClickAlbum} ref={albumRef}>
       <div className="header">
+        <img src={`http://${album.photo}`} alt="" className="thumnail" />
+      </div>
+      <div className="content">
+        <h4 className="userName">{album.user.name}</h4>
+        <p>📍{album.building.address}</p>
+        <p>{TimeCounting(album.createDate, { lang: "ko" })}</p>
         <img
           src={DefaultProfile}
           alt=""
           className="profile"
-          onClick={(event) => handlePushUserProfile(event, album.user.id)}
+          onClick={event => handlePushUserProfile(event, album.user.id)}
         />
-        <h4 className="userName">{album.user.name}</h4>
-      </div>
-      <div className="content">
-        <p>📍{album.building.address}</p>
-        <p>{TimeCounting(album.createDate, { lang: "ko" })}</p>
-        <img src={`http://${album.photo}`} alt="" className="thumnail" />
       </div>
     </AlbumItemContainer>
   );
