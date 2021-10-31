@@ -1,3 +1,4 @@
+import MenuHeader from "components/Common/Header/MenuHeader/MenuHeader";
 import useAlbum from "hooks/redux/useAlbum";
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -18,7 +19,7 @@ const AlbumList: React.VFC<{ albums: Album[] }> = ({ albums = [] }) => {
   useEffect(() => {
     if (inView && !albumState.loadAlbumsLoading) {
       getAlbums(lastId);
-      setLastId((prev) => prev + 10);
+      setLastId(prev => prev + 10);
     }
   }, [inView, getAlbums, lastId, albumState.loadAlbumsLoading]);
 
@@ -28,6 +29,7 @@ const AlbumList: React.VFC<{ albums: Album[] }> = ({ albums = [] }) => {
 
   return (
     <AlbumListContainer>
+      <MenuHeader />
       {albums.map((album, index) => (
         <React.Fragment key={album.id}>
           {albums.length - 1 === index ? (

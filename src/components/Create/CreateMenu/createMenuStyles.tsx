@@ -47,11 +47,13 @@ export const CreateMenuImageView = styled.div`
   .image-preview-container {
     width: 100%;
     height: 100%;
+    font-weight: 500;
     .upload-require {
       background-color: lightgray;
       height: 100%;
       display: flex;
       justify-content: center;
+      font-size: 12px;
       align-items: center;
     }
     .slider {
