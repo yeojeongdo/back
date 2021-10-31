@@ -1,6 +1,6 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
-import { createRef, useCallback, useEffect, useState } from "react";
+import { createRef, useCallback, useEffect, useMemo, useState } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
 import Slider from "react-slick";
 import { getLikeUsers } from "apis/albumAPI";
@@ -14,14 +14,17 @@ const AlbumView = () => {
     useAlbum();
   const commentInputRef = createRef<HTMLInputElement | null>();
 
-  const settings = {
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    dots: true,
-  };
+  const settings = useMemo(
+    () => ({
+      infinite: true,
+      speed: 1000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true,
+      dots: true,
+    }),
+    []
+  );
 
   const album = albumState.album;
 

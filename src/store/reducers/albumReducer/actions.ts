@@ -1,6 +1,8 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { createAction, createAsyncAction } from "typesafe-actions";
 
+export const RESET_ALBUMS = "album/RESET_ALBUMS";
+
 export const GET_ALBUMS_REQUEST = "album/GET_ALBUMS_REQUEST";
 export const GET_ALBUMS_SUCCESS = "album/GET_ALBUMS_SUCCESS";
 export const GET_ALBUMS_FAILURE = "album/GET_ALBUMS_FAILURE";
@@ -81,3 +83,4 @@ export const openAlbum = createAction(OPEN_ALBUM)();
 export const closeAlbum = createAction(CLOSE_ALBUM)();
 export const likeIncrement = createAction(LIKE_INCREMENT)();
 export const likeDecrement = createAction(LIKE_DECREMENT)();
+export const resetAlbums = createAction(RESET_ALBUMS)();

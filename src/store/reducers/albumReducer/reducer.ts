@@ -26,6 +26,7 @@ import {
   LIKE_ALBUM_FAILURE,
   LIKE_INCREMENT,
   LIKE_DECREMENT,
+  RESET_ALBUMS,
 } from "./actions";
 import { AlbumActions, AlbumState } from "./types";
 
@@ -208,5 +209,9 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
   [LIKE_DECREMENT]: (state) =>
     produce(state, (draft) => {
       draft.album!.likeNum--;
+    }),
+  [RESET_ALBUMS]: (state) =>
+    produce(state, (draft) => {
+      draft.albums = [];
     }),
 });

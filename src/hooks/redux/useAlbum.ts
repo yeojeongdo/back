@@ -14,6 +14,7 @@ import {
   LIKE_DECREMENT,
   LIKE_INCREMENT,
   OPEN_ALBUM,
+  RESET_ALBUMS,
 } from "store/reducers/albumReducer/actions";
 
 const useAlbum = () => {
@@ -119,6 +120,12 @@ const useAlbum = () => {
     });
   }, [dispatch]);
 
+  const resetAlbum = useCallback(() => {
+    dispatch({
+      type: RESET_ALBUMS,
+    });
+  }, [dispatch]);
+
   return {
     albumState,
     openAlbum,
@@ -132,6 +139,7 @@ const useAlbum = () => {
     likeAlbum,
     likeIncrement,
     likeDecrement,
+    resetAlbum,
   };
 };
 
