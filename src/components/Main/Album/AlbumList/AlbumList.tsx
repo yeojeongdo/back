@@ -9,15 +9,16 @@ import { AlbumListContainer } from "./albumListStyles";
 const AlbumList: React.VFC<{ albums: Album[] }> = ({ albums }) => {
   const { getAlbums, albumState } = useAlbum();
   const [lastId, setLastId] = useState<number>(10);
-  const [isFirst, setIsFirst] = useState(true);
   const [ref, inView] = useInView();
 
-  // useEffect(() => {}, [])
+  useEffect(() => {
+    getAlbums(0);
+  }, [getAlbums]);
 
   useEffect(() => {
     if (inView && !albumState.loadAlbumsLoading) {
       getAlbums(lastId);
-      setLastId(prev => prev + 10);
+      setLastId((prev) => prev + 10);
     }
   }, [inView, getAlbums, lastId, albumState.loadAlbumsLoading]);
 
