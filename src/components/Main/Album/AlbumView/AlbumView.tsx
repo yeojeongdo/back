@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import { getLikeUsers } from "apis/albumAPI";
 import { toast } from "react-toastify";
 import useAuth from "hooks/redux/useAuth";
+import LoadingPage from "pages/LoadingPage/LoadingPage";
 
 const AlbumView = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -73,6 +74,10 @@ const AlbumView = () => {
     }
   }, [album?.id, authState.myInfo?.id]);
 
+  if (albumState.loadAlbumLoading) {
+    return null;
+  }
+
   return (
     <>
       <AlbumViewContainer>
@@ -88,13 +93,6 @@ const AlbumView = () => {
                 <img src={`http://${image}`} alt="" />
               ))}
             </Slider>
-            {/* {page !== 0 && (
-              <Button onClick={() => setPage(page - 1)}> 오른 </Button>
-            )}
-            <img src={album?.photo && `http://${album?.photo[page]}`} alt="" />
-            {album?.photo[1] && page < album?.photo.length - 1 && (
-              <Button onClick={() => setPage(page + 1)}> 오른 </Button>
-            )} */}
           </div>
           <div className="album_main_content">
             <h3>{album?.memo}</h3>
