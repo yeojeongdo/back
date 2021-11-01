@@ -6,7 +6,6 @@ import Slider from "react-slick";
 import { getLikeUsers } from "apis/albumAPI";
 import { toast } from "react-toastify";
 import useAuth from "hooks/redux/useAuth";
-import LoadingPage from "pages/LoadingPage/LoadingPage";
 
 const AlbumView = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
