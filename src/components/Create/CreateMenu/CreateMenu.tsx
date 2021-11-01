@@ -1,21 +1,20 @@
 import Form from "components/Common/Form/Form";
 import useCreate from "hooks/redux/useCreate";
 import useInput from "hooks/useInput";
-import { createRef, useCallback, useEffect } from "react";
+import { createRef, useCallback, useEffect, useMemo } from "react";
 import { useState } from "react";
 import {
   CreateMenuContainer,
   CreateMenuImageView,
   CreateMenuMainView,
 } from "./createMenuStyles";
-import Header from "components/Common/Header/Header";
 
 import Slider from "react-slick";
 import { toast } from "react-toastify";
 import autosize from "autosize";
 import MenuHeader from "components/Common/Header/MenuHeader/MenuHeader";
 import useAlbum from "hooks/redux/useAlbum";
-import { resetAlbums } from "store/reducers/albumReducer/actions";
+import { useHistory } from "react-router";
 
 const CreateMenu = () => {
   const { markerState, createAlbum } = useCreate();
@@ -24,7 +23,8 @@ const CreateMenu = () => {
   const [file, setFile] = useState<any[]>();
   const [preview, setPreview] = useState<string[]>([]);
   const memoRef = createRef<HTMLTextAreaElement>();
-  const { resetAlbum, closeAlbum } = useAlbum();
+  const { resetAlbum } = useAlbum();
+  const [createAlbumDone, setCreateAlbumDone] = useState<boolean>(false);
 
   const submit = useCallback(() => {
     if (
@@ -48,9 +48,8 @@ const CreateMenu = () => {
     });
 
     createAlbum(form);
-    resetAlbum();
-    closeAlbum();
-  }, [file, memo, createAlbum, selectedMarker, closeAlbum, resetAlbum]);
+    setCreateAlbumDone(true);
+  }, [file, memo, createAlbum, selectedMarker]);
 
   const handleFileInput = useCallback((e) => {
     const imageFileExtensions = [
@@ -87,20 +86,30 @@ const CreateMenu = () => {
     }
   }, []);
 
-  const settings = {
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: false,
-  };
+  const settings = useMemo(
+    () => ({
+      infinite: true,
+      speed: 1000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      dots: false,
+    }),
+    []
+  );
 
   useEffect(() => {
     if (memoRef.current) {
       autosize(memoRef.current);
     }
   }, [memoRef]);
+
+  useEffect(() => {
+    if (markerState.createAlbumDone && !markerState.createAlbumLoading) {
+      window.location.href = "/";
+    }
+  }, [markerState]);
+
   return (
     <CreateMenuContainer>
       <MenuHeader />
