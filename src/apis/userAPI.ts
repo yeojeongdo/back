@@ -19,3 +19,7 @@ export const followersAPI = (userIdx: number) => {
 export const followingsAPI = (userIdx: number) => {
   return axios.get(`/user/followings/${userIdx}`);
 };
+
+export const requestFollowAPI = (userIdx: number) => {
+  return axios.patch(`/follow/${userIdx}`);
+};
