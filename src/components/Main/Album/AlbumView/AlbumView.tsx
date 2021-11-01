@@ -1,6 +1,6 @@
 import useAlbum from "hooks/redux/useAlbum";
 import { AlbumViewContainer } from "./albumViewStyles";
-import { createRef, useCallback, useEffect, useState } from "react";
+import { createRef, useCallback, useEffect, useMemo, useState } from "react";
 import AlbumComment from "../AlbumComment/AlbumComment";
 import Slider from "react-slick";
 import { getLikeUsers } from "apis/albumAPI";
@@ -14,14 +14,17 @@ const AlbumView = () => {
     useAlbum();
   const commentInputRef = createRef<HTMLInputElement | null>();
 
-  const settings = {
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    dots: true,
-  };
+  const settings = useMemo(
+    () => ({
+      infinite: true,
+      speed: 1000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true,
+      dots: true,
+    }),
+    []
+  );
 
   const album = albumState.album;
 
@@ -70,6 +73,10 @@ const AlbumView = () => {
     }
   }, [album?.id, authState.myInfo?.id]);
 
+  if (albumState.loadAlbumLoading) {
+    return null;
+  }
+
   return (
     <>
       <AlbumViewContainer>
@@ -85,13 +92,6 @@ const AlbumView = () => {
                 <img src={`http://${image}`} alt="" />
               ))}
             </Slider>
-            {/* {page !== 0 && (
-              <Button onClick={() => setPage(page - 1)}> 오른 </Button>
-            )}
-            <img src={album?.photo && `http://${album?.photo[page]}`} alt="" />
-            {album?.photo[1] && page < album?.photo.length - 1 && (
-              <Button onClick={() => setPage(page + 1)}> 오른 </Button>
-            )} */}
           </div>
           <div className="album_main_content">
             <h3>{album?.memo}</h3>

@@ -5,10 +5,6 @@ import useInput from "hooks/useInput";
 import { useCallback, useEffect } from "react";
 import { SearchContainer, SearchList, SearchListItem } from "./searchStyles";
 
-// enum SortBy {
-//   DISTANCE = "distance",
-// }
-
 const Search = () => {
   const {
     searchMap,
@@ -32,7 +28,7 @@ const Search = () => {
           }
         }
       );
-      !searchMapListState.isSearchModal && setSearchModal(true);
+      // !searchMapListState.isSearchModal && setSearchModal(true);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [value]
@@ -54,17 +50,20 @@ const Search = () => {
     [value, searchMap, setSearchModal]
   );
   //검색창을 클릭하지 않았을 시 검색 모달을 닫는 로직
-  const closeModal = (e: any) => {
-    const clicked = e.target.closest(".input");
-    clicked == null && setSearchModal(false);
-  };
+  const closeModal = useCallback(
+    (e: any) => {
+      const clicked = e.target.closest(".input");
+      clicked == null && setSearchModal(false);
+    },
+    [setSearchModal]
+  );
   // useEffect를 이용해 이벤트 중첩을 방지
   useEffect(() => {
     window.addEventListener("click", closeModal);
     return () => {
       window.addEventListener("click", closeModal);
     };
-  }, []);
+  }, [closeModal]);
 
   return (
     <SearchContainer>
@@ -84,7 +83,7 @@ const Search = () => {
       {isModal && (
         <SearchList>
           {value !== ""
-            ? searchMapListState.automaticSearchList.map(current => (
+            ? searchMapListState.automaticSearchList.map((current) => (
                 <SearchListItem
                   onClick={() => {
                     setCenterSearching({ lat: current.y, lng: current.x });
@@ -98,7 +97,7 @@ const Search = () => {
                   </div>
                 </SearchListItem>
               ))
-            : valueList.map(current => (
+            : valueList.map((current) => (
                 <SearchListItem
                   onClick={() => {
                     submit(current);

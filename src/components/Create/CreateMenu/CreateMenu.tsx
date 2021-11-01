@@ -1,30 +1,42 @@
 import Form from "components/Common/Form/Form";
 import useCreate from "hooks/redux/useCreate";
 import useInput from "hooks/useInput";
-import { createRef, useCallback, useEffect } from "react";
+import { createRef, useCallback, useEffect, useMemo } from "react";
 import { useState } from "react";
 import {
   CreateMenuContainer,
   CreateMenuImageView,
   CreateMenuMainView,
 } from "./createMenuStyles";
-import Header from "components/Common/Header/Header";
 
 import Slider from "react-slick";
 import { toast } from "react-toastify";
 import autosize from "autosize";
 import MenuHeader from "components/Common/Header/MenuHeader/MenuHeader";
+import useAlbum from "hooks/redux/useAlbum";
+import { useHistory } from "react-router";
 
 const CreateMenu = () => {
   const { markerState, createAlbum } = useCreate();
-  const latLng = markerState.LatLng;
   const selectedMarker = markerState.selectedMarker;
   const [memo, onChangeMemo] = useInput("");
-  const [file, setFile] = useState<any>();
+  const [file, setFile] = useState<any[]>();
   const [preview, setPreview] = useState<string[]>([]);
   const memoRef = createRef<HTMLTextAreaElement>();
+  const { resetAlbum } = useAlbum();
+  const [createAlbumDone, setCreateAlbumDone] = useState<boolean>(false);
 
   const submit = useCallback(() => {
+    if (
+      !memo.trim() ||
+      !file ||
+      !selectedMarker?.x ||
+      !selectedMarker?.y ||
+      !selectedMarker?.address_name
+    ) {
+      toast.error("누락된 값이 있습니다.");
+      return;
+    }
     const form = new FormData();
     selectedMarker && form.append("address", selectedMarker.address_name);
     selectedMarker && form.append("latitude", selectedMarker.y.toString());
@@ -36,9 +48,10 @@ const CreateMenu = () => {
     });
 
     createAlbum(form);
+    setCreateAlbumDone(true);
   }, [file, memo, createAlbum, selectedMarker]);
 
-  const handleFileInput = useCallback(e => {
+  const handleFileInput = useCallback((e) => {
     const imageFileExtensions = [
       "image/apng",
       "image/bmp",
@@ -54,7 +67,7 @@ const CreateMenu = () => {
     const filesInArr: any[] = Array.from(e.target.files);
     let isValidImageType: boolean = true;
 
-    filesInArr.forEach(imageFile => {
+    filesInArr.forEach((imageFile) => {
       isValidImageType = imageFileExtensions.includes(imageFile.type);
     });
     if (!isValidImageType) {
@@ -66,27 +79,37 @@ const CreateMenu = () => {
       setFile(filesInArr);
 
       setPreview([
-        ...filesInArr.map(file => {
+        ...filesInArr.map((file) => {
           return URL.createObjectURL(file);
         }),
       ]);
     }
   }, []);
 
-  const settings = {
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: false,
-  };
+  const settings = useMemo(
+    () => ({
+      infinite: true,
+      speed: 1000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      dots: false,
+    }),
+    []
+  );
 
   useEffect(() => {
     if (memoRef.current) {
       autosize(memoRef.current);
     }
   }, [memoRef]);
+
+  useEffect(() => {
+    if (markerState.createAlbumDone && !markerState.createAlbumLoading) {
+      window.location.href = "/";
+    }
+  }, [markerState]);
+
   return (
     <CreateMenuContainer>
       <MenuHeader />
@@ -108,7 +131,7 @@ const CreateMenu = () => {
                   <div className="slider">
                     <Slider {...settings}>
                       {preview[0] &&
-                        preview.map(view => <img src={view} alt="" />)}
+                        preview.map((view) => <img src={view} alt="" />)}
                     </Slider>
                     <div className="image-length">{"+" + preview.length}</div>
                   </div>

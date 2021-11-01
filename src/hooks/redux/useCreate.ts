@@ -10,10 +10,10 @@ import {
 const useCreate = () => {
   const dispatch = useDispatch();
 
-  const markerState = useTypedSelector(state => state.create);
+  const markerState = useTypedSelector((state) => state.create);
 
   const setMarker = useCallback(
-    latLng => {
+    (latLng) => {
       dispatch({
         type: SET_MARKER,
         payload: latLng,
@@ -23,7 +23,7 @@ const useCreate = () => {
   );
 
   const selectMarker = useCallback(
-    data => {
+    (data) => {
       dispatch({
         type: SELECT_MARKER,
         payload: data,
@@ -42,7 +42,7 @@ const useCreate = () => {
     [dispatch]
   );
 
-  return { setMarker, markerState, selectMarker, createAlbum };
+  return { markerState, setMarker, selectMarker, createAlbum };
 };
 
 export default useCreate;
