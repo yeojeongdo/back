@@ -3,7 +3,7 @@ import AlbumList from "components/Main/Album/AlbumList/AlbumList";
 import Map from "components/Main/Map/Map";
 import useAuth from "hooks/redux/useAuth";
 import { Token } from "lib/Token";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MainContent, MainPageStyle } from "./PageStyle";
 import { useHistory } from "react-router-dom";
 import useAlbum from "hooks/redux/useAlbum";
@@ -14,8 +14,6 @@ const Main = () => {
   const history = useHistory();
   const { authState, loadMyInfo } = useAuth();
   const { albumState } = useAlbum();
-
-  const { albums } = albumState;
 
   useEffect(() => {
     if (!Token.getToken()) {
@@ -32,7 +30,7 @@ const Main = () => {
         <Header />
         <MainContent>
           <Map albums={albumState.albums} setAlbums={() => {}} />
-          <AlbumList albums={albums} />
+          <AlbumList albums={albumState.albums} />
         </MainContent>
         <CreateAlbumButton />
       </MainPageStyle>

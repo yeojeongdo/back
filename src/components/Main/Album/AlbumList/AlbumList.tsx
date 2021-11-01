@@ -6,19 +6,18 @@ import { Album } from "types/album";
 import AlbumItem from "../AlbumItem/AlbumItem";
 import { AlbumListContainer } from "./albumListStyles";
 
-const AlbumList: React.VFC<{ albums: Album[] }> = ({ albums = [] }) => {
+const AlbumList: React.VFC<{ albums: Album[] }> = ({ albums }) => {
   const { getAlbums, albumState } = useAlbum();
   const [lastId, setLastId] = useState<number>(10);
+  const [isFirst, setIsFirst] = useState(true);
   const [ref, inView] = useInView();
 
-  useEffect(() => {
-    getAlbums(0);
-  }, [getAlbums]);
+  // useEffect(() => {}, [])
 
   useEffect(() => {
     if (inView && !albumState.loadAlbumsLoading) {
       getAlbums(lastId);
-      setLastId((prev) => prev + 10);
+      setLastId(prev => prev + 10);
     }
   }, [inView, getAlbums, lastId, albumState.loadAlbumsLoading]);
 
@@ -27,11 +26,11 @@ const AlbumList: React.VFC<{ albums: Album[] }> = ({ albums = [] }) => {
       <MenuHeader />
       {albums.map((album, index) => (
         <React.Fragment key={album.id}>
-          {albums.length - 1 === index ? (
+          {/* {albums.length - 1 === index ? (
             <AlbumItem album={album} albumRef={ref} />
-          ) : (
-            <AlbumItem album={album} />
-          )}
+          ) : ( */}
+          <AlbumItem album={album} />
+          {/* )} */}
         </React.Fragment>
       ))}
     </AlbumListContainer>

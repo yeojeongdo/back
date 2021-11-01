@@ -17,7 +17,7 @@ const LoginPage = () => {
       history.push("/");
     }
     console.log(loginDone, loadMyInfoLoading);
-  }, [loginDone, history]);
+  }, [loginDone, history, loadMyInfoLoading]);
 
   if (loadMyInfoLoading) {
     return <LoadingPage />;

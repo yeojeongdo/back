@@ -1,5 +1,5 @@
 import useSearch from "hooks/redux/useSearch";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   CustomOverlayMap,
   Map as CustomMap,
@@ -17,25 +17,60 @@ const Map = ({ albums, setAlbums }: mapType) => {
   // const [latitude, setLatitude] = useState<number>(35.6632143);
   // const [longTitude, setLongTitude] = useState<number>(128.4140176);
   const { searchMapListState, setCenterSearching } = useSearch();
-  console.log(searchMapListState.searchMapList);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // const mapAlbumList: Array<Album[]> = [];
+  // const [mapAlbumList, setMapAlbumList] = useState<Array<Album[]>>([]);
+
+  interface AnyObject {
+    [key: string]: any;
+  }
+
   const mapAlbumList: Array<Album[]> = [];
 
-  useEffect(() => {
-    // eslint-disable-next-line array-callback-return
-    albums.map(album => {
-      mapAlbumList.map(mapAlbmus => {
-        if (album.building.address === mapAlbmus[0]?.building?.address) {
-          mapAlbmus.push(album);
-          return false;
-        }
-        return true;
-      }) && mapAlbumList.push([album]);
+  // {
+  //   address: 주소,
+  //   albums: {
+  //     Album[]
+  //   }
+  // }
 
-      console.log(mapAlbumList);
+  interface AddressItem {
+    [key: string]: any[];
+  }
+
+  const a = () => {
+    const addressList: AddressItem = {};
+    albums.forEach(album => {
+      if (!addressList[album.building.address]) {
+        addressList[album.building.address] = [];
+      }
+      addressList[album.building.address].push(album);
     });
-  }, [albums, mapAlbumList]);
+
+    // albums.forEach(album=>{
+    //   addressList.forEach(address=>{})
+    // })
+
+    // addressList.forEach(addressObj => {
+    //   albums.forEach(album => {
+    //     if (addressObj.address === album.building.address) {
+    //       addressObj.albums.push(album);
+    //     }
+    //   });
+    // });
+
+    for (const key in addressList) {
+      console.log(key);
+      console.log(addressList[key]);
+    }
+
+    // console.log(mapAlbumList);
+  };
+  // useEffect(() => {
+  //   // eslint-disable-next-line array-callback-return
+  //   a();
+  // }, [setMapAlbumList]);
 
   return (
     <CustomMap
@@ -52,6 +87,7 @@ const Map = ({ albums, setAlbums }: mapType) => {
           lng: e.getCenter().getLng(),
         })
       }
+      onClick={a}
     >
       {/* <MarkerClusterer
         averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
@@ -88,33 +124,22 @@ const Map = ({ albums, setAlbums }: mapType) => {
         }}
         styles={[{ width: "50px", height: "50px" }]}
       > */}
-      {
-        // <CustomOverlayMap
-        //   key={index}
-        //   position={{
-        //     lat: album.building.latitude,
-        //     lng: album.building.longitude,
-        //   }}
-        //   // image={{
-        //   //   src: `http://${album.photo}`,
-        //   //   size: {
-        //   //     width: 0,
-        //   //     height: 0,
-        //   //   },
-        //   //   options: {
-        //   //     style: {
-        //   //       objectFit: "cover",
-        //   //       width: "50px",
-        //   //       borderRadius: "7px",
-        //   //       height: "50px",
-        //   //     },
-        //   //   },
-        //   // }}
-        //   id={album.building.address}
-        // >
-        //   <img width="50" height="50" src={`http://${album.photo}`} alt="" />
-        // </CustomOverlayMap>
-      }
+      {mapAlbumList.map((albums, index) => {
+        console.log(albums);
+        const album = albums[1];
+        return (
+          <CustomOverlayMap
+            key={index}
+            position={{
+              lat: album.building.latitude,
+              lng: album.building.longitude,
+            }}
+            id={album.building.address}
+          >
+            <img width="50" height="50" src={`http://${album.photo}`} alt="" />
+          </CustomOverlayMap>
+        );
+      })}
       {searchMapListState.searchMapList &&
         searchMapListState.searchMapList.map(current => (
           <MapMarker
