@@ -14,6 +14,7 @@ const CreaterMap = () => {
 
   const searchAddrFromCoords = () => {
     const geocoder = new kakao.maps.services.Geocoder();
+
     geocoder.coord2RegionCode(
       markerState.LatLng.lng,
       markerState.LatLng.lat,
@@ -41,7 +42,7 @@ const CreaterMap = () => {
         });
         searchAddrFromCoords();
       }}
-      onDragEnd={e => {
+      onDragEnd={(e) => {
         setCenterSearching({
           lat: e.getCenter().getLat(),
           lng: e.getCenter().getLng(),
@@ -62,7 +63,7 @@ const CreaterMap = () => {
         ></MapMarker>
       )}
       {searchMapListState.searchMapList &&
-        searchMapListState.searchMapList.map(current => (
+        searchMapListState.searchMapList.map((current) => (
           <MapMarker
             onClick={() => {
               selectMarker(current);
