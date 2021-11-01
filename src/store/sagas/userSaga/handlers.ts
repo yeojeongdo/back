@@ -1,5 +1,5 @@
 import { call, put } from "@redux-saga/core/effects";
-import { followersAPI, followNumberAPI, userInfoAPI } from "apis/userAPI";
+import { followNumberAPI, userInfoAPI } from "apis/userAPI";
 import { AnyAction } from "redux";
 import {
   GET_USER_FOLLOW_NUMBER_FAILURE,

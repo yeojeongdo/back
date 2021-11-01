@@ -24,7 +24,7 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route exact path="/">
-          {loadMyInfoLoading || loginLoading ? <LoadingPage /> : <Main />}
+          <Main />
         </Route>
         <Route exact path="/create">
           <CreatePage />
