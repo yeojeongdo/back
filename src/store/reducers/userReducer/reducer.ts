@@ -1,6 +1,6 @@
 import produce from "immer";
 import * as userActions from "./actions";
-import { createReducer } from "typesafe-actions";
+import { action, createReducer } from "typesafe-actions";
 import { UserState } from "./types";
 
 const initialState: UserState = {
@@ -24,7 +24,12 @@ const initialState: UserState = {
   getUserFollowNumberError: null,
   getUserFollowNumberDone: false,
 
+  userFollowLoading: false,
+  userFollowError: null,
+  userFollowDone: false,
+
   followNumbers: { followerNum: 0, followingNum: 0 },
+  isFollow: false,
   userInfo: null,
   followers: 0,
   followings: 0,
@@ -110,5 +115,27 @@ export default createReducer<UserState>(initialState, {
       draft.getUserInfoLoading = true;
       draft.getUserInfoDone = false;
       draft.getUserInfoError = null;
+    }),
+  [userActions.USER_FOLLOW]: (state, action) =>
+    produce(state, (draft) => {
+      draft.userFollowDone = false;
+      draft.userFollowLoading = true;
+    }),
+  [userActions.USER_FOLLOW_SUCCESS]: (state, action) =>
+    produce(state, (draft) => {
+      draft.userFollowLoading = false;
+      draft.userFollowDone = true;
+      draft.followNumbers.followerNum += action.payload.change;
+      draft.isFollow = action.payload.isFollow;
+    }),
+  [userActions.USER_FOLLOW_FAILURE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.userFollowError = action.payload;
+      draft.userFollowLoading = false;
+      draft.userFollowDone = false;
+    }),
+  [userActions.INIT_USER_FOLLOW]: (state, action) =>
+    produce(state, (draft) => {
+      draft.isFollow = action.payload;
     }),
 });

@@ -1,7 +1,23 @@
-import { takeLatest } from "@redux-saga/core/effects";
-import { GET_USER_INFO_ALL_REQUEST } from "store/reducers/userReducer/actions";
-import { handleGetUserInfoAll } from "./handlers";
+import { takeLatest } from "redux-saga/effects";
+import {
+  GET_USER_INFO_ALL_REQUEST,
+  INIT_USER_FOLLOW_REQUEST,
+  USER_FOLLOW,
+} from "store/reducers/userReducer/actions";
+import {
+  handleGetUserInfoAll,
+  handleInitUserFollow,
+  handleUserFollow,
+} from "./handlers";
 
 export function* watchGetUserInfo() {
   yield takeLatest(GET_USER_INFO_ALL_REQUEST, handleGetUserInfoAll);
+}
+
+export function* watchUserFollow() {
+  yield takeLatest(USER_FOLLOW, handleUserFollow);
+}
+
+export function* watchInitUserFollow() {
+  yield takeLatest(INIT_USER_FOLLOW_REQUEST, handleInitUserFollow);
 }
