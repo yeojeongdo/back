@@ -36,17 +36,22 @@ const Map = ({ albums, setAlbums }: mapType) => {
   // }
 
   interface AddressItem {
-    [key: string]: any[];
+    [key: string]: Array<Album>;
   }
 
+  const addressList: AddressItem = {};
   const a = () => {
-    const addressList: AddressItem = {};
     albums.forEach(album => {
       if (!addressList[album.building.address]) {
         addressList[album.building.address] = [];
       }
       addressList[album.building.address].push(album);
     });
+
+    for (const key in addressList) {
+      console.log(key);
+      console.log(addressList[key]);
+    }
 
     // albums.forEach(album=>{
     //   addressList.forEach(address=>{})
@@ -59,11 +64,6 @@ const Map = ({ albums, setAlbums }: mapType) => {
     //     }
     //   });
     // });
-
-    for (const key in addressList) {
-      console.log(key);
-      console.log(addressList[key]);
-    }
 
     // console.log(mapAlbumList);
   };
@@ -124,6 +124,30 @@ const Map = ({ albums, setAlbums }: mapType) => {
         }}
         styles={[{ width: "50px", height: "50px" }]}
       > */}
+      {() => {
+        for (const key in addressList) {
+          const album = addressList[key];
+          console.log(album);
+          return (
+            <CustomOverlayMap
+              key={key}
+              position={{
+                lat: album[0].building.latitude,
+                lng: album[0].building.longitude,
+              }}
+              id={album[0].building.address}
+            >
+              <img
+                width="50"
+                height="50"
+                src={`http://${album[0].photo}`}
+                alt=""
+              />
+            </CustomOverlayMap>
+          );
+        }
+      }}
+
       {mapAlbumList.map((albums, index) => {
         console.log(albums);
         const album = albums[1];
