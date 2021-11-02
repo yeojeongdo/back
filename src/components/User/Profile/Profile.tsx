@@ -17,8 +17,11 @@ import {
 } from "./profileStyles";
 import { editUserProfile } from "apis/userAPI";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { CHANGE_PROFILE } from "store/reducers/userReducer/actions";
 
 const Profile: React.VFC = () => {
+  const dispatch = useDispatch();
   const [toggleEditContent, setToggleEditContent] = useState<boolean>(false);
   const [profileFile, setProfileFile] = useState<File>();
   const [prevProfileImage, setPrevProfileImage] = useState<string>("");
@@ -62,12 +65,18 @@ const Profile: React.VFC = () => {
       editUserProfile(form)
         .then((response) => {
           toast.success("프로필을 변경했습니다.");
+          dispatch({
+            type: CHANGE_PROFILE,
+            payload: prevProfileImage,
+          });
+          setToggleEditContent(false);
+          setPrevProfileImage("");
         })
         .catch((error) => {
           toast.error("에러가 발생했습니다.");
         });
     }
-  }, [profileFile]);
+  }, [profileFile, prevProfileImage, dispatch]);
 
   const { isFollow } = userState;
 
@@ -95,7 +104,13 @@ const Profile: React.VFC = () => {
             <div style={{ display: "flex" }}>
               <ProfileImageContainer>
                 <ProfileImage
-                  profile={userInfo?.image && `http://${userInfo?.image}`}
+                  profile={
+                    userInfo?.image
+                      ? userInfo?.image.includes("blob:")
+                        ? userInfo.image
+                        : `http://${userInfo?.image}`
+                      : undefined
+                  }
                 />
                 {userInfo?.id === myInfo?.id && (
                   <ProfileEditButton onClick={handleToggleEdit}>

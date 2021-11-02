@@ -138,4 +138,10 @@ export default createReducer<UserState>(initialState, {
     produce(state, (draft) => {
       draft.isFollow = action.payload;
     }),
+  [userActions.CHANGE_PROFILE]: (state, action) =>
+    produce(state, (draft) => {
+      if (draft.userInfo) {
+        draft.userInfo.image = action.payload;
+      }
+    }),
 });
