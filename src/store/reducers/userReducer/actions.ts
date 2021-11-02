@@ -38,6 +38,8 @@ export const USER_FOLLOW_SUCCESS = "user/USER_FOLLOW_SUCCESS" as const;
 export const USER_FOLLOW_FAILURE = "user/USER_FOLLOW_FAILURE" as const;
 
 export const CHANGE_PROFILE = "user/CHANGE_PROFILE" as const;
+export const CHANGE_NAME = "user/CHANGE_NAME" as const;
+export const CHANGE_BIRTH = "user/CHANGE_BIRTH" as const;
 
 export const getUserInfoAllAction = createAction(GET_USER_INFO_ALL_REQUEST)();
 export const initUserFollowRequestAction = createAction(

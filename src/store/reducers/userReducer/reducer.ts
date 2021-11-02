@@ -144,4 +144,16 @@ export default createReducer<UserState>(initialState, {
         draft.userInfo.image = action.payload;
       }
     }),
+  [userActions.CHANGE_NAME]: (state, action) =>
+    produce(state, (draft) => {
+      if (draft.userInfo) {
+        draft.userInfo.name = action.payload;
+      }
+    }),
+  [userActions.CHANGE_BIRTH]: (state, action) =>
+    produce(state, (draft) => {
+      if (draft.userInfo) {
+        draft.userInfo.birthDay = action.payload;
+      }
+    }),
 });

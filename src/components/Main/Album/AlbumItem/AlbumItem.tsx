@@ -5,7 +5,6 @@ import TimeCounting from "time-counting";
 import { Ref, useCallback } from "react";
 import { Album } from "types/album";
 import { useHistory } from "react-router";
-import useUser from "hooks/redux/useUser";
 
 interface AlbumItemProps {
   album: Album;
@@ -15,7 +14,6 @@ interface AlbumItemProps {
 const AlbumItem: React.VFC<AlbumItemProps> = ({ album, albumRef }) => {
   const history = useHistory();
   const { openAlbum, getAlbum } = useAlbum();
-  const { userState } = useUser();
 
   const handlePushUserProfile = useCallback(
     (
