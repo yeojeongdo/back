@@ -36,6 +36,7 @@ export const AlbumItemContainer = styled.div`
       margin-left: auto;
       width: 31px;
       height: 31px;
+      border-radius: 50%;
     }
     .thumnail {
       width: 100%;

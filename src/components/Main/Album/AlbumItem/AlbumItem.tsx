@@ -5,6 +5,7 @@ import TimeCounting from "time-counting";
 import { Ref, useCallback } from "react";
 import { Album } from "types/album";
 import { useHistory } from "react-router";
+import useUser from "hooks/redux/useUser";
 
 interface AlbumItemProps {
   album: Album;
@@ -14,6 +15,7 @@ interface AlbumItemProps {
 const AlbumItem: React.VFC<AlbumItemProps> = ({ album, albumRef }) => {
   const history = useHistory();
   const { openAlbum, getAlbum } = useAlbum();
+  const { userState } = useUser();
 
   const handlePushUserProfile = useCallback(
     (
@@ -41,10 +43,10 @@ const AlbumItem: React.VFC<AlbumItemProps> = ({ album, albumRef }) => {
         <p>📍{album.building.address}</p>
         <p>{TimeCounting(album.createDate, { lang: "ko" })}</p>
         <img
-          src={DefaultProfile}
+          src={album.user.image ? `http://${album.user.image}` : DefaultProfile}
           alt=""
           className="profile"
-          onClick={event => handlePushUserProfile(event, album.user.id)}
+          onClick={(event) => handlePushUserProfile(event, album.user.id)}
         />
       </div>
     </AlbumItemContainer>

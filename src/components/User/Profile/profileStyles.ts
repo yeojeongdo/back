@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import DefaultProfile from "assets/images/default_profile.svg";
 
@@ -26,11 +27,24 @@ export const ProfileEditButton = styled.div`
   user-select: none;
 `;
 
-export const ProfileImage = styled.div`
+interface IProfileImage {
+  profile: string | undefined;
+}
+
+export const ProfileImage = styled.div<IProfileImage>`
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background-image: url(${DefaultProfile});
+  background-position: center;
+  background-size: cover;
+  ${(props) =>
+    props.profile
+      ? css`
+          background-image: url(${props.profile});
+        `
+      : css`
+          background-image: url(${DefaultProfile});
+        `}
 `;
 
 export const ProfileInfo = styled.section`
@@ -82,6 +96,10 @@ export const EditUserInfo = styled.div`
   flex-direction: column;
   .name,
   .birth {
+    input {
+      margin-bottom: 10px;
+    }
+    margin: 30px 0;
     display: flex;
     flex-direction: column;
   }

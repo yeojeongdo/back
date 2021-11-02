@@ -15,9 +15,12 @@ import {
   ProfileImageContainer,
   ProfileInfo,
 } from "./profileStyles";
+import { editUserProfile } from "apis/userAPI";
+import { toast } from "react-toastify";
 
 const Profile: React.VFC = () => {
   const [toggleEditContent, setToggleEditContent] = useState<boolean>(false);
+  const [profileFile, setProfileFile] = useState<File>();
   const [prevProfileImage, setPrevProfileImage] = useState<string>("");
 
   const { userState, userFollow, getIsFollow } = useUser();
@@ -45,11 +48,26 @@ const Profile: React.VFC = () => {
     (event: ChangeEvent<HTMLInputElement>) => {
       if (event) {
         const profileImage = event.target.files![0];
+        setProfileFile(profileImage);
         setPrevProfileImage(URL.createObjectURL(profileImage));
       }
     },
     []
   );
+  const handleEditProfile = useCallback(() => {
+    const form = new FormData();
+    if (profileFile) {
+      form.append("file", profileFile);
+
+      editUserProfile(form)
+        .then((response) => {
+          toast.success("프로필을 변경했습니다.");
+        })
+        .catch((error) => {
+          toast.error("에러가 발생했습니다.");
+        });
+    }
+  }, [profileFile]);
 
   const { isFollow } = userState;
 
@@ -76,7 +94,9 @@ const Profile: React.VFC = () => {
           <>
             <div style={{ display: "flex" }}>
               <ProfileImageContainer>
-                <ProfileImage />
+                <ProfileImage
+                  profile={userInfo?.image && `http://${userInfo?.image}`}
+                />
                 {userInfo?.id === myInfo?.id && (
                   <ProfileEditButton onClick={handleToggleEdit}>
                     ⚙️
@@ -132,7 +152,7 @@ const Profile: React.VFC = () => {
                         />
                       )}
                     </div>
-                    <Button>프로필 변경</Button>
+                    <Button onClick={handleEditProfile}>프로필 변경</Button>
                   </EditProfileImage>
                   <EditUserInfo>
                     <h3>유저 정보 변경</h3>
@@ -145,6 +165,7 @@ const Profile: React.VFC = () => {
                           value={name}
                           onChange={onChangeName}
                         />
+                        <Button>({name})로 변경</Button>
                       </div>
                       <div className="birth">
                         생년월일
@@ -154,9 +175,9 @@ const Profile: React.VFC = () => {
                           value={birth}
                           onChange={onChangeBirth}
                         />
+                        <Button>생년월일 변경</Button>
                       </div>
                     </form>
-                    <Button>유저 정보 변경</Button>
                   </EditUserInfo>
                 </>
               )}

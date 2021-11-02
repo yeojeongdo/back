@@ -10,6 +10,7 @@ import { createRef, useCallback, useEffect, useState, VFC } from "react";
 import ReactLoading from "react-loading";
 import useInput from "hooks/useInput";
 import useAuth from "hooks/redux/useAuth";
+import useUser from "hooks/redux/useUser";
 
 interface IAlbumCommentProps {
   commentInputRef: any;
@@ -19,6 +20,7 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
   const { albumState, getComments, createComment, deleteComment, editComment } =
     useAlbum();
   const { authState } = useAuth();
+  const { userState } = useUser();
 
   const editCommentRef = createRef<HTMLTextAreaElement>();
 
@@ -186,7 +188,11 @@ const AlbumComment: VFC<IAlbumCommentProps> = ({ commentInputRef }) => {
       )}
       <CommentInputContainer>
         <img
-          src={albumState.album?.user.image || DefaultProfile}
+          src={
+            authState.myInfo?.image
+              ? `http://${authState.myInfo?.image}`
+              : DefaultProfile
+          }
           alt=""
           className="profile"
         />
