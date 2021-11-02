@@ -4,9 +4,9 @@ import {
   CustomOverlayMap,
   Map as CustomMap,
   MapMarker,
-  MarkerClusterer,
 } from "react-kakao-maps-sdk";
 import { Album } from "types/album";
+import { CustomOverlayMapContant } from "./mapStyles";
 
 interface mapType {
   albums: Album[];
@@ -18,29 +18,15 @@ const Map = ({ albums, setAlbums }: mapType) => {
   // const [longTitude, setLongTitude] = useState<number>(128.4140176);
   const { searchMapListState, setCenterSearching } = useSearch();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // const mapAlbumList: Array<Album[]> = [];
-  // const [mapAlbumList, setMapAlbumList] = useState<Array<Album[]>>([]);
-
-  interface AnyObject {
-    [key: string]: any;
-  }
-
-  const mapAlbumList: Array<Album[]> = [];
-
-  // {
-  //   address: 주소,
-  //   albums: {
-  //     Album[]
-  //   }
-  // }
+  const [mapAlbumList, setMapAlbumList] = useState<Array<Album[]>>([]);
 
   interface AddressItem {
     [key: string]: Array<Album>;
   }
 
   const addressList: AddressItem = {};
-  const a = () => {
+
+  useEffect(() => {
     albums.forEach(album => {
       if (!addressList[album.building.address]) {
         addressList[album.building.address] = [];
@@ -51,27 +37,9 @@ const Map = ({ albums, setAlbums }: mapType) => {
     for (const key in addressList) {
       console.log(key);
       console.log(addressList[key]);
+      setMapAlbumList(albumList => [...albumList, addressList[key]]);
     }
-
-    // albums.forEach(album=>{
-    //   addressList.forEach(address=>{})
-    // })
-
-    // addressList.forEach(addressObj => {
-    //   albums.forEach(album => {
-    //     if (addressObj.address === album.building.address) {
-    //       addressObj.albums.push(album);
-    //     }
-    //   });
-    // });
-
-    // console.log(mapAlbumList);
-  };
-  // useEffect(() => {
-  //   // eslint-disable-next-line array-callback-return
-  //   a();
-  // }, [setMapAlbumList]);
-
+  }, [albums]);
   return (
     <CustomMap
       center={searchMapListState.centerSearching}
@@ -87,70 +55,10 @@ const Map = ({ albums, setAlbums }: mapType) => {
           lng: e.getCenter().getLng(),
         })
       }
-      onClick={a}
     >
-      {/* <MarkerClusterer
-        averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-        minLevel={1} // 클러스터 할 최소 지도 레벨
-        disableClickZoom={true} // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
-        onClusterclick={(target, cluster) => {
-          const markers: Album[] = [];
-          cluster.getMarkers().map(marker => {
-            console.log(marker.getTitle());
-            return albums.map(album => {
-              if (album.building.address === marker.getTitle()) {
-                markers.push(album);
-              }
-              return 0;
-            });
-          });
-          setAlbums(markers);
-        }}
-        onClustered={(target, clusters) => {
-          const markers: Album[] = [];
-          clusters.map(cluster =>
-            cluster.getMarkers().map(marker => {
-              console.log(marker.getTitle());
-              return albums.map(album => {
-                if (album.building.address === marker.getTitle()) {
-                  markers.push(album);
-                }
-                return 0;
-              });
-            })
-          );
-          console.log(markers, "abc");
-          // setAlbums(markers)
-        }}
-        styles={[{ width: "50px", height: "50px" }]}
-      > */}
-      {() => {
-        for (const key in addressList) {
-          const album = addressList[key];
-          console.log(album);
-          return (
-            <CustomOverlayMap
-              key={key}
-              position={{
-                lat: album[0].building.latitude,
-                lng: album[0].building.longitude,
-              }}
-              id={album[0].building.address}
-            >
-              <img
-                width="50"
-                height="50"
-                src={`http://${album[0].photo}`}
-                alt=""
-              />
-            </CustomOverlayMap>
-          );
-        }
-      }}
-
       {mapAlbumList.map((albums, index) => {
-        console.log(albums);
-        const album = albums[1];
+        const album = albums[0];
+        console.log(mapAlbumList);
         return (
           <CustomOverlayMap
             key={index}
@@ -160,7 +68,15 @@ const Map = ({ albums, setAlbums }: mapType) => {
             }}
             id={album.building.address}
           >
-            <img width="50" height="50" src={`http://${album.photo}`} alt="" />
+            <CustomOverlayMapContant>
+              <img
+                width="50"
+                height="50"
+                src={`http://${album.photo}`}
+                alt=""
+              />
+              <div className="image-length">{"+" + albums.length}</div>
+            </CustomOverlayMapContant>
           </CustomOverlayMap>
         );
       })}
@@ -173,7 +89,6 @@ const Map = ({ albums, setAlbums }: mapType) => {
             {current.address_name + "/" + current.place_name}
           </MapMarker>
         ))}
-      {/* </MarkerClusterer> */}
     </CustomMap>
   );
 };
