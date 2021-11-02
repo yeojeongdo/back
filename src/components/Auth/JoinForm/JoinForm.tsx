@@ -31,7 +31,7 @@ const JoinForm = () => {
       // TODO : HTTP connection
       join(joinData);
     }
-  }, [id, password, confirmPassword, birth, name, sex]);
+  }, [id, password, confirmPassword, birth, name, sex, join]);
 
   useEffect(() => {
     if (birth) {
