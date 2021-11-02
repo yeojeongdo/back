@@ -33,9 +33,9 @@ export const editUserProfile = (profile: FormData) => {
 };
 
 export const editUserName = (name: string) => {
-  return axios.patch(`/user/name`, name);
+  return axios.patch(`/user/name`, { name });
 };
 
 export const editUserBirth = (birthDate: string) => {
-  return axios.patch(`/user/birth-data`, birthDate);
+  return axios.patch(`/user/birth-date`, { birthDate });
 };
