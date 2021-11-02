@@ -23,3 +23,7 @@ export const followingsAPI = (userIdx: number) => {
 export const requestFollowAPI = (userIdx: number) => {
   return axios.patch(`/follow/${userIdx}`);
 };
+
+export const getFollowState = (userIdx: number) => {
+  return axios.get(`/follow/state/${userIdx}`);
+};

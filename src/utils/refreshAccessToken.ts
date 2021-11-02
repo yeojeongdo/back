@@ -5,7 +5,6 @@ async function refreshAccessToken(refreshToken: string) {
     token: refreshToken,
   });
 
-  console.log(response);
   return response.data.data;
 }
 

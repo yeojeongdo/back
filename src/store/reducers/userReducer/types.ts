@@ -24,8 +24,13 @@ export interface UserState {
   getUserFollowNumberError: null;
   getUserFollowNumberDone: boolean;
 
+  userFollowLoading: boolean;
+  userFollowError: null;
+  userFollowDone: boolean;
+
   followNumbers: FollowNumbers;
   userInfo: User | null;
+  isFollow: boolean;
   followers: number;
   followings: number;
 }

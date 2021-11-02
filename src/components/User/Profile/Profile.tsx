@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { requestFollowAPI } from "apis/userAPI";
+import { followingsAPI, getFollowState, requestFollowAPI } from "apis/userAPI";
 import DefaultProfile from "assets/images/default_profile.svg";
 import Button from "components/Common/Button/Button";
 import useAuth from "hooks/redux/useAuth";
 import useUser from "hooks/redux/useUser";
 import LoadingPage from "pages/LoadingPage/LoadingPage";
-import { useCallback, useReducer } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 
 export const ProfileContainer = styled.div`
   margin: 1.5rem 0;
@@ -39,69 +39,28 @@ export const ProfileInfo = styled.section`
   }
 `;
 
-function followReducer(state: any, action: any) {
-  switch (action.type) {
-    case "USER_FOLLOW":
-      return {
-        ...state,
-        loading: true,
-        data: null,
-        error: null,
-      };
-    case "USER_FOLLOW_SUCCESS":
-      return {
-        ...state,
-        loading: false,
-        data: action.payload,
-        error: null,
-      };
-    case "USER_FOLLOW_ERROR":
-      return {
-        ...state,
-        loading: false,
-        data: null,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-}
-
 const Profile: React.VFC = () => {
-  const [state, dispatch] = useReducer(followReducer, {
-    loading: false,
-    data: null,
-    error: null,
-  });
-  const { userState } = useUser();
-  const { userInfo } = userState;
+  const { userState, userFollow, getIsFollow } = useUser();
+  const { userInfo, userFollowLoading } = userState;
 
   const { authState } = useAuth();
   const { myInfo } = authState;
 
   const handleRequestFollow = useCallback(async () => {
-    try {
-      dispatch({
-        type: "USER_FOLLOW",
-      });
-      if (userInfo) {
-        const response = await requestFollowAPI(userInfo.id);
-        dispatch({
-          type: "USER_FOLLOW_SUCCESS",
-          payload: response.data,
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: "USER_FOLLOW_ERROR",
-        payload: error,
-      });
+    if (userInfo) {
+      userFollow(userInfo.id);
     }
-  }, [userInfo]);
-
-  const { loading: followLoading } = state;
+  }, [userFollow, userInfo]);
 
   // TODO: Follow Toggle데이터 분리
+
+  const { isFollow } = userState;
+
+  useEffect(() => {
+    if (userInfo) {
+      getIsFollow(userInfo.id);
+    }
+  }, [getIsFollow, userInfo]);
 
   return (
     <>
@@ -123,9 +82,17 @@ const Profile: React.VFC = () => {
               </div>
               {userInfo?.id !== myInfo?.id && (
                 <div className="request_follow">
-                  <Button onClick={handleRequestFollow}>
-                    {followLoading ? "로딩중 ..." : "팔로우"}
-                  </Button>
+                  {isFollow ? (
+                    <Button onClick={handleRequestFollow}>언팔로우</Button>
+                  ) : (
+                    <>
+                      {userFollowLoading ? (
+                        <Button>로딩 중...</Button>
+                      ) : (
+                        <Button onClick={handleRequestFollow}>팔로우</Button>
+                      )}
+                    </>
+                  )}
                 </div>
               )}
             </ProfileInfo>
