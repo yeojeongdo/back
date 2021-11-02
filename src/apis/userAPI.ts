@@ -27,3 +27,15 @@ export const requestFollowAPI = (userIdx: number) => {
 export const getFollowState = (userIdx: number) => {
   return axios.get(`/follow/state/${userIdx}`);
 };
+
+export const editUserProfile = (profile: FormData) => {
+  return axios.patch(`/user/image`, profile);
+};
+
+export const editUserName = (name: string) => {
+  return axios.patch(`/user/name`, name);
+};
+
+export const editUserBirth = (birthDate: string) => {
+  return axios.patch(`/user/birth-data`, birthDate);
+};

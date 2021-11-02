@@ -37,6 +37,8 @@ export const USER_FOLLOW = "user/USER_FOLLOW" as const;
 export const USER_FOLLOW_SUCCESS = "user/USER_FOLLOW_SUCCESS" as const;
 export const USER_FOLLOW_FAILURE = "user/USER_FOLLOW_FAILURE" as const;
 
+export const CHANGE_PROFILE = "user/CHANGE_PROFILE" as const;
+
 export const getUserInfoAllAction = createAction(GET_USER_INFO_ALL_REQUEST)();
 export const initUserFollowRequestAction = createAction(
   INIT_USER_FOLLOW_REQUEST
