@@ -7,6 +7,13 @@ export const albumsAPI = (lastId?: number) => {
   return axios.get(`/album/latest`);
 };
 
+export const userAlbumsAPI = (userIdx: number, lastId?: number) => {
+  if (lastId !== 0) {
+    return axios.get(`/album/users/${userIdx}?lastAlbumId=${lastId}`);
+  }
+  return axios.get(`/album/users/${userIdx}`);
+};
+
 export const albumDetailAPI = (albumId: number) => {
   return axios.get(`/album/detail/${albumId}`);
 };

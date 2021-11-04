@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import DefaultProfile from "assets/images/default_profile.svg";
+import { MAIN_COLOR } from "styles/colors";
 
 export const ProfileContainer = styled.div`
   margin: 1.5rem 0;
@@ -69,6 +70,10 @@ export const ProfileInfo = styled.section`
 
 export const EditForm = styled.div`
   display: block;
+  background-color: lightgray;
+  padding: 1rem;
+  border: 2px solid ${MAIN_COLOR};
+  margin-top: 1rem;
 `;
 
 export const EditProfileImage = styled.div`

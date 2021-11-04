@@ -23,6 +23,7 @@ import {
   CHANGE_NAME,
   CHANGE_BIRTH,
 } from "store/reducers/userReducer/actions";
+import UserAlbums from "./UserAlbums/UserAlbums";
 
 const Profile: React.VFC = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ const Profile: React.VFC = () => {
       form.append("file", profileFile);
 
       editUserProfile(form)
-        .then((response) => {
+        .then(() => {
           toast.success("프로필을 변경했습니다.");
           dispatch({
             type: CHANGE_PROFILE,
@@ -179,8 +180,8 @@ const Profile: React.VFC = () => {
                 )}
               </ProfileInfo>
             </div>
-            <EditForm>
-              {toggleEditContent && (
+            {toggleEditContent && (
+              <EditForm>
                 <>
                   <EditProfileImage>
                     <h3>프로필 사진 변경</h3>
@@ -227,11 +228,12 @@ const Profile: React.VFC = () => {
                     </div>
                   </EditUserInfo>
                 </>
-              )}
-            </EditForm>
+              </EditForm>
+            )}
           </>
         )}
       </ProfileContainer>
+      <UserAlbums />
     </>
   );
 };
