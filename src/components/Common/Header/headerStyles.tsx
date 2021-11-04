@@ -3,6 +3,7 @@ import { MAIN_COLOR } from "styles/colors";
 
 export const HeaderContainer = styled.header`
   background-color: ${MAIN_COLOR};
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   position: fixed;
   left: 0;
