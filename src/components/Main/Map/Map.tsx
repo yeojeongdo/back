@@ -1,5 +1,6 @@
+import useAlbum from "hooks/redux/useAlbum";
 import useSearch from "hooks/redux/useSearch";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   CustomOverlayMap,
   Map as CustomMap,
@@ -35,11 +36,20 @@ const Map = ({ albums, setAlbums }: mapType) => {
     });
 
     for (const key in addressList) {
-      console.log(key);
-      console.log(addressList[key]);
       setMapAlbumList(albumList => [...albumList, addressList[key]]);
     }
   }, [albums]);
+
+  const { getAlbum, openAlbumList, openAlbum } = useAlbum();
+
+  const handleClickMarker = useCallback(
+    markerIdList => {
+      markerIdList[1] ? openAlbumList(markerIdList) : openAlbum();
+      getAlbum(markerIdList[0]);
+    },
+    [openAlbumList, getAlbum, openAlbum]
+  );
+
   return (
     <CustomMap
       center={searchMapListState.centerSearching}
@@ -58,7 +68,6 @@ const Map = ({ albums, setAlbums }: mapType) => {
     >
       {mapAlbumList.map((albums, index) => {
         const album = albums[0];
-        console.log(mapAlbumList);
         return (
           <CustomOverlayMap
             key={index}
@@ -68,14 +77,18 @@ const Map = ({ albums, setAlbums }: mapType) => {
             }}
             id={album.building.address}
           >
-            <CustomOverlayMapContant>
+            <CustomOverlayMapContant
+              onClick={() => handleClickMarker(albums.map(album => album.id))}
+            >
               <img
                 width="50"
                 height="50"
                 src={`http://${album.photo}`}
                 alt=""
               />
-              <div className="image-length">{"+" + albums.length}</div>
+              {albums.length > 1 && (
+                <div className="image-length"> {"+" + albums.length}</div>
+              )}
             </CustomOverlayMapContant>
           </CustomOverlayMap>
         );
