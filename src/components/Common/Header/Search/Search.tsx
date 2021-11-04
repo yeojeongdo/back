@@ -46,8 +46,18 @@ const Search = () => {
         }
       );
       setSearchModal(true);
+      setCenterSearching({
+        lat: searchMapListState.automaticSearchList[0].y,
+        lng: searchMapListState.automaticSearchList[0].x,
+      });
     },
-    [value, searchMap, setSearchModal]
+    [
+      searchMapListState.automaticSearchList,
+      value,
+      searchMap,
+      setSearchModal,
+      setCenterSearching,
+    ]
   );
   //검색창을 클릭하지 않았을 시 검색 모달을 닫는 로직
   const closeModal = useCallback(
@@ -83,7 +93,7 @@ const Search = () => {
       {isModal && (
         <SearchList>
           {value !== ""
-            ? searchMapListState.automaticSearchList.map((current) => (
+            ? searchMapListState.automaticSearchList.map(current => (
                 <SearchListItem
                   onClick={() => {
                     setCenterSearching({ lat: current.y, lng: current.x });
@@ -97,7 +107,7 @@ const Search = () => {
                   </div>
                 </SearchListItem>
               ))
-            : valueList.map((current) => (
+            : valueList.map(current => (
                 <SearchListItem
                   onClick={() => {
                     submit(current);

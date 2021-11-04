@@ -5,7 +5,6 @@ export const AlbumListContainer = styled.div`
     width: 100%;
   }
   margin: 0;
-  padding: 15px;
   flex: 2;
   height: 100%;
   text-align: center;
