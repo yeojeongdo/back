@@ -6,10 +6,11 @@ import Slider from "react-slick";
 import { getLikeUsers } from "apis/albumAPI";
 import { toast } from "react-toastify";
 import useAuth from "hooks/redux/useAuth";
+import Button from "components/Common/Button/Button";
 
 const AlbumView = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const { authState } = useAuth();
   const {
     albumState,
@@ -81,8 +82,7 @@ const AlbumView = () => {
   }, [album?.id, authState.myInfo?.id]);
 
   useEffect(() => {
-    setPage(1);
-    console.log("a");
+    setPage(0);
   }, [albumState.albumOpen]);
 
   if (albumState.loadAlbumLoading) {
@@ -99,21 +99,37 @@ const AlbumView = () => {
         </header>
         <main className="album_main">
           <div className="album_main_photos">
+            {albumState.isAlbumList && page > 0 ? (
+              <Button
+                onClick={() => {
+                  getAlbum(albumState.albumList[page - 1]);
+                  setPage(prev => prev - 1);
+                  setIsLiked(false);
+                }}
+              >
+                〈
+              </Button>
+            ) : (
+              <div></div>
+            )}
             <Slider {...settings}>
               {album?.photo.map(image => (
                 <img src={`http://${image}`} alt="" />
               ))}
             </Slider>
-            {albumState.isAlbumList && albumState.albumList.length > page && (
-              <button
+            {albumState.isAlbumList &&
+            albumState.albumList.length - 1 > page ? (
+              <Button
                 onClick={() => {
-                  getAlbum(albumState.albumList[page]);
+                  getAlbum(albumState.albumList[page + 1]);
                   setPage(prev => prev + 1);
                   setIsLiked(false);
                 }}
               >
-                다음
-              </button>
+                〉
+              </Button>
+            ) : (
+              <div></div>
             )}
           </div>
           <div className="album_main_content">

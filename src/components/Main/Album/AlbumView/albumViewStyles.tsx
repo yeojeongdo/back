@@ -47,7 +47,7 @@ export const AlbumViewContainer = styled.div`
     &_photos {
       flex: 3;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       .slick-list {
         width: 600px;
@@ -56,6 +56,15 @@ export const AlbumViewContainer = styled.div`
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+      button {
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0);
+        transition: 0.3s ease-in-out;
+        border: 0;
+      }
+      button:hover {
+        background-color: rgba(255, 255, 255, 0.05);
       }
     }
     &_content {

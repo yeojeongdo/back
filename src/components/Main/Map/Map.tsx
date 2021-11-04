@@ -5,6 +5,7 @@ import {
   CustomOverlayMap,
   Map as CustomMap,
   MapMarker,
+  MarkerClusterer,
 } from "react-kakao-maps-sdk";
 import { Album } from "types/album";
 import { CustomOverlayMapContant } from "./mapStyles";
@@ -77,31 +78,36 @@ const Map = ({ albums, setAlbums }: mapType) => {
             }}
             id={album.building.address}
           >
-            <CustomOverlayMapContant
-              onClick={() => handleClickMarker(albums.map(album => album.id))}
-            >
-              <img
-                width="50"
-                height="50"
-                src={`http://${album.photo}`}
-                alt=""
-              />
-              {albums.length > 1 && (
-                <div className="image-length"> {"+" + albums.length}</div>
-              )}
-            </CustomOverlayMapContant>
+            <MarkerClusterer>
+              <CustomOverlayMapContant
+                onClick={() => handleClickMarker(albums.map(album => album.id))}
+              >
+                <img
+                  width="50"
+                  height="50"
+                  src={`http://${album.photo}`}
+                  alt=""
+                />
+                {albums.length > 1 && (
+                  <div className="image-length"> {"+" + albums.length}</div>
+                )}
+              </CustomOverlayMapContant>
+            </MarkerClusterer>
           </CustomOverlayMap>
         );
       })}
-      {searchMapListState.searchMapList &&
-        searchMapListState.searchMapList.map(current => (
-          <MapMarker
-            position={{ lat: current.y, lng: current.x }}
-            infoWindowOptions={{ className: "map_marker" }}
-          >
-            {current.address_name + "/" + current.place_name}
-          </MapMarker>
-        ))}
+
+      <MarkerClusterer>
+        {searchMapListState.searchMapList &&
+          searchMapListState.searchMapList.map(current => (
+            <MapMarker
+              position={{ lat: current.y, lng: current.x }}
+              infoWindowOptions={{ className: "map_marker" }}
+            >
+              {current.address_name + "/" + current.place_name}
+            </MapMarker>
+          ))}
+      </MarkerClusterer>
     </CustomMap>
   );
 };
