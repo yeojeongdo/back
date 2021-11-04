@@ -9,18 +9,25 @@ import useAuth from "hooks/redux/useAuth";
 
 const AlbumView = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
   const { authState } = useAuth();
-  const { albumState, closeAlbum, likeAlbum, likeIncrement, likeDecrement } =
-    useAlbum();
+  const {
+    albumState,
+    closeAlbum,
+    likeAlbum,
+    likeIncrement,
+    likeDecrement,
+    getAlbum,
+  } = useAlbum();
   const commentInputRef = createRef<HTMLInputElement | null>();
 
   const settings = useMemo(
     () => ({
-      infinite: true,
+      infinite: false,
       speed: 1000,
       slidesToShow: 1,
       slidesToScroll: 1,
-      arrows: true,
+      arrows: false,
       dots: true,
     }),
     []
@@ -57,10 +64,10 @@ const AlbumView = () => {
         profileImg: string;
       }
       getLikeUsers(album?.id)
-        .then((response) => {
+        .then(response => {
           const likeList = response.data.data as LikeUserInterface[];
           if (authState.myInfo?.id) {
-            likeList.forEach((likeUser) => {
+            likeList.forEach(likeUser => {
               if (likeUser.id === authState.myInfo?.id) {
                 setIsLiked(true);
                 return false;
@@ -69,9 +76,14 @@ const AlbumView = () => {
             });
           }
         })
-        .catch((error) => toast.error(error.response.data));
+        .catch(error => toast.error(error.response.data));
     }
   }, [album?.id, authState.myInfo?.id]);
+
+  useEffect(() => {
+    setPage(1);
+    console.log("a");
+  }, [albumState.albumOpen]);
 
   if (albumState.loadAlbumLoading) {
     return null;
@@ -88,10 +100,21 @@ const AlbumView = () => {
         <main className="album_main">
           <div className="album_main_photos">
             <Slider {...settings}>
-              {album?.photo.map((image) => (
+              {album?.photo.map(image => (
                 <img src={`http://${image}`} alt="" />
               ))}
             </Slider>
+            {albumState.isAlbumList && albumState.albumList.length > page && (
+              <button
+                onClick={() => {
+                  getAlbum(albumState.albumList[page]);
+                  setPage(prev => prev + 1);
+                  setIsLiked(false);
+                }}
+              >
+                다음
+              </button>
+            )}
           </div>
           <div className="album_main_content">
             <h3>{album?.memo}</h3>

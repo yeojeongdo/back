@@ -27,6 +27,7 @@ import {
   LIKE_INCREMENT,
   LIKE_DECREMENT,
   RESET_ALBUMS,
+  OPEN_ALBUM_LIST,
 } from "./actions";
 import { AlbumActions, AlbumState } from "./types";
 
@@ -64,10 +65,13 @@ const initalState: AlbumState = {
   comments: null,
   album: null,
 
+  albumList: [],
+  isAlbumList: false,
+
   albumOpen: false,
 };
 
-export default createReducer<AlbumState, AlbumActions>(initalState, {
+export default createReducer<AlbumState>(initalState, {
   [GET_ALBUM_REQUEST]: (state, action) =>
     produce(state, draft => {
       draft.album = null;
@@ -198,9 +202,17 @@ export default createReducer<AlbumState, AlbumActions>(initalState, {
     produce(state, draft => {
       draft.albumOpen = true;
     }),
+  [OPEN_ALBUM_LIST]: (state, action) =>
+    produce(state, draft => {
+      draft.albumOpen = true;
+      draft.isAlbumList = true;
+      draft.albumList = action.payload;
+    }),
   [CLOSE_ALBUM]: (state, action) =>
     produce(state, draft => {
       draft.albumOpen = false;
+      draft.isAlbumList = false;
+      draft.albumList = [];
     }),
   [LIKE_INCREMENT]: state =>
     produce(state, draft => {

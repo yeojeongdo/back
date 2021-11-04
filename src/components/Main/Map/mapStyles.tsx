@@ -8,6 +8,9 @@ export const CustomOverlayMapContant = styled.div`
     background-color: black;
     color: white;
   } */
+  img {
+    object-fit: cover;
+  }
   .image-length {
     position: relative;
     width: 100%;

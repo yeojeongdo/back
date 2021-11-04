@@ -39,5 +39,8 @@ export interface AlbumState {
   album: ViewAlbum | null;
   comments: Comment[] | null;
 
+  albumList: number[];
+  isAlbumList: boolean;
+
   albumOpen: boolean;
 }

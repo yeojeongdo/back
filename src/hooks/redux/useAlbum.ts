@@ -14,13 +14,14 @@ import {
   LIKE_DECREMENT,
   LIKE_INCREMENT,
   OPEN_ALBUM,
+  OPEN_ALBUM_LIST,
   RESET_ALBUMS,
 } from "store/reducers/albumReducer/actions";
 
 const useAlbum = () => {
   const dispatch = useDispatch();
 
-  const albumState = useTypedSelector((state) => state.album);
+  const albumState = useTypedSelector(state => state.album);
 
   const getAlbums = useCallback(
     (lastId?: number) => {
@@ -114,6 +115,16 @@ const useAlbum = () => {
     });
   }, [dispatch]);
 
+  const openAlbumList = useCallback(
+    (albumIdList: number[]) => {
+      dispatch({
+        type: OPEN_ALBUM_LIST,
+        payload: albumIdList,
+      });
+    },
+    [dispatch]
+  );
+
   const closeAlbum = useCallback(() => {
     dispatch({
       type: CLOSE_ALBUM,
@@ -129,6 +140,7 @@ const useAlbum = () => {
   return {
     albumState,
     openAlbum,
+    openAlbumList,
     closeAlbum,
     getAlbums,
     getAlbum,

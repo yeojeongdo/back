@@ -35,6 +35,7 @@ export const LIKE_INCREMENT = "album/LIKE_INCREMENT";
 export const LIKE_DECREMENT = "album/LIKE_DECREMENT";
 
 export const OPEN_ALBUM = "album/OPEN_ALBUM";
+export const OPEN_ALBUM_LIST = "album/OPEN_ALBUM_LIST";
 export const CLOSE_ALBUM = "album/CLOSE_ALBUM";
 
 export const getAlbumsAsyncAction = createAsyncAction(
@@ -81,6 +82,7 @@ export const likeAlbumAsyncAction = createAsyncAction(
 
 export const openAlbum = createAction(OPEN_ALBUM)();
 export const closeAlbum = createAction(CLOSE_ALBUM)();
+export const openAlbumLIst = createAction(OPEN_ALBUM_LIST);
 export const likeIncrement = createAction(LIKE_INCREMENT)();
 export const likeDecrement = createAction(LIKE_DECREMENT)();
 export const resetAlbums = createAction(RESET_ALBUMS)();
