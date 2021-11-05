@@ -38,7 +38,7 @@ const Header = () => {
             {authState.myInfo && (
               <>
                 <li onClick={() => handleOnUserProfile(authState.myInfo!.id)}>
-                  {authState.myInfo!.name}님 환영합니다
+                  <p>{authState.myInfo!.name}</p>님 환영합니다
                 </li>
                 <li className="logout" onClick={handleLogout}>
                   로그아웃
