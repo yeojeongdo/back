@@ -52,6 +52,10 @@ export const AlbumViewContainer = styled.div`
       .slick-list {
         width: 600px;
       }
+      .slick-track {
+        display: flex;
+        align-items: center;
+      }
       img {
         width: 100%;
         height: 100%;
@@ -65,6 +69,21 @@ export const AlbumViewContainer = styled.div`
       }
       button:hover {
         background-color: rgba(255, 255, 255, 0.05);
+      }
+      .slick-dots {
+        li {
+          width: 10px;
+          height: 10px;
+          background-color: rgba(255, 255, 255, 0.8);
+          border-radius: 50%;
+        }
+        button::before {
+          content: "";
+        }
+        .slick-active {
+          background-color: ${MAIN_COLOR};
+          border-radius: 50%;
+        }
       }
     }
     &_content {

@@ -28,7 +28,7 @@ const AlbumView = () => {
       speed: 1000,
       slidesToShow: 1,
       slidesToScroll: 1,
-      arrows: false,
+      arrows: true,
       dots: true,
     }),
     []

@@ -19,8 +19,10 @@ export const HeaderContent = styled.div`
   justify-content: space-between;
   height: 4rem;
   gap: 15px;
+  color: white;
   .header-title {
     font-size: 16px;
+    cursor: pointer;
   }
   .header-search {
     display: flex;
@@ -36,9 +38,17 @@ export const HeaderContent = styled.div`
     li {
       cursor: pointer;
       margin-right: 1rem;
+      display: flex;
+      p {
+        padding: 0;
+        margin: 0;
+        font-weight: bold;
+      }
     }
     & > .logout {
       cursor: pointer;
+      border-left: 1px solid white;
+      padding-left: 15px;
     }
   }
 `;
