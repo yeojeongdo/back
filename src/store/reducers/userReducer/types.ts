@@ -33,4 +33,10 @@ export interface UserState {
   isFollow: boolean;
   followers: number;
   followings: number;
+
+  albums: [];
+
+  getUserAlbumsLoading: boolean;
+  getUserAlbumsError: null;
+  getUserAlbumsDone: boolean;
 }

@@ -29,7 +29,7 @@ const Main = () => {
       <MainPageStyle>
         <Header />
         <MainContent>
-          <Map albums={albumState.albums} setAlbums={() => {}} />
+          <Map albums={albumState.albums} />
           <AlbumList albums={albumState.albums} setAlbums={() => {}} />
         </MainContent>
         <CreateAlbumButton />
