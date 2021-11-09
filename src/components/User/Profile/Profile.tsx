@@ -234,9 +234,7 @@ const Profile: React.VFC = () => {
           </>
         )}
       </ProfileContainer>
-      <UserAlbumContainer>
-        <UserAlbums />
-      </UserAlbumContainer>
+      <UserAlbumContainer></UserAlbumContainer>
     </>
   );
 };
