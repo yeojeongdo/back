@@ -1,28 +1,42 @@
+import Header from "components/Common/Header/Header";
+import AlbumList from "components/Main/Album/AlbumList/AlbumList";
 import Map from "components/Main/Map/Map";
-import useStore from "hooks/useStore";
-import { observer } from "mobx-react";
+import useAuth from "hooks/redux/useAuth";
+import { Token } from "lib/Token";
 import { useEffect } from "react";
+import { MainContent, MainPageStyle } from "./PageStyle";
 import { useHistory } from "react-router-dom";
-import { MainPageStyle } from "./PageStyle";
+import useAlbum from "hooks/redux/useAlbum";
+import AlbumView from "components/Main/Album/AlbumView/AlbumView";
+import CreateAlbumButton from "components/Main/CreateAlbumButton/CreateAlbumButton";
 
 const Main = () => {
-  const {
-    user: { isLoggedIn },
-  } = useStore();
   const history = useHistory();
+  const { authState, loadMyInfo } = useAuth();
+  const { albumState } = useAlbum();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      history.replace("/login");
+    if (!Token.getToken()) {
+      history.push("/login");
     }
-  }, [isLoggedIn, history]);
+    if (!authState.myInfo) {
+      loadMyInfo();
+    }
+  }, [loadMyInfo, authState, history]);
 
   return (
-    <MainPageStyle>
-      <h1>여정도</h1>
-      <Map />
-    </MainPageStyle>
+    <>
+      <MainPageStyle>
+        <Header />
+        <MainContent>
+          <Map albums={albumState.albums} />
+          <AlbumList albums={albumState.albums} />
+        </MainContent>
+        <CreateAlbumButton />
+      </MainPageStyle>
+      {albumState.albumOpen && <AlbumView />}
+    </>
   );
 };
 
-export default observer(Main);
+export default Main;
