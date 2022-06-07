@@ -4,6 +4,7 @@ export const AlbumItemContainer = styled.div`
   width: 100%;
   display: flex;
   gap: 10px;
+  padding: 1rem;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.2);

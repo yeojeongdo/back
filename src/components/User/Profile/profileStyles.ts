@@ -4,7 +4,7 @@ import DefaultProfile from "assets/images/default_profile.svg";
 import { MAIN_COLOR } from "styles/colors";
 
 export const ProfileContainer = styled.div`
-  margin: 1.5rem 0;
+  padding : 1rem;
 `;
 
 export const ProfileImageContainer = styled.div`

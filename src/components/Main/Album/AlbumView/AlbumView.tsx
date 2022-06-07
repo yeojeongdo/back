@@ -106,6 +106,7 @@ const AlbumView = () => {
                   setPage(prev => prev - 1);
                   setIsLiked(false);
                 }}
+                className="page_button left"
               >
                 〈
               </Button>
@@ -125,6 +126,7 @@ const AlbumView = () => {
                   setPage(prev => prev + 1);
                   setIsLiked(false);
                 }}
+                className="page_button right"
               >
                 〉
               </Button>

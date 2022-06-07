@@ -35,6 +35,7 @@ export const AlbumViewContainer = styled.div`
     height: 100%;
     background-color: black;
     display: flex;
+    
     @media (max-width: 768px) {
       flex-direction: column;
       .album_main_comments {
@@ -46,8 +47,9 @@ export const AlbumViewContainer = styled.div`
     }
     &_photos {
       flex: 3;
+      position: relative;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       .slick-list {
         width: 600px;
@@ -64,11 +66,18 @@ export const AlbumViewContainer = styled.div`
         height: 100%;
         object-fit: cover;
       }
-      button {
+      .page_button {
+        position: absolute;
         height: 100%;
         background-color: rgba(0, 0, 0, 0);
         transition: 0.3s ease-in-out;
         border: 0;
+      }
+      .left {
+        left: 1rem;
+      }
+      .right {
+        right: 1rem;
       }
       button:hover {
         background-color: rgba(255, 255, 255, 0.05);

@@ -13,5 +13,4 @@ export const AlbumListContainer = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 50px;
 `;
