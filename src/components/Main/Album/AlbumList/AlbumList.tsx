@@ -25,7 +25,7 @@ const AlbumList = ({ albums }: mapType) => {
         getAlbums(lastId);
       }
     }
-  }, [inView]);
+  }, [inView, albumState.loadAlbumsLoading, getAlbums, lastId]);
 
   useEffect(() => {
     setLastId(() => albums[albums.length - 1]?.id);

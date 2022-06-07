@@ -138,7 +138,7 @@ const CreateMenu = () => {
                   <div className="slider">
                     <Slider {...settings}>
                       {preview[0] &&
-                        preview.map(view => <img src={view} alt="" />)}
+                        preview.map(view => <img src={view} alt="" key={view} />)}
                     </Slider>
                     <div className="image-length">{"+" + preview.length}</div>
                   </div>

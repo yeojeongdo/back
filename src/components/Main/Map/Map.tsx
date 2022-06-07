@@ -18,27 +18,30 @@ const Map = ({ albums }: mapType) => {
   // const [latitude, setLatitude] = useState<number>(35.6632143);
   // const [longTitude, setLongTitude] = useState<number>(128.4140176);
   const { searchMapListState, setCenterSearching } = useSearch();
-
   const [mapAlbumList, setMapAlbumList] = useState<Array<Album[]>>([]);
+  const [addressList, setAddressList] = useState<AddressItem>({});
 
   interface AddressItem {
     [key: string]: Array<Album>;
   }
 
-  const addressList: AddressItem = {};
-
   useEffect(() => {
     albums.forEach(album => {
-      if (!addressList[album.building.address]) {
-        addressList[album.building.address] = [];
-      }
-      addressList[album.building.address].push(album);
+      setAddressList((addressList) => ({
+        ...addressList,
+        [album.building.address] 
+        : addressList[album.building.address] 
+          ? [...addressList[album.building.address], album] 
+          : [album]
+      }));
     });
+  }, [albums]);
 
+  useEffect(() => {
     for (const key in addressList) {
       setMapAlbumList(albumList => [...albumList, addressList[key]]);
     }
-  }, [albums]);
+  }, [addressList])
 
   const { getAlbum, openAlbumList, openAlbum } = useAlbum();
 

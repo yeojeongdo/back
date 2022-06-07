@@ -110,11 +110,11 @@ const AlbumView = () => {
                 〈
               </Button>
             ) : (
-              <div></div>
+              null
             )}
             <Slider {...settings}>
               {album?.photo.map(image => (
-                <img src={`http://${image}`} alt="" />
+                <img src={`http://${image}`} alt="" key={image} />
               ))}
             </Slider>
             {albumState.isAlbumList &&
@@ -129,7 +129,7 @@ const AlbumView = () => {
                 〉
               </Button>
             ) : (
-              <div></div>
+              null
             )}
           </div>
           <div className="album_main_content">

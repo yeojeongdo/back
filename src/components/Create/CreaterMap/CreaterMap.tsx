@@ -15,6 +15,7 @@ const CreaterMap = () => {
   const searchAddrFromCoords = () => {
     const geocoder = new kakao.maps.services.Geocoder();
 
+    // @ts-ignore
     geocoder.coord2RegionCode(
       markerState.LatLng.lng,
       markerState.LatLng.lat,
@@ -65,6 +66,7 @@ const CreaterMap = () => {
       {searchMapListState.searchMapList &&
         searchMapListState.searchMapList.map((current) => (
           <MapMarker
+            key={current.id}
             onClick={() => {
               selectMarker(current);
             }}
